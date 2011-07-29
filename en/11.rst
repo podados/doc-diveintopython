@@ -1,0 +1,1338 @@
+Chapter 11. HTTP Web Services
+==============================
+11.1. Diving in
+----------------
+
+
+
+You've learned about HTML processing and XML processing, and along the way you
+saw how to download a web page and how to parse XML from a URL, but let's dive
+into the more general topic of HTTP web services.
+
+Simply stated, HTTP web services are programmatic ways of sending and receiving
+data from remote servers using the operations of HTTP directly. If you want to
+get data from the server, use a straight HTTP GET; if you want to send new data
+to the server, use HTTP POST. (Some more advanced HTTP web service APIs also
+define ways of modifying existing data and deleting data, using HTTP PUT and
+HTTP DELETE.) In other words, the "verbs" built into the HTTP protocol (GET,
+POST, PUT, and DELETE) map directly to application-level operations for
+receiving, sending, modifying, and deleting data.
+
+The main advantage of this approach is simplicity, and its simplicity has
+proven popular with a lot of different sites. Data -- usually XML data -- can
+be built and stored statically, or generated dynamically by a server-side
+script, and all major languages include an HTTP library for downloading it.
+Debugging is also easier, because you can load up the web service in any web
+browser and see the raw data. Modern browsers will even nicely format and
+pretty-print XML data for you, to allow you to quickly navigate through it.
+
+Examples of pure XML-over-HTTP web services:
+   
+  * Amazon API (http://www.amazon.com/webservices) allows you to retrieve
+    product information from the Amazon.com online store.
+  * National Weather Service (http://www.nws.noaa.gov/alerts/) (United
+    States) and Hong Kong Observatory (http://demo.xml.weather.gov.hk/) (Hong
+    Kong) offer weather alerts as a web service.
+  * Atom API (http://atomenabled.org/) for managing web-based content.
+  * Syndicated feeds (http://syndic8.com/) from weblogs and news sites bring
+    you up-to-the-minute news from a variety of sites.
+
+
+In later chapters, you'll explore APIs which use HTTP as a transport for
+sending and receiving data, but don't map application semantics to the
+underlying HTTP semantics. (They tunnel everything over HTTP POST.) But this
+chapter will concentrate on using HTTP GET to get data from a remote server,
+and you'll explore several HTTP features you can use to get the maximum benefit
+out of pure HTTP web services.
+
+Here is a more advanced version of the openanything module that you saw in the
+previous chapter:
+
+
+Example 11.1. openanything.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+If you have not already done so, you can download this and other examples (
+http://diveintopython.org/download/diveintopython-examples-5.4.zip) used in
+this book.
+
+
+::
+
+    import urllib2, urlparse, gzip
+    from StringIO import StringIO
+    
+    USER_AGENT = 'OpenAnything/1.0 +http://diveintopython.org/http_web_services/'
+    
+    class SmartRedirectHandler(urllib2.HTTPRedirectHandler):    
+        def http_error_301(self, req, fp, code, msg, headers):  
+            result = urllib2.HTTPRedirectHandler.http_error_301(
+                self, req, fp, code, msg, headers)              
+            result.status = code                                
+            return result                                       
+    
+        def http_error_302(self, req, fp, code, msg, headers):  
+            result = urllib2.HTTPRedirectHandler.http_error_302(
+                self, req, fp, code, msg, headers)              
+            result.status = code                                
+            return result                                       
+    
+    class DefaultErrorHandler(urllib2.HTTPDefaultErrorHandler):   
+        def http_error_default(self, req, fp, code, msg, headers):
+            result = urllib2.HTTPError(                           
+                req.get_full_url(), code, msg, headers, fp)       
+            result.status = code                                  
+            return result                                         
+    
+    def openAnything(source, etag=None, lastmodified=None, agent=USER_AGENT):
+        '''URL, filename, or string --> stream
+    
+        This function lets you define parsers that take any input source
+        (URL, pathname to local or network file, or actual data as a string)
+        and deal with it in a uniform manner.  Returned object is guaranteed
+        to have all the basic stdio read methods (read, readline, readlines).
+        Just .close() the object when you're done with it.
+    
+        If the etag argument is supplied, it will be used as the value of an
+        If-None-Match request header.
+    
+        If the lastmodified argument is supplied, it must be a formatted
+        date/time string in GMT (as returned in the Last-Modified header of
+        a previous request).  The formatted date/time will be used
+        as the value of an If-Modified-Since request header.
+    
+        If the agent argument is supplied, it will be used as the value of a
+        User-Agent request header.
+        '''
+    
+        if hasattr(source, 'read'):
+            return source
+    
+        if source == '-':
+            return sys.stdin
+    
+        if urlparse.urlparse(source)[0] == 'http':                                      
+            # open URL with urllib2                                                     
+            request = urllib2.Request(source)                                           
+            request.add_header('User-Agent', agent)                                     
+            if etag:                                                                    
+                request.add_header('If-None-Match', etag)                               
+            if lastmodified:                                                            
+                request.add_header('If-Modified-Since', lastmodified)                   
+            request.add_header('Accept-encoding', 'gzip')                               
+            opener = urllib2.build_opener(SmartRedirectHandler(), DefaultErrorHandler())
+            return opener.open(request)                                                 
+        
+        # try to open with native open function (if source is a filename)
+        try:
+            return open(source)
+        except (IOError, OSError):
+            pass
+    
+        # treat source as string
+        return StringIO(str(source))
+    
+    def fetch(source, etag=None, last_modified=None, agent=USER_AGENT):  
+        '''Fetch data and metadata from a URL, file, stream, or string'''
+        result = {}                                                      
+        f = openAnything(source, etag, last_modified, agent)             
+        result['data'] = f.read()                                        
+        if hasattr(f, 'headers'):                                        
+            # save ETag, if the server sent one                          
+            result['etag'] = f.headers.get('ETag')                       
+            # save Last-Modified header, if the server sent one          
+            result['lastmodified'] = f.headers.get('Last-Modified')      
+            if f.headers.get('content-encoding', '') == 'gzip':          
+                # data came back gzip-compressed, decompress it          
+                result['data'] = gzip.GzipFile(fileobj=StringIO(result['data']])).read()
+        if hasattr(f, 'url'):                                            
+            result['url'] = f.url                                        
+            result['status'] = 200                                       
+        if hasattr(f, 'status'):                                         
+            result['status'] = f.status                                  
+        f.close()                                                        
+        return result                                                    
+
+
+
+Further reading
+   
+  * Paul Prescod believes that pure HTTP web services are the future of the
+    Internet (http://webservices.xml.com/pub/a/ws/2002/02/06/rest.html).
+
+11.2. How not to fetch data over HTTP
+--------------------------------------
+
+
+
+Let's say you want to download a resource over HTTP, such as a syndicated Atom
+feed. But you don't just want to download it once; you want to download it over
+and over again, every hour, to get the latest news from the site that's
+offering the news feed. Let's do it the quick-and-dirty way first, and then see
+how you can do better.
+
+
+Example 11.2. Downloading a feed the quick-and-dirty way
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import urllib
+    >>> data = urllib.urlopen('http://diveintomark.org/xml/atom.xml').read()    (1)
+    >>> print data
+    <?xml version="1.0" encoding="iso-8859-1"?>
+    <feed version="0.3"
+      xmlns="http://purl.org/atom/ns#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xml:lang="en">
+      <title mode="escaped">dive into mark</title>
+      <link rel="alternate" type="text/html" href="http://diveintomark.org/"/>
+      <-- rest of feed omitted for brevity -->
+
+(1) Downloading anything over HTTP is incredibly easy in Python; in fact, it's
+    a one-liner. The urllib module has a handy urlopen function that takes the
+    address of the page you want, and returns a file-like object that you can
+    just read() from to get the full contents of the page. It just can't get
+    much easier.
+
+
+So what's wrong with this? Well, for a quick one-off during testing or
+development, there's nothing wrong with it. I do it all the time. I wanted the
+contents of the feed, and I got the contents of the feed. The same technique
+works for any web page. But once you start thinking in terms of a web service
+that you want to access on a regular basis -- and remember, you said you were
+planning on retrieving this syndicated feed once an hour -- then you're being
+inefficient, and you're being rude.
+
+Let's talk about some of the basic features of HTTP.
+
+11.3. Features of HTTP
+-----------------------
+
+
+
+There are five important features of HTTP which you should support.
+
+11.3.1. User-Agent
+~~~~~~~~~~~~~~~~~~~
+
+
+
+The User-Agent is simply a way for a client to tell a server who it is when it
+requests a web page, a syndicated feed, or any sort of web service over HTTP.
+When the client requests a resource, it should always announce who it is, as
+specifically as possible. This allows the server-side administrator to get in
+touch with the client-side developer if anything is going fantastically wrong.
+
+By default, Python sends a generic User-Agent: Python-urllib/1.15. In the next
+section, you'll see how to change this to something more specific.
+
+11.3.2. Redirects
+~~~~~~~~~~~~~~~~~~
+
+
+
+Sometimes resources move around. Web sites get reorganized, pages move to new
+addresses. Even web services can reorganize. A syndicated feed at http://
+example.com/index.xml might be moved to http://example.com/xml/atom.xml. Or an
+entire domain might move, as an organization expands and reorganizes; for
+instance, http://www.example.com/index.xml might be redirected to http://
+server-farm-1.example.com/index.xml.
+
+Every time you request any kind of resource from an HTTP server, the server
+includes a status code in its response. Status code 200 means "everything's
+normal, here's the page you asked for". Status code 404 means "page not found".
+(You've probably seen 404 errors while browsing the web.)
+
+HTTP has two different ways of signifying that a resource has moved. Status
+code 302 is a temporary redirect; it means "oops, that got moved over here
+temporarily" (and then gives the temporary address in a Location: header).
+Status code 301 is a permanent redirect; it means "oops, that got moved
+permanently" (and then gives the new address in a Location: header). If you get
+a 302 status code and a new address, the HTTP specification says you should use
+the new address to get what you asked for, but the next time you want to access
+the same resource, you should retry the old address. But if you get a 301
+status code and a new address, you're supposed to use the new address from then
+on.
+
+urllib.urlopen will automatically "follow" redirects when it receives the
+appropriate status code from the HTTP server, but unfortunately, it doesn't
+tell you when it does so. You'll end up getting data you asked for, but you'll
+never know that the underlying library "helpfully" followed a redirect for you.
+So you'll continue pounding away at the old address, and each time you'll get
+redirected to the new address. That's two round trips instead of one: not very
+efficient! Later in this chapter, you'll see how to work around this so you can
+deal with permanent redirects properly and efficiently.
+
+11.3.3. Last-Modified/If-Modified-Since
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+Some data changes all the time. The home page of CNN.com is constantly updating
+every few minutes. On the other hand, the home page of Google.com only changes
+once every few weeks (when they put up a special holiday logo, or advertise a
+new service). Web services are no different; usually the server knows when the
+data you requested last changed, and HTTP provides a way for the server to
+include this last-modified date along with the data you requested.
+
+If you ask for the same data a second time (or third, or fourth), you can tell
+the server the last-modified date that you got last time: you send an
+If-Modified-Since header with your request, with the date you got back from the
+server last time. If the data hasn't changed since then, the server sends back
+a special HTTP status code 304, which means "this data hasn't changed since the
+last time you asked for it". Why is this an improvement? Because when the
+server sends a 304, it doesn't re-send the data. All you get is the status
+code. So you don't need to download the same data over and over again if it
+hasn't changed; the server assumes you have the data cached locally.
+
+All modern web browsers support last-modified date checking. If you've ever
+visited a page, re-visited the same page a day later and found that it hadn't
+changed, and wondered why it loaded so quickly the second time -- this could be
+why. Your web browser cached the contents of the page locally the first time,
+and when you visited the second time, your browser automatically sent the
+last-modified date it got from the server the first time. The server simply
+says 304: Not Modified, so your browser knows to load the page from its cache.
+Web services can be this smart too.
+
+Python's URL library has no built-in support for last-modified date checking,
+but since you can add arbitrary headers to each request and read arbitrary
+headers in each response, you can add support for it yourself.
+
+11.3.4. ETag/If-None-Match
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+ETags are an alternate way to accomplish the same thing as the last-modified
+date checking: don't re-download data that hasn't changed. The way it works is,
+the server sends some sort of hash of the data (in an ETag header) along with
+the data you requested. Exactly how this hash is determined is entirely up to
+the server. The second time you request the same data, you include the ETag
+hash in an If-None-Match: header, and if the data hasn't changed, the server
+will send you back a 304 status code. As with the last-modified date checking,
+the server just sends the 304; it doesn't send you the same data a second time.
+By including the ETag hash in your second request, you're telling the server
+that there's no need to re-send the same data if it still matches this hash,
+since you still have the data from the last time.
+
+Python's URL library has no built-in support for ETags, but you'll see how to
+add it later in this chapter.
+
+11.3.5. Compression
+~~~~~~~~~~~~~~~~~~~~
+
+
+
+The last important HTTP feature is gzip compression. When you talk about HTTP
+web services, you're almost always talking about moving XML back and forth over
+the wire. XML is text, and quite verbose text at that, and text generally
+compresses well. When you request a resource over HTTP, you can ask the server
+that, if it has any new data to send you, to please send it in compressed
+format. You include the Accept-encoding: gzip header in your request, and if
+the server supports compression, it will send you back gzip-compressed data and
+mark it with a Content-encoding: gzip header.
+
+Python's URL library has no built-in support for gzip compression per se, but
+you can add arbitrary headers to the request. And Python comes with a separate
+gzip module, which has functions you can use to decompress the data yourself.
+
+Note that our little one-line script to download a syndicated feed did not
+support any of these HTTP features. Let's see how you can improve it.
+
+11.4. Debugging HTTP web services
+----------------------------------
+
+
+
+First, let's turn on the debugging features of Python's HTTP library and see
+what's being sent over the wire. This will be useful throughout the chapter, as
+you add more and more features.
+
+
+Example 11.3. Debugging HTTP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import httplib
+    >>> httplib.HTTPConnection.debuglevel = 1             (1)
+    >>> import urllib
+    >>> feeddata = urllib.urlopen('http://diveintomark.org/xml/atom.xml').read()
+    connect: (diveintomark.org, 80)                       (2)
+    send: '
+    GET /xml/atom.xml HTTP/1.0                            (3)
+    Host: diveintomark.org                                (4)
+    User-agent: Python-urllib/1.15                        (5)
+    '
+    reply: 'HTTP/1.1 200 OK\r\n'                          (6)
+    header: Date: Wed, 14 Apr 2004 22:27:30 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Content-Type: application/atom+xml
+    header: Last-Modified: Wed, 14 Apr 2004 22:14:38 GMT  (7)
+    header: ETag: "e8284-68e0-4de30f80"                   (8)
+    header: Accept-Ranges: bytes
+    header: Content-Length: 26848
+    header: Connection: close
+
+(1) urllib relies on another standard Python library, httplib. Normally you
+    don't need to import httplib directly (urllib does that automatically), but
+    you will here so you can set the debugging flag on the HTTPConnection class
+    that urllib uses internally to connect to the HTTP server. This is an
+    incredibly useful technique. Some other Python libraries have similar debug
+    flags, but there's no particular standard for naming them or turning them
+    on; you need to read the documentation of each library to see if such a
+    feature is available.
+(2) Now that the debugging flag is set, information on the the HTTP request and
+    response is printed out in real time. The first thing it tells you is that
+    you're connecting to the server diveintomark.org on port 80, which is the
+    standard port for HTTP.
+(3) When you request the Atom feed, urllib sends three lines to the server. The
+    first line specifies the HTTP verb you're using, and the path of the
+    resource (minus the domain name). All the requests in this chapter will use
+    GET, but in the next chapter on SOAP, you'll see that it uses POST for
+    everything. The basic syntax is the same, regardless of the verb.
+(4) The second line is the Host header, which specifies the domain name of the
+    service you're accessing. This is important, because a single HTTP server
+    can host multiple separate domains. My server currently hosts 12 domains;
+    other servers can host hundreds or even thousands.
+(5) The third line is the User-Agent header. What you see here is the generic
+    User-Agent that the urllib library adds by default. In the next section,
+    you'll see how to customize this to be more specific.
+(6) The server replies with a status code and a bunch of headers (and possibly
+    some data, which got stored in the feeddata variable). The status code here
+    is 200, meaning "everything's normal, here's the data you requested". The
+    server also tells you the date it responded to your request, some
+    information about the server itself, and the content type of the data it's
+    giving you. Depending on your application, this might be useful, or not.
+    It's certainly reassuring that you thought you were asking for an Atom
+    feed, and lo and behold, you're getting an Atom feed (application/atom+xml,
+    which is the registered content type for Atom feeds).
+(7) The server tells you when this Atom feed was last modified (in this case,
+    about 13 minutes ago). You can send this date back to the server the next
+    time you request the same feed, and the server can do last-modified
+    checking.
+(8) The server also tells you that this Atom feed has an ETag hash of
+    "e8284-68e0-4de30f80". The hash doesn't mean anything by itself; there's
+    nothing you can do with it, except send it back to the server the next time
+    you request this same feed. Then the server can use it to tell you if the
+    data has changed or not.
+
+11.5. Setting the User-Agent
+-----------------------------
+
+
+
+The first step to improving your HTTP web services client is to identify
+yourself properly with a User-Agent. To do that, you need to move beyond the
+basic urllib and dive into urllib2.
+
+
+Example 11.4. Introducing urllib2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import httplib
+    >>> httplib.HTTPConnection.debuglevel = 1                             (1)
+    >>> import urllib2
+    >>> request = urllib2.Request('http://diveintomark.org/xml/atom.xml') (2)
+    >>> opener = urllib2.build_opener()                                   (3)
+    >>> feeddata = opener.open(request).read()                            (4)
+    connect: (diveintomark.org, 80)
+    send: '
+    GET /xml/atom.xml HTTP/1.0
+    Host: diveintomark.org
+    User-agent: Python-urllib/2.1
+    '
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Date: Wed, 14 Apr 2004 23:23:12 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Content-Type: application/atom+xml
+    header: Last-Modified: Wed, 14 Apr 2004 22:14:38 GMT
+    header: ETag: "e8284-68e0-4de30f80"
+    header: Accept-Ranges: bytes
+    header: Content-Length: 26848
+    header: Connection: close
+
+(1) If you still have your Python IDE open from the previous section's example,
+    you can skip this, but this turns on HTTP debugging so you can see what
+    you're actually sending over the wire, and what gets sent back.
+(2) Fetching an HTTP resource with urllib2 is a three-step process, for good
+    reasons that will become clear shortly. The first step is to create a
+    Request object, which takes the URL of the resource you'll eventually get
+    around to retrieving. Note that this step doesn't actually retrieve
+    anything yet.
+(3) The second step is to build a URL opener. This can take any number of
+    handlers, which control how responses are handled. But you can also build
+    an opener without any custom handlers, which is what you're doing here.
+    You'll see how to define and use custom handlers later in this chapter when
+    you explore redirects.
+(4) The final step is to tell the opener to open the URL, using the Request
+    object you created. As you can see from all the debugging information that
+    gets printed, this step actually retrieves the resource and stores the
+    returned data in feeddata.
+
+
+
+Example 11.5. Adding headers with the Request
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> request                                                (1)
+    <urllib2.Request instance at 0x00250AA8>
+    >>> request.get_full_url()
+    http://diveintomark.org/xml/atom.xml
+    >>> request.add_header('User-Agent',
+    ...     'OpenAnything/1.0 +http://diveintopython.org/')    (2)
+    >>> feeddata = opener.open(request).read()                 (3)
+    connect: (diveintomark.org, 80)
+    send: '
+    GET /xml/atom.xml HTTP/1.0
+    Host: diveintomark.org
+    User-agent: OpenAnything/1.0 +http://diveintopython.org/   (4)
+    '
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Date: Wed, 14 Apr 2004 23:45:17 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Content-Type: application/atom+xml
+    header: Last-Modified: Wed, 14 Apr 2004 22:14:38 GMT
+    header: ETag: "e8284-68e0-4de30f80"
+    header: Accept-Ranges: bytes
+    header: Content-Length: 26848
+    header: Connection: close
+
+(1) You're continuing from the previous example; you've already created a
+    Request object with the URL you want to access.
+(2) Using the add_header method on the Request object, you can add arbitrary
+    HTTP headers to the request. The first argument is the header, the second
+    is the value you're providing for that header. Convention dictates that a
+    User-Agent should be in this specific format: an application name, followed
+    by a slash, followed by a version number. The rest is free-form, and you'll
+    see a lot of variations in the wild, but somewhere it should include a URL
+    of your application. The User-Agent is usually logged by the server along
+    with other details of your request, and including a URL of your application
+    allows server administrators looking through their access logs to contact
+    you if something is wrong.
+(3) The opener object you created before can be reused too, and it will
+    retrieve the same feed again, but with your custom User-Agent header.
+(4) And here's you sending your custom User-Agent, in place of the generic one
+    that Python sends by default. If you look closely, you'll notice that you
+    defined a User-Agent header, but you actually sent a User-agent header. See
+    the difference? urllib2 changed the case so that only the first letter was
+    capitalized. It doesn't really matter; HTTP specifies that header field
+    names are completely case-insensitive.
+
+11.6. Handling Last-Modified and ETag
+--------------------------------------
+
+
+
+Now that you know how to add custom HTTP headers to your web service requests,
+let's look at adding support for Last-Modified and ETag headers.
+
+These examples show the output with debugging turned off. If you still have it
+turned on from the previous section, you can turn it off by setting
+httplib.HTTPConnection.debuglevel = 0. Or you can just leave debugging on, if
+that helps you.
+
+
+Example 11.6. Testing Last-Modified
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import urllib2
+    >>> request = urllib2.Request('http://diveintomark.org/xml/atom.xml')
+    >>> opener = urllib2.build_opener()
+    >>> firstdatastream = opener.open(request)
+    >>> firstdatastream.headers.dict                       (1)
+    {'date': 'Thu, 15 Apr 2004 20:42:41 GMT', 
+     'server': 'Apache/2.0.49 (Debian GNU/Linux)', 
+     'content-type': 'application/atom+xml',
+     'last-modified': 'Thu, 15 Apr 2004 19:45:21 GMT', 
+     'etag': '"e842a-3e53-55d97640"',
+     'content-length': '15955', 
+     'accept-ranges': 'bytes', 
+     'connection': 'close'}
+    >>> request.add_header('If-Modified-Since',
+    ...     firstdatastream.headers.get('Last-Modified'))  (2)
+    >>> seconddatastream = opener.open(request)            (3)
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in ?
+      File "c:\python23\lib\urllib2.py", line 326, in open
+        '_open', req)
+      File "c:\python23\lib\urllib2.py", line 306, in _call_chain
+        result = func(*args)
+      File "c:\python23\lib\urllib2.py", line 901, in http_open
+        return self.do_open(httplib.HTTP, req)
+      File "c:\python23\lib\urllib2.py", line 895, in do_open
+        return self.parent.error('http', req, fp, code, msg, hdrs)
+      File "c:\python23\lib\urllib2.py", line 352, in error
+        return self._call_chain(*args)
+      File "c:\python23\lib\urllib2.py", line 306, in _call_chain
+        result = func(*args)
+      File "c:\python23\lib\urllib2.py", line 412, in http_error_default
+        raise HTTPError(req.get_full_url(), code, msg, hdrs, fp)
+    urllib2.HTTPError: HTTP Error 304: Not Modified
+
+(1) Remember all those HTTP headers you saw printed out when you turned on
+    debugging? This is how you can get access to them programmatically:
+    firstdatastream.headers is an object that acts like a dictionary and allows
+    you to get any of the individual headers returned from the HTTP server.
+(2) On the second request, you add the If-Modified-Since header with the
+    last-modified date from the first request. If the data hasn't changed, the
+    server should return a 304 status code.
+(3) Sure enough, the data hasn't changed. You can see from the traceback that
+    urllib2 throws a special exception, HTTPError, in response to the 304
+    status code. This is a little unusual, and not entirely helpful. After all,
+    it's not an error; you specifically asked the server not to send you any
+    data if it hadn't changed, and the data didn't change, so the server told
+    you it wasn't sending you any data. That's not an error; that's exactly
+    what you were hoping for.
+
+
+urllib2 also raises an HTTPError exception for conditions that you would think
+of as errors, such as 404 (page not found). In fact, it will raise HTTPError
+for any status code other than 200 (OK), 301 (permanent redirect), or 302
+(temporary redirect). It would be more helpful for your purposes to capture the
+status code and simply return it, without throwing an exception. To do that,
+you'll need to define a custom URL handler.
+
+
+Example 11.7. Defining URL handlers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+This custom URL handler is part of openanything.py.
+
+
+::
+
+    class DefaultErrorHandler(urllib2.HTTPDefaultErrorHandler):    (1)
+        def http_error_default(self, req, fp, code, msg, headers): (2)
+            result = urllib2.HTTPError(                           
+                req.get_full_url(), code, msg, headers, fp)       
+            result.status = code                                   (3)
+            return result                                         
+
+
+
+(1) urllib2 is designed around URL handlers. Each handler is just a class that
+    can define any number of methods. When something happens -- like an HTTP
+    error, or even a 304 code -- urllib2 introspects into the list of defined
+    handlers for a method that can handle it. You used a similar introspection
+    in Chapter 9, XML Processing to define handlers for different node types,
+    but urllib2 is more flexible, and introspects over as many handlers as are
+    defined for the current request.
+(2) urllib2 searches through the defined handlers and calls the
+    http_error_default method when it encounters a 304 status code from the
+    server. By defining a custom error handler, you can prevent urllib2 from
+    raising an exception. Instead, you create the HTTPError object, but return
+    it instead of raising it.
+(3) This is the key part: before returning, you save the status code returned
+    by the HTTP server. This will allow you easy access to it from the calling
+    program.
+
+
+
+Example 11.8. Using custom URL handlers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> request.headers                           (1)
+    {'If-modified-since': 'Thu, 15 Apr 2004 19:45:21 GMT'}
+    >>> import openanything
+    >>> opener = urllib2.build_opener(
+    ...     openanything.DefaultErrorHandler())   (2)
+    >>> seconddatastream = opener.open(request)
+    >>> seconddatastream.status                   (3)
+    304
+    >>> seconddatastream.read()                   (4)
+    ''
+
+(1) You're continuing the previous example, so the Request object is already
+    set up, and you've already added the If-Modified-Since header.
+(2) This is the key: now that you've defined your custom URL handler, you need
+    to tell urllib2 to use it. Remember how I said that urllib2 broke up the
+    process of accessing an HTTP resource into three steps, and for good
+    reason? This is why building the URL opener is its own step, because you
+    can build it with your own custom URL handlers that override urllib2's
+    default behavior.
+(3) Now you can quietly open the resource, and what you get back is an object
+    that, along with the usual headers (use seconddatastream.headers.dict to
+    acess them), also contains the HTTP status code. In this case, as you
+    expected, the status is 304, meaning this data hasn't changed since the
+    last time you asked for it.
+(4) Note that when the server sends back a 304 status code, it doesn't re-send
+    the data. That's the whole point: to save bandwidth by not re-downloading
+    data that hasn't changed. So if you actually want that data, you'll need to
+    cache it locally the first time you get it.
+
+
+Handling ETag works much the same way, but instead of checking for
+Last-Modified and sending If-Modified-Since, you check for ETag and send
+If-None-Match. Let's start with a fresh IDE session.
+
+
+Example 11.9. Supporting ETag/If-None-Match
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import urllib2, openanything
+    >>> request = urllib2.Request('http://diveintomark.org/xml/atom.xml')
+    >>> opener = urllib2.build_opener(
+    ...     openanything.DefaultErrorHandler())
+    >>> firstdatastream = opener.open(request)
+    >>> firstdatastream.headers.get('ETag')        (1)
+    '"e842a-3e53-55d97640"'
+    >>> firstdata = firstdatastream.read()
+    >>> print firstdata                            (2)
+    <?xml version="1.0" encoding="iso-8859-1"?>
+    <feed version="0.3"
+      xmlns="http://purl.org/atom/ns#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xml:lang="en">
+      <title mode="escaped">dive into mark</title>
+      <link rel="alternate" type="text/html" href="http://diveintomark.org/"/>
+      <-- rest of feed omitted for brevity -->
+    >>> request.add_header('If-None-Match',
+    ...     firstdatastream.headers.get('ETag'))   (3)
+    >>> seconddatastream = opener.open(request)
+    >>> seconddatastream.status                    (4)
+    304
+    >>> seconddatastream.read()                    (5)
+    ''
+
+(1) Using the firstdatastream.headers pseudo-dictionary, you can get the ETag
+    returned from the server. (What happens if the server didn't send back an
+    ETag? Then this line would return None.)
+(2) OK, you got the data.
+(3) Now set up the second call by setting the If-None-Match header to the ETag
+    you got from the first call.
+(4) The second call succeeds quietly (without throwing an exception), and once
+    again you see that the server has sent back a 304 status code. Based on the
+    ETag you sent the second time, it knows that the data hasn't changed.
+(5) Regardless of whether the 304 is triggered by Last-Modified date checking
+    or ETag hash matching, you'll never get the data along with the 304. That's
+    the whole point.
+
+    Note: Support Last-Modified and ETag
+    In these examples, the HTTP server has supported both Last-Modified and
+    ETag headers, but not all servers do. As a web services client, you should
+    be prepared to support both, but you must code defensively in case a server
+    only supports one or the other, or neither.
+
+11.7. Handling redirects
+-------------------------
+
+
+
+You can support permanent and temporary redirects using a different kind of
+custom URL handler.
+
+First, let's see why a redirect handler is necessary in the first place.
+
+
+Example 11.10. Accessing web services without a redirect handler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import urllib2, httplib
+    >>> httplib.HTTPConnection.debuglevel = 1           (1)
+    >>> request = urllib2.Request(
+    ...     'http://diveintomark.org/redir/example301.xml') (2)
+    >>> opener = urllib2.build_opener()
+    >>> f = opener.open(request)
+    connect: (diveintomark.org, 80)
+    send: '
+    GET /redir/example301.xml HTTP/1.0
+    Host: diveintomark.org
+    User-agent: Python-urllib/2.1
+    '
+    reply: 'HTTP/1.1 301 Moved Permanently\r\n'             (3)
+    header: Date: Thu, 15 Apr 2004 22:06:25 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Location: http://diveintomark.org/xml/atom.xml  (4)
+    header: Content-Length: 338
+    header: Connection: close
+    header: Content-Type: text/html; charset=iso-8859-1
+    connect: (diveintomark.org, 80)
+    send: '
+    GET /xml/atom.xml HTTP/1.0                              (5)
+    Host: diveintomark.org
+    User-agent: Python-urllib/2.1
+    '
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Date: Thu, 15 Apr 2004 22:06:25 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Last-Modified: Thu, 15 Apr 2004 19:45:21 GMT
+    header: ETag: "e842a-3e53-55d97640"
+    header: Accept-Ranges: bytes
+    header: Content-Length: 15955
+    header: Connection: close
+    header: Content-Type: application/atom+xml
+    >>> f.url                                               (6)
+    'http://diveintomark.org/xml/atom.xml'
+    >>> f.headers.dict
+    {'content-length': '15955', 
+    'accept-ranges': 'bytes', 
+    'server': 'Apache/2.0.49 (Debian GNU/Linux)', 
+    'last-modified': 'Thu, 15 Apr 2004 19:45:21 GMT', 
+    'connection': 'close', 
+    'etag': '"e842a-3e53-55d97640"', 
+    'date': 'Thu, 15 Apr 2004 22:06:25 GMT', 
+    'content-type': 'application/atom+xml'}
+    >>> f.status
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in ?
+    AttributeError: addinfourl instance has no attribute 'status'
+
+(1) You'll be better able to see what's happening if you turn on debugging.
+(2) This is a URL which I have set up to permanently redirect to my Atom feed
+    at http://diveintomark.org/xml/atom.xml.
+(3) Sure enough, when you try to download the data at that address, the server
+    sends back a 301 status code, telling you that the resource has moved
+    permanently.
+(4) The server also sends back a Location: header that gives the new address of
+    this data.
+(5) urllib2 notices the redirect status code and automatically tries to
+    retrieve the data at the new location specified in the Location: header.
+(6) The object you get back from the opener contains the new permanent address
+    and all the headers returned from the second request (retrieved from the
+    new permanent address). But the status code is missing, so you have no way
+    of knowing programmatically whether this redirect was temporary or
+    permanent. And that matters very much: if it was a temporary redirect, then
+    you should continue to ask for the data at the old location. But if it was
+    a permanent redirect (as this was), you should ask for the data at the new
+    location from now on.
+
+
+This is suboptimal, but easy to fix. urllib2 doesn't behave exactly as you want
+it to when it encounters a 301 or 302, so let's override its behavior. How?
+With a custom URL handler, just like you did to handle 304 codes.
+
+
+Example 11.11. Defining the redirect handler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+This class is defined in openanything.py.
+
+
+::
+
+    class SmartRedirectHandler(urllib2.HTTPRedirectHandler):     (1)
+        def http_error_301(self, req, fp, code, msg, headers):  
+            result = urllib2.HTTPRedirectHandler.http_error_301( (2)
+                self, req, fp, code, msg, headers)              
+            result.status = code                                 (3)
+            return result                                       
+    
+        def http_error_302(self, req, fp, code, msg, headers):   (4)
+            result = urllib2.HTTPRedirectHandler.http_error_302(
+                self, req, fp, code, msg, headers)              
+            result.status = code                                
+            return result                                       
+
+
+
+(1) Redirect behavior is defined in urllib2 in a class called
+    HTTPRedirectHandler. You don't want to completely override the behavior,
+    you just want to extend it a little, so you'll subclass HTTPRedirectHandler
+    so you can call the ancestor class to do all the hard work.
+(2) When it encounters a 301 status code from the server, urllib2 will search
+    through its handlers and call the http_error_301 method. The first thing
+    ours does is just call the http_error_301 method in the ancestor, which
+    handles the grunt work of looking for the Location: header and following
+    the redirect to the new address.
+(3) Here's the key: before you return, you store the status code (301), so that
+    the calling program can access it later.
+(4) Temporary redirects (status code 302) work the same way: override the
+    http_error_302 method, call the ancestor, and save the status code before
+    returning.
+
+
+So what has this bought us? You can now build a URL opener with the custom
+redirect handler, and it will still automatically follow redirects, but now it
+will also expose the redirect status code.
+
+
+Example 11.12. Using the redirect handler to detect permanent redirects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> request = urllib2.Request('http://diveintomark.org/redir/example301.xml')
+    >>> import openanything, httplib
+    >>> httplib.HTTPConnection.debuglevel = 1
+    >>> opener = urllib2.build_opener(
+    ...     openanything.SmartRedirectHandler())           (1)
+    >>> f = opener.open(request)
+    connect: (diveintomark.org, 80)
+    send: 'GET /redir/example301.xml HTTP/1.0
+    Host: diveintomark.org
+    User-agent: Python-urllib/2.1
+    '
+    reply: 'HTTP/1.1 301 Moved Permanently\r\n'            (2)
+    header: Date: Thu, 15 Apr 2004 22:13:21 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Location: http://diveintomark.org/xml/atom.xml
+    header: Content-Length: 338
+    header: Connection: close
+    header: Content-Type: text/html; charset=iso-8859-1
+    connect: (diveintomark.org, 80)
+    send: '
+    GET /xml/atom.xml HTTP/1.0
+    Host: diveintomark.org
+    User-agent: Python-urllib/2.1
+    '
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Date: Thu, 15 Apr 2004 22:13:21 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Last-Modified: Thu, 15 Apr 2004 19:45:21 GMT
+    header: ETag: "e842a-3e53-55d97640"
+    header: Accept-Ranges: bytes
+    header: Content-Length: 15955
+    header: Connection: close
+    header: Content-Type: application/atom+xml
+
+
+
+::
+
+    >>> f.status                                           (3)
+    301
+    >>> f.url
+    'http://diveintomark.org/xml/atom.xml'
+
+(1) First, build a URL opener with the redirect handler you just defined.
+(2) You sent off a request, and you got a 301 status code in response. At this
+    point, the http_error_301 method gets called. You call the ancestor method,
+    which follows the redirect and sends a request at the new location (http://
+    diveintomark.org/xml/atom.xml).
+(3) This is the payoff: now, not only do you have access to the new URL, but
+    you have access to the redirect status code, so you can tell that this was
+    a permanent redirect. The next time you request this data, you should
+    request it from the new location (http://diveintomark.org/xml/atom.xml, as
+    specified in f.url). If you had stored the location in a configuration file
+    or a database, you need to update that so you don't keep pounding the
+    server with requests at the old address. It's time to update your address
+    book.
+
+
+The same redirect handler can also tell you that you shouldn't update your
+address book.
+
+
+Example 11.13. Using the redirect handler to detect temporary redirects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> request = urllib2.Request(
+    ...     'http://diveintomark.org/redir/example302.xml')   (1)
+    >>> f = opener.open(request)
+    connect: (diveintomark.org, 80)
+    send: '
+    GET /redir/example302.xml HTTP/1.0
+    Host: diveintomark.org
+    User-agent: Python-urllib/2.1
+    '
+    reply: 'HTTP/1.1 302 Found\r\n'                           (2)
+    header: Date: Thu, 15 Apr 2004 22:18:21 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Location: http://diveintomark.org/xml/atom.xml
+    header: Content-Length: 314
+    header: Connection: close
+    header: Content-Type: text/html; charset=iso-8859-1
+    connect: (diveintomark.org, 80)
+    send: '
+    GET /xml/atom.xml HTTP/1.0                                (3)
+    Host: diveintomark.org
+    User-agent: Python-urllib/2.1
+    '
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Date: Thu, 15 Apr 2004 22:18:21 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Last-Modified: Thu, 15 Apr 2004 19:45:21 GMT
+    header: ETag: "e842a-3e53-55d97640"
+    header: Accept-Ranges: bytes
+    header: Content-Length: 15955
+    header: Connection: close
+    header: Content-Type: application/atom+xml
+    >>> f.status                                              (4)
+    302
+    >>> f.url
+    http://diveintomark.org/xml/atom.xml
+
+(1) This is a sample URL I've set up that is configured to tell clients to
+    temporarily redirect to http://diveintomark.org/xml/atom.xml.
+(2) The server sends back a 302 status code, indicating a temporary redirect.
+    The temporary new location of the data is given in the Location: header.
+(3) urllib2 calls your http_error_302 method, which calls the ancestor method
+    of the same name in urllib2.HTTPRedirectHandler, which follows the redirect
+    to the new location. Then your http_error_302 method stores the status code
+    (302) so the calling application can get it later.
+(4) And here you are, having successfully followed the redirect to http://
+    diveintomark.org/xml/atom.xml. f.status tells you that this was a temporary
+    redirect, which means that you should continue to request data from the
+    original address (http://diveintomark.org/redir/example302.xml). Maybe it
+    will redirect next time too, but maybe not. Maybe it will redirect to a
+    different address. It's not for you to say. The server said this redirect
+    was only temporary, so you should respect that. And now you're exposing
+    enough information that the calling application can respect that.
+
+11.8. Handling compressed data
+-------------------------------
+
+
+
+The last important HTTP feature you want to support is compression. Many web
+services have the ability to send data compressed, which can cut down the
+amount of data sent over the wire by 60% or more. This is especially true of
+XML web services, since XML data compresses very well.
+
+Servers won't give you compressed data unless you tell them you can handle it.
+
+
+Example 11.14. Telling the server you would like compressed data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import urllib2, httplib
+    >>> httplib.HTTPConnection.debuglevel = 1
+    >>> request = urllib2.Request('http://diveintomark.org/xml/atom.xml')
+    >>> request.add_header('Accept-encoding', 'gzip')        (1)
+    >>> opener = urllib2.build_opener()
+    >>> f = opener.open(request)
+    connect: (diveintomark.org, 80)
+    send: '
+    GET /xml/atom.xml HTTP/1.0
+    Host: diveintomark.org
+    User-agent: Python-urllib/2.1
+    Accept-encoding: gzip                                    (2)
+    '
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Date: Thu, 15 Apr 2004 22:24:39 GMT
+    header: Server: Apache/2.0.49 (Debian GNU/Linux)
+    header: Last-Modified: Thu, 15 Apr 2004 19:45:21 GMT
+    header: ETag: "e842a-3e53-55d97640"
+    header: Accept-Ranges: bytes
+    header: Vary: Accept-Encoding
+    header: Content-Encoding: gzip                           (3)
+    header: Content-Length: 6289                             (4)
+    header: Connection: close
+    header: Content-Type: application/atom+xml
+
+(1) This is the key: once you've created your Request object, add an
+    Accept-encoding header to tell the server you can accept gzip-encoded data.
+    gzip is the name of the compression algorithm you're using. In theory there
+    could be other compression algorithms, but gzip is the compression
+    algorithm used by 99% of web servers.
+(2) There's your header going across the wire.
+(3) And here's what the server sends back: the Content-Encoding: gzip header
+    means that the data you're about to receive has been gzip-compressed.
+(4) The Content-Length header is the length of the compressed data, not the
+    uncompressed data. As you'll see in a minute, the actual length of the
+    uncompressed data was 15955, so gzip compression cut your bandwidth by over
+    60%!
+
+
+
+Example 11.15. Decompressing the data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> compresseddata = f.read()                              (1)
+    >>> len(compresseddata)
+    6289
+    >>> import StringIO
+    >>> compressedstream = StringIO.StringIO(compresseddata)   (2)
+    >>> import gzip
+    >>> gzipper = gzip.GzipFile(fileobj=compressedstream)      (3)
+    >>> data = gzipper.read()                                  (4)
+    >>> print data                                             (5)
+    <?xml version="1.0" encoding="iso-8859-1"?>
+    <feed version="0.3"
+      xmlns="http://purl.org/atom/ns#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xml:lang="en">
+      <title mode="escaped">dive into mark</title>
+      <link rel="alternate" type="text/html" href="http://diveintomark.org/"/>
+      <-- rest of feed omitted for brevity -->
+    >>> len(data)
+    15955
+
+(1) Continuing from the previous example, f is the file-like object returned
+    from the URL opener. Using its read() method would ordinarily get you the
+    uncompressed data, but since this data has been gzip-compressed, this is
+    just the first step towards getting the data you really want.
+(2) OK, this step is a little bit of messy workaround. Python has a gzip
+    module, which reads (and actually writes) gzip-compressed files on disk.
+    But you don't have a file on disk, you have a gzip-compressed buffer in
+    memory, and you don't want to write out a temporary file just so you can
+    uncompress it. So what you're going to do is create a file-like object out
+    of the in-memory data (compresseddata), using the StringIO module. You
+    first saw the StringIO module in the previous chapter, but now you've found
+    another use for it.
+(3) Now you can create an instance of GzipFile, and tell it that its "file" is
+    the file-like object compressedstream.
+(4) This is the line that does all the actual work: "reading" from GzipFile
+    will decompress the data. Strange? Yes, but it makes sense in a twisted
+    kind of way. gzipper is a file-like object which represents a
+    gzip-compressed file. That "file" is not a real file on disk, though;
+    gzipper is really just "reading" from the file-like object you created with
+    StringIO to wrap the compressed data, which is only in memory in the
+    variable compresseddata. And where did that compressed data come from? You
+    originally downloaded it from a remote HTTP server by "reading" from the
+    file-like object you built with urllib2.build_opener. And amazingly, this
+    all just works. Every step in the chain has no idea that the previous step
+    is faking it.
+(5) Look ma, real data. (15955 bytes of it, in fact.)
+
+
+"But wait!" I hear you cry. "This could be even easier!" I know what you're
+thinking. You're thinking that opener.open returns a file-like object, so why
+not cut out the StringIO middleman and just pass f directly to GzipFile? OK,
+maybe you weren't thinking that, but don't worry about it, because it doesn't
+work.
+
+
+Example 11.16. Decompressing the data directly from the server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> f = opener.open(request)                  (1)
+    >>> f.headers.get('Content-Encoding')         (2)
+    'gzip'
+    >>> data = gzip.GzipFile(fileobj=f).read()    (3)
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in ?
+      File "c:\python23\lib\gzip.py", line 217, in read
+        self._read(readsize)
+      File "c:\python23\lib\gzip.py", line 252, in _read
+        pos = self.fileobj.tell()   # Save current position
+    AttributeError: addinfourl instance has no attribute 'tell'
+
+(1) Continuing from the previous example, you already have a Request object set
+    up with an Accept-encoding: gzip header.
+(2) Simply opening the request will get you the headers (though not download
+    any data yet). As you can see from the returned Content-Encoding header,
+    this data has been sent gzip-compressed.
+(3) Since opener.open returns a file-like object, and you know from the headers
+    that when you read it, you're going to get gzip-compressed data, why not
+    simply pass that file-like object directly to GzipFile? As you "read" from
+    the GzipFile instance, it will "read" compressed data from the remote HTTP
+    server and decompress it on the fly. It's a good idea, but unfortunately it
+    doesn't work. Because of the way gzip compression works, GzipFile needs to
+    save its position and move forwards and backwards through the compressed
+    file. This doesn't work when the "file" is a stream of bytes coming from a
+    remote server; all you can do with it is retrieve bytes one at a time, not
+    move back and forth through the data stream. So the inelegant hack of using
+    StringIO is the best solution: download the compressed data, create a
+    file-like object out of it with StringIO, and then decompress the data from
+    that.
+
+11.9. Putting it all together
+------------------------------
+
+
+
+You've seen all the pieces for building an intelligent HTTP web services
+client. Now let's see how they all fit together.
+
+
+Example 11.17. The openanything function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+This function is defined in openanything.py.
+
+
+::
+
+    def openAnything(source, etag=None, lastmodified=None, agent=USER_AGENT):
+        # non-HTTP code omitted for brevity
+        if urlparse.urlparse(source)[0] == 'http':                                       (1)
+            # open URL with urllib2                                                     
+            request = urllib2.Request(source)                                           
+            request.add_header('User-Agent', agent)                                      (2)
+            if etag:                                                                    
+                request.add_header('If-None-Match', etag)                                (3)
+            if lastmodified:                                                            
+                request.add_header('If-Modified-Since', lastmodified)                    (4)
+            request.add_header('Accept-encoding', 'gzip')                                (5)
+            opener = urllib2.build_opener(SmartRedirectHandler(), DefaultErrorHandler()) (6)
+            return opener.open(request)                                                  (7)
+
+
+
+(1) urlparse is a handy utility module for, you guessed it, parsing URLs. It's
+    primary function, also called urlparse, takes a URL and splits it into a
+    tuple of (scheme, domain, path, params, query string parameters, and
+    fragment identifier). Of these, the only thing you care about is the
+    scheme, to make sure that you're dealing with an HTTP URL (which urllib2
+    can handle).
+(2) You identify yourself to the HTTP server with the User-Agent passed in by
+    the calling function. If no User-Agent was specified, you use a default one
+    defined earlier in the openanything.py module. You never use the default
+    one defined by urllib2.
+(3) If an ETag hash was given, send it in the If-None-Match header.
+(4) If a last-modified date was given, send it in the If-Modified-Since header.
+(5) Tell the server you would like compressed data if possible.
+(6) Build a URL opener that uses both of the custom URL handlers:
+    SmartRedirectHandler for handling 301 and 302 redirects, and
+    DefaultErrorHandler for handling 304, 404, and other error conditions
+    gracefully.
+(7) That's it! Open the URL and return a file-like object to the caller.
+
+
+
+Example 11.18. The fetch function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+This function is defined in openanything.py.
+
+
+::
+
+    def fetch(source, etag=None, last_modified=None, agent=USER_AGENT):  
+        '''Fetch data and metadata from a URL, file, stream, or string'''
+        result = {}                                                      
+        f = openAnything(source, etag, last_modified, agent)              (1)
+        result['data'] = f.read()                                         (2)
+        if hasattr(f, 'headers'):                                        
+            # save ETag, if the server sent one                          
+            result['etag'] = f.headers.get('ETag')                        (3)
+            # save Last-Modified header, if the server sent one          
+            result['lastmodified'] = f.headers.get('Last-Modified')       (4)
+            if f.headers.get('content-encoding', '') == 'gzip':           (5)
+                # data came back gzip-compressed, decompress it          
+                result['data'] = gzip.GzipFile(fileobj=StringIO(result['data']])).read()
+        if hasattr(f, 'url'):                                             (6)
+            result['url'] = f.url                                        
+            result['status'] = 200                                       
+        if hasattr(f, 'status'):                                          (7)
+            result['status'] = f.status                                  
+        f.close()                                                        
+        return result                                                    
+
+
+
+(1) First, you call the openAnything function with a URL, ETag hash,
+    Last-Modified date, and User-Agent.
+(2) Read the actual data returned from the server. This may be compressed; if
+    so, you'll decompress it later.
+(3) Save the ETag hash returned from the server, so the calling application can
+    pass it back to you next time, and you can pass it on to openAnything,
+    which can stick it in the If-None-Match header and send it to the remote
+    server.
+(4) Save the Last-Modified date too.
+(5) If the server says that it sent compressed data, decompress it.
+(6) If you got a URL back from the server, save it, and assume that the status
+    code is 200 until you find out otherwise.
+(7) If one of the custom URL handlers captured a status code, then save that
+    too.
+
+
+
+Example 11.19. Using openanything.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import openanything
+    >>> useragent = 'MyHTTPWebServicesApp/1.0'
+    >>> url = 'http://diveintopython.org/redir/example301.xml'
+    >>> params = openanything.fetch(url, agent=useragent)              (1)
+    >>> params                                                         (2)
+    {'url': 'http://diveintomark.org/xml/atom.xml', 
+    'lastmodified': 'Thu, 15 Apr 2004 19:45:21 GMT', 
+    'etag': '"e842a-3e53-55d97640"', 
+    'status': 301,
+    'data': '<?xml version="1.0" encoding="iso-8859-1"?>
+    <feed version="0.3"
+    <-- rest of data omitted for brevity -->'}
+    >>> if params['status'] == 301:                                    (3)
+    ...     url = params['url']
+    >>> newparams = openanything.fetch(
+    ...     url, params['etag'], params['lastmodified'], useragent)    (4)
+    >>> newparams
+    {'url': 'http://diveintomark.org/xml/atom.xml', 
+    'lastmodified': None, 
+    'etag': '"e842a-3e53-55d97640"', 
+    'status': 304,
+    'data': ''}                                                        (5)
+
+(1) The very first time you fetch a resource, you don't have an ETag hash or
+    Last-Modified date, so you'll leave those out. (They're optional parameters
+    .)
+(2) What you get back is a dictionary of several useful headers, the HTTP
+    status code, and the actual data returned from the server. openanything
+    handles the gzip compression internally; you don't care about that at this
+    level.
+(3) If you ever get a 301 status code, that's a permanent redirect, and you
+    need to update your URL to the new address.
+(4) The second time you fetch the same resource, you have all sorts of
+    information to pass back: a (possibly updated) URL, the ETag from the last
+    time, the Last-Modified date from the last time, and of course your
+    User-Agent.
+(5) What you get back is again a dictionary, but the data hasn't changed, so
+    all you got was a 304 status code and no data.
+
+11.10. Summary
+---------------
+
+
+
+The openanything.py and its functions should now make perfect sense.
+
+There are 5 important features of HTTP web services that every client should
+support:
+   
+  * Identifying your application by setting a proper User-Agent.
+  * Handling permanent redirects properly.
+  * Supporting Last-Modified date checking to avoid re-downloading data that
+    hasn't changed.
+  * Supporting ETag hashes to avoid re-downloading data that hasn't changed.
+  * Supporting gzip compression to reduce bandwidth even when data has
+    changed.
+

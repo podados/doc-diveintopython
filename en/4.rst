@@ -1,0 +1,1204 @@
+Chapter 4. The Power Of Introspection
+======================================
+
+This chapter covers one of Python's strengths: introspection. As you know,
+everything in Python is an object, and introspection is code looking at other
+modules and functions in memory as objects, getting information about them, and
+manipulating them. Along the way, you'll define functions with no name, call
+functions with arguments out of order, and reference functions whose names you
+don't even know ahead of time.
+
+4.1. Diving In
+---------------
+
+
+
+Here is a complete, working Python program. You should understand a good deal
+about it just by looking at it. The numbered lines illustrate concepts covered
+in Chapter 2, Your First Python Program. Don't worry if the rest of the code
+looks intimidating; you'll learn all about it throughout this chapter.
+
+
+Example 4.1. apihelper.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+If you have not already done so, you can download this and other examples (
+http://diveintopython.org/download/diveintopython-examples-5.4.zip) used in
+this book.
+
+
+::
+
+    def info(object, spacing=10, collapse=1): (1) (2) (3)
+        """Print methods and doc strings.
+        
+        Takes module, class, list, dictionary, or string."""
+        methodList = [method for method in dir(object) if callable(getattr(object, method))]
+        processFunc = collapse and (lambda s: " ".join(s.split())) or (lambda s: s)
+        print "\n".join(["%s %s" %
+                          (method.ljust(spacing),
+                           processFunc(str(getattr(object, method).__doc__)))
+                         for method in methodList])
+    
+    if __name__ == "__main__":                (4) (5)
+        print info.__doc__
+
+
+
+(1) This module has one function, info. According to its function declaration,
+    it takes three parameters: object, spacing, and collapse. The last two are
+    actually optional parameters, as you'll see shortly.
+(2) The info function has a multi-line doc string that succinctly describes the
+    function's purpose. Note that no return value is mentioned; this function
+    will be used solely for its effects, rather than its value.
+(3) Code within the function is indented.
+(4) The if __name__ trick allows this program do something useful when run by
+    itself, without interfering with its use as a module for other programs. In
+    this case, the program simply prints out the doc string of the info
+    function.
+(5) if statements use == for comparison, and parentheses are not required.
+
+
+The info function is designed to be used by you, the programmer, while working
+in the Python IDE. It takes any object that has functions or methods (like a
+module, which has functions, or a list, which has methods) and prints out the
+functions and their doc strings.
+
+
+Example 4.2. Sample Usage of apihelper.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> from apihelper import info
+    >>> li = []
+    >>> info(li)
+    append     L.append(object) -- append object to end
+    count      L.count(value) -> integer -- return number of occurrences of value
+    extend     L.extend(list) -- extend list by appending list elements
+    index      L.index(value) -> integer -- return index of first occurrence of value
+    insert     L.insert(index, object) -- insert object before index
+    pop        L.pop([index]) -> item -- remove and return item at index (default last)
+    remove     L.remove(value) -- remove first occurrence of value
+    reverse    L.reverse() -- reverse *IN PLACE*
+    sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -> -1, 0, 1
+
+By default the output is formatted to be easy to read. Multi-line doc strings
+are collapsed into a single long line, but this option can be changed by
+specifying 0 for the collapse argument. If the function names are longer than
+10 characters, you can specify a larger value for the spacing argument to make
+the output easier to read.
+
+
+Example 4.3. Advanced Usage of apihelper.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import odbchelper
+    >>> info(odbchelper)
+    buildConnectionString Build a connection string from a dictionary Returns string.
+    >>> info(odbchelper, 30)
+    buildConnectionString          Build a connection string from a dictionary Returns string.
+    >>> info(odbchelper, 30, 0)
+    buildConnectionString          Build a connection string from a dictionary
+    
+    Returns string.
+
+4.2. Using Optional and Named Arguments
+----------------------------------------
+
+
+
+Python allows function arguments to have default values; if the function is
+called without the argument, the argument gets its default value. Futhermore,
+arguments can be specified in any order by using named arguments. Stored
+procedures in SQL Server Transact/SQL can do this, so if you're a SQL Server
+scripting guru, you can skim this part.
+
+Here is an example of info, a function with two optional arguments:
+
+
+::
+
+    def info(object, spacing=10, collapse=1):
+    
+spacing and collapse are optional, because they have default values defined.
+
+
+object is required, because it has no default value. If info is called with
+only one argument, spacing defaults to 10 and collapse defaults to 1. If info
+is called with two arguments, collapse still defaults to 1.
+
+Say you want to specify a value for collapse but want to accept the default
+value for spacing. In most languages, you would be out of luck, because you
+would need to call the function with three arguments. But in Python, arguments
+can be specified by name, in any order.
+
+
+Example 4.4. Valid Calls of info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+.. sourcecode:: python
+
+    info(odbchelper)                    (1)
+    info(odbchelper, 12)                (2)
+    info(odbchelper, collapse=0)        (3)
+    info(spacing=15, object=odbchelper) (4)
+
+
+
+(1) With only one argument, spacing gets its default value of 10 and collapse
+    gets its default value of 1.
+(2) With two arguments, collapse gets its default value of 1.
+(3) Here you are naming the collapse argument explicitly and specifying its
+    value. spacing still gets its default value of 10.
+(4) Even required arguments (like object, which has no default value) can be
+    named, and named arguments can appear in any order.
+
+
+This looks totally whacked until you realize that arguments are simply a
+dictionary. The "normal" method of calling functions without argument names is
+actually just a shorthand where Python matches up the values with the argument
+names in the order they're specified in the function declaration. And most of
+the time, you'll call functions the "normal" way, but you always have the
+additional flexibility if you need it.
+   
+    Note: Calling Functions is Flexible
+    The only thing you need to do to call a function is specify a value
+    (somehow) for each required argument; the manner and order in which you do
+    that is up to you.
+
+
+Further Reading on Optional Arguments
+   
+  * Python Tutorial (http://www.python.org/doc/current/tut/tut.html)
+    discusses exactly when and how default arguments are evaluated (http://
+    www.python.org/doc/current/tut/node6.html#SECTION006710000000000000000),
+    which matters when the default value is a list or an expression with side
+    effects.
+
+4.3. Using type, str, dir, and Other Built-In Functions
+--------------------------------------------------------
+
+
+
+Python has a small set of extremely useful built-in functions. All other
+functions are partitioned off into modules. This was actually a conscious
+design decision, to keep the core language from getting bloated like other
+scripting languages (cough cough, Visual Basic).
+
+4.3.1. The type Function
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+The type function returns the datatype of any arbitrary object. The possible
+types are listed in the types module. This is useful for helper functions that
+can handle several types of data.
+
+
+Example 4.5. Introducing type
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> type(1)           (1)
+    <type 'int'>
+    >>> li = []
+    >>> type(li)          (2)
+    <type 'list'>
+    >>> import odbchelper
+    >>> type(odbchelper)  (3)
+    <type 'module'>
+    >>> import types      (4)
+    >>> type(odbchelper) == types.ModuleType
+    True
+
+(1) type takes anything -- and I mean anything -- and returns its datatype.
+    Integers, strings, lists, dictionaries, tuples, functions, classes,
+    modules, even types are acceptable.
+(2) type can take a variable and return its datatype.
+(3) type also works on modules.
+(4) You can use the constants in the types module to compare types of objects.
+    This is what the info function does, as you'll see shortly.
+
+4.3.2. The str Function
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+The str coerces data into a string. Every datatype can be coerced into a
+string.
+
+
+Example 4.6. Introducing str
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> str(1)          (1)
+    '1'
+    >>> horsemen = ['war', 'pestilence', 'famine']
+    >>> horsemen
+    ['war', 'pestilence', 'famine']
+    >>> horsemen.append('Powerbuilder')
+    >>> str(horsemen)   (2)
+    "['war', 'pestilence', 'famine', 'Powerbuilder']"
+    >>> str(odbchelper) (3)
+    "<module 'odbchelper' from 'c:\\docbook\\dip\\py\\odbchelper.py'>"
+    >>> str(None)       (4)
+    'None'
+
+(1) For simple datatypes like integers, you would expect str to work, because
+    almost every language has a function to convert an integer to a string.
+(2) However, str works on any object of any type. Here it works on a list which
+    you've constructed in bits and pieces.
+(3) str also works on modules. Note that the string representation of the
+    module includes the pathname of the module on disk, so yours will be
+    different.
+(4) A subtle but important behavior of str is that it works on None, the Python
+    null value. It returns the string 'None'. You'll use this to your advantage
+    in the info function, as you'll see shortly.
+
+
+At the heart of the info function is the powerful dir function. dir returns a
+list of the attributes and methods of any object: modules, functions, strings,
+lists, dictionaries... pretty much anything.
+
+
+Example 4.7. Introducing dir
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> li = []
+    >>> dir(li)           (1)
+    ['append', 'count', 'extend', 'index', 'insert',
+    'pop', 'remove', 'reverse', 'sort']
+    >>> d = {}
+    >>> dir(d)            (2)
+    ['clear', 'copy', 'get', 'has_key', 'items', 'keys', 'setdefault', 'update', 'values']
+    >>> import odbchelper
+    >>> dir(odbchelper)   (3)
+    ['__builtins__', '__doc__', '__file__', '__name__', 'buildConnectionString']
+
+(1) li is a list, so dir(li) returns a list of all the methods of a list. Note
+    that the returned list contains the names of the methods as strings, not
+    the methods themselves.
+(2) d is a dictionary, so dir(d) returns a list of the names of dictionary
+    methods. At least one of these, keys, should look familiar.
+(3) This is where it really gets interesting. odbchelper is a module, so dir
+    (odbchelper) returns a list of all kinds of stuff defined in the module,
+    including built-in attributes, like __name__, __doc__, and whatever other
+    attributes and methods you define. In this case, odbchelper has only one
+    user-defined method, the buildConnectionString function described in
+    Chapter 2.
+
+
+Finally, the callable function takes any object and returns True if the object
+can be called, or False otherwise. Callable objects include functions, class
+methods, even classes themselves. (More on classes in the next chapter.)
+
+
+Example 4.8. Introducing callable
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> import string
+    >>> string.punctuation           (1)
+    '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+    >>> string.join                  (2)
+    <function join at 00C55A7C>
+    >>> callable(string.punctuation) (3)
+    False
+    >>> callable(string.join)        (4)
+    True
+    >>> print string.join.__doc__    (5)
+    join(list [,sep]) -> string
+
+    Return a string composed of the words in list, with
+    intervening occurrences of sep.  The default separator is a
+    single space.
+
+    (joinfields and join are synonymous)
+
+(1) The functions in the string module are deprecated (although many people
+    still use the join function), but the module contains a lot of useful
+    constants like this string.punctuation, which contains all the standard
+    punctuation characters.
+(2) string.join is a function that joins a list of strings.
+(3) string.punctuation is not callable; it is a string. (A string does have
+    callable methods, but the string itself is not callable.)
+(4) string.join is callable; it's a function that takes two arguments.
+(5) Any callable object may have a doc string. By using the callable function
+    on each of an object's attributes, you can determine which attributes you
+    care about (methods, functions, classes) and which you want to ignore
+    (constants and so on) without knowing anything about the object ahead of
+    time.
+
+4.3.3. Built-In Functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+type, str, dir, and all the rest of Python's built-in functions are grouped
+into a special module called __builtin__. (That's two underscores before and
+after.) If it helps, you can think of Python automatically executing from
+__builtin__ import * on startup, which imports all the "built-in" functions
+into the namespace so you can use them directly.
+
+The advantage of thinking like this is that you can access all the built-in
+functions and attributes as a group by getting information about the
+__builtin__ module. And guess what, Python has a function called info. Try it
+yourself and skim through the list now. We'll dive into some of the more
+important functions later. (Some of the built-in error classes, like
+AttributeError, should already look familiar.)
+
+
+Example 4.9. Built-in Attributes and Functions
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> from apihelper import info
+    >>> import __builtin__
+    >>> info(__builtin__, 20)
+    ArithmeticError      Base class for arithmetic errors.
+    AssertionError       Assertion failed.
+    AttributeError       Attribute not found.
+    EOFError             Read beyond end of file.
+    EnvironmentError     Base class for I/O related errors.
+    Exception            Common base class for all exceptions.
+    FloatingPointError   Floating point operation failed.
+    IOError              I/O operation failed.
+
+[...snip...]
+   
+    Note: Python is self-documenting
+    Python comes with excellent reference manuals, which you should peruse
+    thoroughly to learn all the modules Python has to offer. But unlike most
+    languages, where you would find yourself referring back to the manuals or
+    man pages to remind yourself how to use these modules, Python is largely
+    self-documenting.
+
+
+Further Reading on Built-In Functions
+   
+  * Python Library Reference (http://www.python.org/doc/current/lib/)
+    documents all the built-in functions (http://www.python.org/doc/current/lib
+    /built-in-funcs.html) and all the built-in exceptions (http://
+    www.python.org/doc/current/lib/module-exceptions.html).
+
+4.4. Getting Object References With getattr
+--------------------------------------------
+
+
+
+You already know that Python functions are objects. What you don't know is that
+you can get a reference to a function without knowing its name until run-time,
+by using the getattr function.
+
+
+Example 4.10. Introducing getattr
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> li = ["Larry", "Curly"]
+    >>> li.pop                       (1)
+    <built-in method pop of list object at 010DF884>
+    >>> getattr(li, "pop")           (2)
+    <built-in method pop of list object at 010DF884>
+    >>> getattr(li, "append")("Moe") (3)
+    >>> li
+    ["Larry", "Curly", "Moe"]
+    >>> getattr({}, "clear")         (4)
+    <built-in method clear of dictionary object at 00F113D4>
+    >>> getattr((), "pop")           (5)
+    Traceback (innermost last):
+      File "<interactive input>", line 1, in ?
+    AttributeError: 'tuple' object has no attribute 'pop'
+
+(1) This gets a reference to the pop method of the list. Note that this is not
+    calling the pop method; that would be li.pop(). This is the method itself.
+(2) This also returns a reference to the pop method, but this time, the method
+    name is specified as a string argument to the getattr function. getattr is
+    an incredibly useful built-in function that returns any attribute of any
+    object. In this case, the object is a list, and the attribute is the pop
+    method.
+(3) In case it hasn't sunk in just how incredibly useful this is, try this: the
+    return value of getattr is the method, which you can then call just as if
+    you had said li.append("Moe") directly. But you didn't call the function
+    directly; you specified the function name as a string instead.
+(4) getattr also works on dictionaries.
+(5) In theory, getattr would work on tuples, except that tuples have no methods
+    , so getattr will raise an exception no matter what attribute name you
+    give.
+
+4.4.1. getattr with Modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+getattr isn't just for built-in datatypes. It also works on modules.
+
+
+Example 4.11. The getattr Function in apihelper.py
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> import odbchelper
+    >>> odbchelper.buildConnectionString             (1)
+    <function buildConnectionString at 00D18DD4>
+    >>> getattr(odbchelper, "buildConnectionString") (2)
+    <function buildConnectionString at 00D18DD4>
+    >>> object = odbchelper
+    >>> method = "buildConnectionString"
+    >>> getattr(object, method)                      (3)
+    <function buildConnectionString at 00D18DD4>
+    >>> type(getattr(object, method))                (4)
+    <type 'function'>
+    >>> import types
+    >>> type(getattr(object, method)) == types.FunctionType
+    True
+    >>> callable(getattr(object, method))            (5)
+    True
+
+(1) This returns a reference to the buildConnectionString function in the
+    odbchelper module, which you studied in Chapter 2, Your First Python
+    Program. (The hex address you see is specific to my machine; your output
+    will be different.)
+(2) Using getattr, you can get the same reference to the same function. In
+    general, getattr(object, "attribute") is equivalent to object.attribute. If
+    object is a module, then attribute can be anything defined in the module: a
+    function, class, or global variable.
+(3) And this is what you actually use in the info function. object is passed
+    into the function as an argument; method is a string which is the name of a
+    method or function.
+(4) In this case, method is the name of a function, which you can prove by
+    getting its type.
+(5) Since method is a function, it is callable.
+
+4.4.2. getattr As a Dispatcher
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+A common usage pattern of getattr is as a dispatcher. For example, if you had a
+program that could output data in a variety of different formats, you could
+define separate functions for each output format and use a single dispatch
+function to call the right one.
+
+For example, let's imagine a program that prints site statistics in HTML, XML,
+and plain text formats. The choice of output format could be specified on the
+command line, or stored in a configuration file. A statsout module defines
+three functions, output_html, output_xml, and output_text. Then the main
+program defines a single output function, like this:
+
+
+Example 4.12. Creating a Dispatcher with getattr
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+.. sourcecode:: python
+
+    import statsout
+    
+    def output(data, format="text"):                              (1)
+        output_function = getattr(statsout, "output_%s" % format) (2)
+        return output_function(data)                              (3)
+
+
+
+(1) The output function takes one required argument, data, and one optional
+    argument, format. If format is not specified, it defaults to text, and you
+    will end up calling the plain text output function.
+(2) You concatenate the format argument with "output_" to produce a function
+    name, and then go get that function from the statsout module. This allows
+    you to easily extend the program later to support other output formats,
+    without changing this dispatch function. Just add another function to
+    statsout named, for instance, output_pdf, and pass "pdf" as the format into
+    the output function.
+(3) Now you can simply call the output function in the same way as any other
+    function. The output_function variable is a reference to the appropriate
+    function from the statsout module.
+
+
+Did you see the bug in the previous example? This is a very loose coupling of
+strings and functions, and there is no error checking. What happens if the user
+passes in a format that doesn't have a corresponding function defined in
+statsout? Well, getattr will return None, which will be assigned to
+output_function instead of a valid function, and the next line that attempts to
+call that function will crash and raise an exception. That's bad.
+
+Luckily, getattr takes an optional third argument, a default value.
+
+
+Example 4.13. getattr Default Values
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+.. sourcecode:: python
+
+    import statsout
+    
+    def output(data, format="text"):
+        output_function = getattr(statsout, "output_%s" % format, statsout.output_text)
+        return output_function(data) (1)
+
+
+
+(1) This function call is guaranteed to work, because you added a third
+    argument to the call to getattr. The third argument is a default value that
+    is returned if the attribute or method specified by the second argument
+    wasn't found.
+
+
+As you can see, getattr is quite powerful. It is the heart of introspection,
+and you'll see even more powerful examples of it in later chapters.
+
+4.5. Filtering Lists
+---------------------
+
+
+
+As you know, Python has powerful capabilities for mapping lists into other
+lists, via list comprehensions (Section 3.6, ??Mapping Lists??). This can be
+combined with a filtering mechanism, where some elements in the list are mapped
+while others are skipped entirely.
+
+Here is the list filtering syntax:
+[mapping-expression for element in source-list if filter-expression]
+
+This is an extension of the list comprehensions that you know and love. The
+first two thirds are the same; the last part, starting with the if, is the
+filter expression. A filter expression can be any expression that evaluates
+true or false (which in Python can be almost anything). Any element for which
+the filter expression evaluates true will be included in the mapping. All other
+elements are ignored, so they are never put through the mapping expression and
+are not included in the output list.
+
+
+Example 4.14. Introducing List Filtering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> li = ["a", "mpilgrim", "foo", "b", "c", "b", "d", "d"]
+    >>> [elem for elem in li if len(elem) > 1]       (1)
+    ['mpilgrim', 'foo']
+    >>> [elem for elem in li if elem != "b"]         (2)
+    ['a', 'mpilgrim', 'foo', 'c', 'd', 'd']
+    >>> [elem for elem in li if li.count(elem) == 1] (3)
+    ['a', 'mpilgrim', 'foo', 'c']
+
+(1) The mapping expression here is simple (it just returns the value of each
+    element), so concentrate on the filter expression. As Python loops through
+    the list, it runs each element through the filter expression. If the filter
+    expression is true, the element is mapped and the result of the mapping
+    expression is included in the returned list. Here, you are filtering out
+    all the one-character strings, so you're left with a list of all the longer
+    strings.
+(2) Here, you are filtering out a specific value, b. Note that this filters all
+    occurrences of b, since each time it comes up, the filter expression will
+    be false.
+(3) count is a list method that returns the number of times a value occurs in a
+    list. You might think that this filter would eliminate duplicates from a
+    list, returning a list containing only one copy of each value in the
+    original list. But it doesn't, because values that appear twice in the
+    original list (in this case, b and d) are excluded completely. There are
+    ways of eliminating duplicates from a list, but filtering is not the
+    solution.
+
+
+
+Let's get back to this line from apihelper.py:
+
+
+::
+
+        methodList = [method for method in dir(object) if callable(getattr(object, method))]
+    
+This looks complicated, and it is complicated, but the basic structure is the
+
+
+same. The whole filter expression returns a list, which is assigned to the
+methodList variable. The first half of the expression is the list mapping part.
+The mapping expression is an identity expression, which it returns the value of
+each element. dir(object) returns a list of object's attributes and methods --
+that's the list you're mapping. So the only new part is the filter expression
+after the if.
+
+The filter expression looks scary, but it's not. You already know about
+callable, getattr, and in. As you saw in the previous section, the expression
+getattr(object, method) returns a function object if object is a module and
+method is the name of a function in that module.
+
+So this expression takes an object (named object). Then it gets a list of the
+names of the object's attributes, methods, functions, and a few other things.
+Then it filters that list to weed out all the stuff that you don't care about.
+You do the weeding out by taking the name of each attribute/method/function and
+getting a reference to the real thing, via the getattr function. Then you check
+to see if that object is callable, which will be any methods and functions,
+both built-in (like the pop method of a list) and user-defined (like the
+buildConnectionString function of the odbchelper module). You don't care about
+other attributes, like the __name__ attribute that's built in to every module.
+
+Further Reading on Filtering Lists
+   
+  * Python Tutorial (http://www.python.org/doc/current/tut/tut.html)
+    discusses another way to filter lists using the built-in filter function (
+    http://www.python.org/doc/current/tut/node7.html#
+    SECTION007130000000000000000).
+
+4.6. The Peculiar Nature of and and or
+---------------------------------------
+
+
+
+In Python, and and or perform boolean logic as you would expect, but they do
+not return boolean values; instead, they return one of the actual values they
+are comparing.
+
+
+Example 4.15. Introducing and
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> 'a' and 'b'         (1)
+    'b'
+    >>> '' and 'b'          (2)
+    ''
+    >>> 'a' and 'b' and 'c' (3)
+    'c'
+
+(1) When using and, values are evaluated in a boolean context from left to
+    right. 0, '', [], (), {}, and None are false in a boolean context;
+    everything else is true. Well, almost everything. By default, instances of
+    classes are true in a boolean context, but you can define special methods
+    in your class to make an instance evaluate to false. You'll learn all about
+    classes and special methods in Chapter 5. If all values are true in a
+    boolean context, and returns the last value. In this case, and evaluates
+    'a', which is true, then 'b', which is true, and returns 'b'.
+(2) If any value is false in a boolean context, and returns the first false
+    value. In this case, '' is the first false value.
+(3) All values are true, so and returns the last value, 'c'.
+
+
+
+Example 4.16. Introducing or
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> 'a' or 'b'          (1)
+    'a'
+    >>> '' or 'b'           (2)
+    'b'
+    >>> '' or [] or {}      (3)
+    {}
+    >>> def sidefx():
+    ...     print "in sidefx()"
+    ...     return 1
+    >>> 'a' or sidefx()     (4)
+    'a'
+
+(1) When using or, values are evaluated in a boolean context from left to
+    right, just like and. If any value is true, or returns that value
+    immediately. In this case, 'a' is the first true value.
+(2) or evaluates '', which is false, then 'b', which is true, and returns 'b'.
+(3) If all values are false, or returns the last value. or evaluates '', which
+    is false, then [], which is false, then {}, which is false, and returns {}.
+(4) Note that or evaluates values only until it finds one that is true in a
+    boolean context, and then it ignores the rest. This distinction is
+    important if some values can have side effects. Here, the function sidefx
+    is never called, because or evaluates 'a', which is true, and returns 'a'
+    immediately.
+
+
+If you're a C hacker, you are certainly familiar with the bool ? a : b
+expression, which evaluates to a if bool is true, and b otherwise. Because of
+the way and and or work in Python, you can accomplish the same thing.
+
+4.6.1. Using the and-or Trick
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+Example 4.17. Introducing the and-or Trick
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> a = "first"
+    >>> b = "second"
+    >>> 1 and a or b (1)
+    'first'
+    >>> 0 and a or b (2)
+    'second'
+
+(1) This syntax looks similar to the bool ? a : b expression in C. The entire
+    expression is evaluated from left to right, so the and is evaluated first.
+    1 and 'first' evalutes to 'first', then 'first' or 'second' evalutes to
+    'first'.
+(2) 0 and 'first' evalutes to False, and then 0 or 'second' evaluates to
+    'second'.
+
+
+However, since this Python expression is simply boolean logic, and not a
+special construct of the language, there is one extremely important difference
+between this and-or trick in Python and the bool ? a : b syntax in C. If the
+value of a is false, the expression will not work as you would expect it to.
+(Can you tell I was bitten by this? More than once?)
+
+
+Example 4.18. When the and-or Trick Fails
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> a = ""
+    >>> b = "second"
+    >>> 1 and a or b         (1)
+    'second'
+
+(1) Since a is an empty string, which Python considers false in a boolean
+    context, 1 and '' evalutes to '', and then '' or 'second' evalutes to
+    'second'. Oops! That's not what you wanted.
+
+
+The and-or trick, bool and a or b, will not work like the C expression bool ? a
+: b when a is false in a boolean context.
+
+The real trick behind the and-or trick, then, is to make sure that the value of
+a is never false. One common way of doing this is to turn a into [a] and b into
+[b], then taking the first element of the returned list, which will be either a
+or b.
+
+
+Example 4.19. Using the and-or Trick Safely
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> a = ""
+    >>> b = "second"
+    >>> (1 and [a] or [b])[0] (1)
+    ''
+
+(1) Since [a] is a non-empty list, it is never false. Even if a is 0 or '' or
+    some other false value, the list [a] is true because it has one element.
+
+
+By now, this trick may seem like more trouble than it's worth. You could, after
+all, accomplish the same thing with an if statement, so why go through all this
+fuss? Well, in many cases, you are choosing between two constant values, so you
+can use the simpler syntax and not worry, because you know that the a value
+will always be true. And even if you need to use the more complicated safe
+form, there are good reasons to do so. For example, there are some cases in
+Python where if statements are not allowed, such as in lambda functions.
+
+Further Reading on the and-or Trick
+   
+  * Python Cookbook (http://www.activestate.com/ASPN/Python/Cookbook/)
+    discusses alternatives to the and-or trick (http://www.activestate.com/ASPN
+    /Python/Cookbook/Recipe/52310).
+
+4.7. Using lambda Functions
+----------------------------
+
+
+
+Python supports an interesting syntax that lets you define one-line
+mini-functions on the fly. Borrowed from Lisp, these so-called lambda functions
+can be used anywhere a function is required.
+
+
+Example 4.20. Introducing lambda Functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> def f(x):
+    ...     return x*2
+    ...     
+    >>> f(3)
+    6
+    >>> g = lambda x: x*2  (1)
+    >>> g(3)
+    6
+    >>> (lambda x: x*2)(3) (2)
+    6
+
+(1) This is a lambda function that accomplishes the same thing as the normal
+    function above it. Note the abbreviated syntax here: there are no
+    parentheses around the argument list, and the return keyword is missing (it
+    is implied, since the entire function can only be one expression). Also,
+    the function has no name, but it can be called through the variable it is
+    assigned to.
+(2) You can use a lambda function without even assigning it to a variable. This
+    may not be the most useful thing in the world, but it just goes to show
+    that a lambda is just an in-line function.
+
+
+To generalize, a lambda function is a function that takes any number of
+arguments (including optional arguments) and returns the value of a single
+expression. lambda functions can not contain commands, and they can not contain
+more than one expression. Don't try to squeeze too much into a lambda function;
+if you need something more complex, define a normal function instead and make
+it as long as you want.
+   
+    Note: lambda is Optional
+    lambda functions are a matter of style. Using them is never required;
+    anywhere you could use them, you could define a separate normal function
+    and use that instead. I use them in places where I want to encapsulate
+    specific, non-reusable code without littering my code with a lot of little
+    one-line functions.
+
+4.7.1. Real-World lambda Functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+Here are the lambda functions in apihelper.py:
+
+
+::
+
+        processFunc = collapse and (lambda s: " ".join(s.split())) or (lambda s: s)
+    
+Notice that this uses the simple form of the and-or trick, which is okay,
+
+
+because a lambda function is always true in a boolean context. (That doesn't
+mean that a lambda function can't return a false value. The function is always
+true; its return value could be anything.)
+
+Also notice that you're using the split function with no arguments. You've
+already seen it used with one or two arguments, but without any arguments it
+splits on whitespace.
+
+
+Example 4.21. split With No Arguments
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+::
+
+    >>> s = "this   is\na\ttest"  (1)
+    >>> print s
+    this   is
+    a       test
+    >>> print s.split()           (2)
+    ['this', 'is', 'a', 'test']
+    >>> print " ".join(s.split()) (3)
+    'this is a test'
+
+(1) This is a multiline string, defined by escape characters instead of triple
+    quotes. \n is a carriage return, and \t is a tab character.
+(2) split without any arguments splits on whitespace. So three spaces, a
+    carriage return, and a tab character are all the same.
+(3) You can normalize whitespace by splitting a string with split and then
+    rejoining it with join, using a single space as a delimiter. This is what
+    the info function does to collapse multi-line doc strings into a single
+    line.
+
+
+So what is the info function actually doing with these lambda functions,
+splits, and and-or tricks?
+
+
+::
+
+        processFunc = collapse and (lambda s: " ".join(s.split())) or (lambda s: s)
+    
+processFunc is now a function, but which function it is depends on the value of
+
+
+the collapse variable. If collapse is true, processFunc(string) will collapse
+whitespace; otherwise, processFunc(string) will return its argument unchanged.
+
+To do this in a less robust language, like Visual Basic, you would probably
+create a function that took a string and a collapse argument and used an if
+statement to decide whether to collapse the whitespace or not, then returned
+the appropriate value. This would be inefficient, because the function would
+need to handle every possible case. Every time you called it, it would need to
+decide whether to collapse whitespace before it could give you what you wanted.
+In Python, you can take that decision logic out of the function and define a
+lambda function that is custom-tailored to give you exactly (and only) what you
+want. This is more efficient, more elegant, and less prone to those nasty
+oh-I-thought-those-arguments-were-reversed kinds of errors.
+
+Further Reading on lambda Functions
+   
+  * Python Knowledge Base (http://www.faqts.com/knowledge-base/index.phtml/
+    fid/199/) discusses using lambda to call functions indirectly (http://
+    www.faqts.com/knowledge-base/view.phtml/aid/6081/fid/241).
+  * Python Tutorial (http://www.python.org/doc/current/tut/tut.html) shows
+    how to access outside variables from inside a lambda function (http://
+    www.python.org/doc/current/tut/node6.html#SECTION006740000000000000000). (
+    PEP 227 (http://python.sourceforge.net/peps/pep-0227.html) explains how
+    this will change in future versions of Python.)
+  * The Whole Python FAQ (http://www.python.org/doc/FAQ.html) has examples of
+    obfuscated one-liners using lambda (http://www.python.org/cgi-bin/faqw.py?
+    query=4.15&querytype=simple&casefold=yes&req=search).
+
+4.8. Putting It All Together
+-----------------------------
+
+
+
+The last line of code, the only one you haven't deconstructed yet, is the one
+that does all the work. But by now the work is easy, because everything you
+need is already set up just the way you need it. All the dominoes are in place;
+it's time to knock them down.
+
+This is the meat of apihelper.py:
+    print "\n".join(["%s %s" %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     for method in methodList])
+
+Note that this is one command, split over multiple lines, but it doesn't use
+the line continuation character (\). Remember when I said that some expressions
+can be split into multiple lines without using a backslash? A list
+comprehension is one of those expressions, since the entire expression is
+contained in square brackets.
+
+Now, let's take it from the end and work backwards. The
+for method in methodList
+
+shows that this is a list comprehension. As you know, methodList is a list of
+all the methods you care about in object. So you're looping through that list
+with method.
+
+
+Example 4.22. Getting a doc string Dynamically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> import odbchelper
+    >>> object = odbchelper                   (1)
+    >>> method = 'buildConnectionString'      (2)
+    >>> getattr(object, method)               (3)
+    <function buildConnectionString at 010D6D74>
+    >>> print getattr(object, method).__doc__ (4)
+    Build a connection string from a dictionary of parameters.
+
+    Returns string.
+
+(1) In the info function, object is the object you're getting help on, passed
+    in as an argument.
+(2) As you're looping through methodList, method is the name of the current
+    method.
+(3) Using the getattr function, you're getting a reference to the method
+    function in the object module.
+(4) Now, printing the actual doc string of the method is easy.
+
+
+The next piece of the puzzle is the use of str around the doc string. As you
+may recall, str is a built-in function that coerces data into a string. But a
+doc string is always a string, so why bother with the str function? The answer
+is that not every function has a doc string, and if it doesn't, its __doc__
+attribute is None.
+
+
+Example 4.23. Why Use str on a doc string?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> >>> def foo(): print 2
+    >>> >>> foo()
+    2
+    >>> >>> foo.__doc__     (1)
+    >>> foo.__doc__ == None (2)
+    True
+    >>> str(foo.__doc__)    (3)
+    'None'
+
+(1) You can easily define a function that has no doc string, so its __doc__
+    attribute is None. Confusingly, if you evaluate the __doc__ attribute
+    directly, the Python IDE prints nothing at all, which makes sense if you
+    think about it, but is still unhelpful.
+(2) You can verify that the value of the __doc__ attribute is actually None by
+    comparing it directly.
+(3) The str function takes the null value and returns a string representation
+    of it, 'None'.
+
+    Note: Python vs. SQL: null value comparisons
+    In SQL, you must use IS NULL instead of = NULL to compare a null value. In
+    Python, you can use either == None or is None, but is None is faster.
+
+
+Now that you are guaranteed to have a string, you can pass the string to
+processFunc, which you have already defined as a function that either does or
+doesn't collapse whitespace. Now you see why it was important to use str to
+convert a None value into a string representation. processFunc is assuming a
+string argument and calling its split method, which would crash if you passed
+it None because None doesn't have a split method.
+
+Stepping back even further, you see that you're using string formatting again
+to concatenate the return value of processFunc with the return value of
+method's ljust method. This is a new string method that you haven't seen
+before.
+
+
+Example 4.24. Introducing ljust
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> s = 'buildConnectionString'
+    >>> s.ljust(30) (1)
+    'buildConnectionString         '
+    >>> s.ljust(20) (2)
+    'buildConnectionString'
+
+(1) ljust pads the string with spaces to the given length. This is what the
+    info function uses to make two columns of output and line up all the doc
+    strings in the second column.
+(2) If the given length is smaller than the length of the string, ljust will
+    simply return the string unchanged. It never truncates the string.
+
+
+You're almost finished. Given the padded method name from the ljust method and
+the (possibly collapsed) doc string from the call to processFunc, you
+concatenate the two and get a single string. Since you're mapping methodList,
+you end up with a list of strings. Using the join method of the string "\n",
+you join this list into a single string, with each element of the list on a
+separate line, and print the result.
+
+
+Example 4.25. Printing a List
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+::
+
+    >>> li = ['a', 'b', 'c']
+    >>> print "\n".join(li) (1)
+    a
+    b
+    c
+
+(1) This is also a useful debugging trick when you're working with lists. And
+    in Python, you're always working with lists.
+
+
+That's the last piece of the puzzle. You should now understand this code.
+    print "\n".join(["%s %s" %
+                      (method.ljust(spacing),
+                       processFunc(str(getattr(object, method).__doc__)))
+                     for method in methodList])
+
+4.9. Summary
+-------------
+
+
+
+The apihelper.py program and its output should now make perfect sense.
+
+
+::
+
+    def info(object, spacing=10, collapse=1):
+        """Print methods and doc strings.
+        
+        Takes module, class, list, dictionary, or string."""
+        methodList = [method for method in dir(object) if callable(getattr(object, method))]
+        processFunc = collapse and (lambda s: " ".join(s.split())) or (lambda s: s)
+        print "\n".join(["%s %s" %
+                          (method.ljust(spacing),
+                           processFunc(str(getattr(object, method).__doc__)))
+                         for method in methodList])
+    
+    if __name__ == "__main__":
+        print info.__doc__
+
+
+
+Here is the output of apihelper.py:
+
+
+::
+
+    >>> from apihelper import info
+    >>> li = []
+    >>> info(li)
+    append     L.append(object) -- append object to end
+    count      L.count(value) -> integer -- return number of occurrences of value
+    extend     L.extend(list) -- extend list by appending list elements
+    index      L.index(value) -> integer -- return index of first occurrence of value
+    insert     L.insert(index, object) -- insert object before index
+    pop        L.pop([index]) -> item -- remove and return item at index (default last)
+    remove     L.remove(value) -- remove first occurrence of value
+    reverse    L.reverse() -- reverse *IN PLACE*
+    sort       L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -> -1, 0, 1
+
+Before diving into the next chapter, make sure you're comfortable doing all of
+these things:
+   
+  * Defining and calling functions with optional and named arguments
+  * Using str to coerce any arbitrary value into a string representation
+  * Using getattr to get references to functions and other attributes
+    dynamically
+  * Extending the list comprehension syntax to do list filtering
+  * Recognizing the and-or trick and using it safely
+  * Defining lambda functions
+  * Assigning functions to variables and calling the function by referencing
+    the variable. I can't emphasize this enough, because this mode of thought
+    is vital to advancing your understanding of Python. You'll see more complex
+    applications of this concept throughout this book.
+
