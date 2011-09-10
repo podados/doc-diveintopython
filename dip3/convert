@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for src in `ls *.html`; do
+    dst=`echo $src | sed "s/\.html$/.rst/"`
+    html2rest $src > $dst
+    echo "$src --> $dst"
+done
+

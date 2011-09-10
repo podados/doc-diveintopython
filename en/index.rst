@@ -1,51 +1,91 @@
 
-.. _diveintopython-index:
-
-================
-Dive Into Python
-================
+You are here:
 
 
-20 May 2004
+Dive Into Python 3
+==================
 
-Copyright (c) 2000, 2001, 2002, 2003, 2004 Mark Pilgrim (mailto:
-mark@diveintopython.org)
-
-
-This book lives at http://diveintopython.org/. If you're reading it somewhere
-else, you may not have the latest version.
-
-Permission is granted to copy, distribute, and/or modify this document under
-the terms of the GNU Free Documentation License, Version 1.1 or any later
-version published by the Free Software Foundation; with no Invariant Sections,
-no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is
-included in Appendix G, GNU Free Documentation License.
-
-The example programs in this book are free software; you can redistribute and/
-or modify them under the terms of the Python license as published by the Python
-Software Foundation. A copy of the license is included in Appendix H, Python
-license.
+Dive Into Python 3 covers Python 3 and its differences from Python 2.
+Compared to `Dive Into Python`_ , its about 20% revised and 80% new
+material. The book is now complete, but `feedback is always welcome`_.
 
 
-.. toctree::
+Table of Contents (`expand`_)
+-----------------------------
 
-    1
-    2
-    3
-    4
-    5
-    6
-    7
-    8
-    9
-    10
-    11
-    12
-    13
-    14
-    15
-    16
-    17
-    18
-    appendices/index
+` *Also available on dead trees!*
+`_
+
+#. `Whats New in Dive Into Python 3`_
+#. `Installing Python`_
+#. `Your First Python Program`_
+#. `Native Datatypes`_
+#. `Comprehensions`_
+#. `Strings`_
+#. `Regular Expressions`_
+#. `Closures & Generators`_
+#. `Classes & Iterators`_
+#. `Advanced Iterators`_
+#. `Unit Testing`_
+#. `Refactoring`_
+#. `Files`_
+#. `XML`_
+#. `Serializing Python Objects`_
+#. `HTTP Web Services`_
+#. `Case Study: Porting `chardet` to Python 3`_
+#. `Packaging Python Libraries`_
+#. `Porting Code to Python 3 with `2to3``_
+#. `Special Method Names`_
+#. `Where to Go From Here`_
+#. `Troubleshooting`_
+
+
+The book is freely licensed under the `Creative Commons Attribution
+Share-Alike`_ license. You can download it as ` HTML `_ or ` PDF `_.
+ber-geeks can also clone the Git repository:
+
+::
+
+    you@localhost:~$ git clone `git://github.com/diveintomark/diveintopython3.git`_
+
+
+200111 `Mark Pilgrim`_
+Translations: `en espaol`_, `in italiano`_, `на русском языке`_, `به
+پارسی`_, `česky`_
+
+.. _Troubleshooting: troubleshooting.html
+.. _ Iterators: iterators.html
+.. _Where to Go From Here: where-to-go-from-here.html
+.. _Files: files.html
+.. _in italiano: http://gpiancastelli.altervista.org/dip3-it/
+.. _expand: table-of-contents.html
+.. _PDF: d/diveintopython3-pdf-latest.zip
+.. _به پارسی: http://www.diveintopython3.ir/
+.. _česky: http://diveintopython3.py.cz/
+.. _2to3: porting-code-to-python-3-with-2to3.html
+.. _Special Method Names: special-method-names.html
+.. _Serializing Python Objects: serializing.html
+.. _Also available on dead trees!: http://www.amazon.com/gp/product/1430224150?ie=UTF8&tag=diveintomark-20&creativeASIN=1430224150
+.. _Mark Pilgrim: about.html
+.. _HTML: d/diveintopython3-html-latest.zip
+.. _HTTP Web Services: http-web-services.html
+.. _на русском языке: http://ru.wikisource.org/wiki/%D0%9F%D0%BE%D0%B3%D1%80%D1%83%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B2_Python_3_(%D0%9F%D0%B8%D0%BB%D0%B3%D1%80%D0%B8%D0%BC)
+.. _Regular Expressions: regular-expressions.html
+.. _Refactoring: refactoring.html
+.. _Packaging Python Libraries: packaging.html
+.. _Your First Python Program: your-first-python-program.html
+.. _Dive Into Python 3: whats-new.html
+.. _ol: http://code.google.com/p/inmersionenpython3/
+.. _ to Python 3: case-study-porting-chardet-to-python-3.html
+.. _Unit Testing: unit-testing.html
+.. _Advanced Iterators: advanced-iterators.html
+.. _Comprehensions: comprehensions.html
+.. _Native Datatypes: native-datatypes.html
+.. _XML: xml.html
+.. _Creative Commons Attribution Share-Alike: http://creativecommons.org/licenses/by-sa/3.0/
+.. _Strings: strings.html
+.. _ Generators: generators.html
+.. _Installing Python: installing-python.html
+.. _Dive Into Python: http://diveintopython.org/
+
 
