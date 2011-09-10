@@ -1,12 +1,11 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
 Difficulty level: ♦♦♦♦♦
 
 
 Case Study: Porting `chardet` to Python 3
 =========================================
 
-❝ Words, words. Theyre all we have to go on. ❞
+❝ Words, words. They're all we have to go on. ❞
 `Rosencrantz and Guildenstern are Dead`_
 
 
@@ -26,6 +25,7 @@ Id also like a pony.
 A Unicode pony.
 A Unipony, as it were.
 Ill settle for character encoding auto-detection.
+
 ⁂
 
 
@@ -63,6 +63,7 @@ detection library`_ which is open source. `I ported the library to
 Python 2`_ and dubbed it the `chardet` module. This chapter will take
 you step-by-step through the process of porting the `chardet` module
 from Python 2 to Python 3.
+
 ⁂
 
 
@@ -72,7 +73,7 @@ Introducing The `chardet` Module
 Before we set off porting the code, it would help if you understood
 how the code worked! This is a brief guide to navigating the code
 itself. The `chardet` library is too large to include inline here, but
-you can `download it from `chardet.feedparser.org``_. Encoding
+you can `download it from chardet.feedparser.org`_. Encoding
 detection is really language detection in drag.
 The main entry point for the detection algorithm is
 `universaldetector.py`, which has one class, `UniversalDetector`. (You
@@ -83,17 +84,17 @@ result.)
 There are 5 categories of encodings that `UniversalDetector` handles:
 
 #. UTF-n with a Byte Order Mark ( BOM ). This includes UTF-8 , both
-Big-Endian and Little-Endian variants of UTF-16 , and all 4 byte-order
-variants of UTF-32 .
+   Big-Endian and Little-Endian variants of UTF-16 , and all 4 byte-order
+   variants of UTF-32 .
 #. Escaped encodings, which are entirely 7-bit ASCII compatible, where
-non- ASCII characters start with an escape sequence. Examples:
-ISO-2022-JP (Japanese) and HZ-GB-2312 (Chinese).
+   non- ASCII characters start with an escape sequence. Examples:
+   ISO-2022-JP (Japanese) and HZ-GB-2312 (Chinese).
 #. Multi-byte encodings, where each character is represented by a
-variable number of bytes. Examples: Big5 (Chinese), SHIFT_JIS
-(Japanese), EUC-KR (Korean), and UTF-8 without a BOM .
+   variable number of bytes. Examples: Big5 (Chinese), SHIFT_JIS
+   (Japanese), EUC-KR (Korean), and UTF-8 without a BOM .
 #. Single-byte encodings, where each character is represented by one
-byte. Examples: KOI8-R (Russian), windows-1255 (Hebrew), and TIS-620
-(Thai).
+   byte. Examples: KOI8-R (Russian), windows-1255 (Hebrew), and TIS-620
+   (Thai).
 #. windows-1252 , which is used primarily on Microsoft Windows by
    middle managers who wouldnt know a character encoding from a hole in
    the ground.
@@ -177,7 +178,9 @@ confidence level to `MBCSGroupProber`.
 
 Single-Byte Encodings
 ~~~~~~~~~~~~~~~~~~~~~
+
 Seriously, wheres my Unicode pony?
+
 The single-byte encoding prober, `SBCSGroupProber` (defined in
 `sbcsgroupprober.py`), is also just a shell that manages a group of
 other probers, one for each combination of single-byte encoding and
@@ -436,7 +439,7 @@ Lets take a peek in that `__init__.py` file.
 
 
 #. The `__init__.py` file defines the `detect()` function, which is
-the main entry point into the `chardet` library.
+   the main entry point into the `chardet` library.
 #. But the `detect()` function hardly has any code! In fact, all it
    really does is import the `universaldetector` module and start using
    it. But where is `universaldetector` defined?
@@ -446,7 +449,7 @@ The answer lies in that odd-looking `import` statement:
 
 ::
 
-     `from . import universaldetector`
+    from . import universaldetector
 
 
 Translated into English, that means import the `universaldetector`
@@ -527,14 +530,14 @@ So this line in `universaldetector.py`:
 
 ::
 
-     `self.done = constants.False`
+    self.done = constants.False
 
 
 Becomes
 
 ::
 
-     `self.done = False`
+    self.done = False
 
 
 Ah, wasnt that satisfying? The code is shorter and more readable
@@ -570,7 +573,7 @@ about it:
 
 ::
 
-     `from . import constants`
+    from . import constants
 
 
 But wait. Wasnt the `2to3` script supposed to take care of these for
@@ -586,15 +589,15 @@ in-one import:
 
 ::
 
-     `import constants, sys`
+    import constants, sys
 
 
 Needs to become two separate imports:
 
 ::
 
-     `from . import constants
-    import sys`
+    from . import constants
+    import sys
 
 
 There are variations of this problem scattered throughout the
@@ -631,7 +634,7 @@ to call the `open()` function instead:
 
 ::
 
-     `for line in open(f, 'rb'):`
+    for line in open(f, 'rb'):
 
 
 And thats all I have to say about that.
@@ -660,9 +663,9 @@ the __init__ method of the UniversalDetector class:
 
 ::
 
-     `class UniversalDetector:
+    class UniversalDetector:
         def __init__(self):
-            self._highBitDetector = re.compile(r'[\x80-\xFF]')`
+            self._highBitDetector = re.compile(r'[\x80-\xFF]')
 
 
 This pre-compiles a regular expression designed to find non- ASCII
@@ -1063,11 +1066,11 @@ Thus:
 
 ::
 
-     `  def next_state(self, c):
+      def next_state(self, c):
           # for each byte we get its class
           # if it is first byte, we also get byte length
     -     byteCls = self._mModel['classTable'][ord(c)]
-    +     byteCls = self._mModel['classTable'][c]`
+    +     byteCls = self._mModel['classTable'][c]
 
 
 Searching the entire codebase for instances of `ord(c)` uncovers
@@ -1075,7 +1078,7 @@ similar problems in `sbcharsetprober.py`
 
 ::
 
-     `# sbcharsetprober.py
+    # sbcharsetprober.py
     def feed(self, aBuf):
         if not self._mModel['keepEnglishLetter']:
             aBuf = self.filter_without_english_letters(aBuf)
@@ -1083,18 +1086,18 @@ similar problems in `sbcharsetprober.py`
         if not aLen:
             return self.get_state()
         for c in aBuf:
-            order = self._mModel['charToOrderMap'][ord(c)]`
+            order = self._mModel['charToOrderMap'][ord(c)]
 
 
 and `latin1prober.py`
 
 ::
 
-     `# latin1prober.py
+    # latin1prober.py
     def feed(self, aBuf):
         aBuf = self.filter_with_english_letters(aBuf)
         for c in aBuf:
-            charClass = Latin1_CharToClass[ord(c)]`
+            charClass = Latin1_CharToClass[ord(c)]
 
 
 c is iterating over aBuf , which means it is an integer, not a
@@ -1103,7 +1106,7 @@ plain `c`.
 
 ::
 
-     `  # sbcharsetprober.py
+      # sbcharsetprober.py
       def feed(self, aBuf):
           if not self._mModel['keepEnglishLetter']:
               aBuf = self.filter_without_english_letters(aBuf)
@@ -1120,8 +1123,6 @@ plain `c`.
           for c in aBuf:
     -         charClass = Latin1_CharToClass[ord(c)]
     +         charClass = Latin1_CharToClass[c]
-    `
-
 
 
 Unorderable types: `int()` >= `str()`
@@ -1156,7 +1157,7 @@ at the code:
 
 ::
 
-     `class SJISContextAnalysis(JapaneseContextAnalysis):
+    class SJISContextAnalysis(JapaneseContextAnalysis):
         def get_order(self, aStr):
             if not aStr: return -1, 1
             # find out current char's byte length
@@ -1164,20 +1165,20 @@ at the code:
                ((aStr[0] >= '\xE0') and (aStr[0] <= '\xFC')):
                 charLen = 2
             else:
-                charLen = 1`
+                charLen = 1
 
 
 And where does aStr come from? Lets pop the stack:
 
 ::
 
-     `def feed(self, aBuf, aLen):
+    def feed(self, aBuf, aLen):
         .
         .
         .
         i = self._mNeedToSkipCharNum
         while i < aLen:
-            order, charLen = self.get_order(aBuf[i:i+2])`
+            order, charLen = self.get_order(aBuf[i:i+2])
 
 
 Oh look, its our old friend, aBuf . As you might have guessed from
@@ -1201,7 +1202,7 @@ aStr to aBuf , since its not actually a string.
 
 ::
 
-     `  class SJISContextAnalysis(JapaneseContextAnalysis):
+      class SJISContextAnalysis(JapaneseContextAnalysis):
     -     def get_order(self, aStr):
     -      if not aStr: return -1, 1
     +     def get_order(self, aBuf):
@@ -1258,7 +1259,7 @@ aStr to aBuf , since its not actually a string.
     +              (aBuf[1] <= 0xF3):
     +               return aBuf[1] - 0xA1, charLen
     
-            return -1, charLen`
+            return -1, charLen
 
 
 Searching the entire codebase for occurrences of the `ord()` function
@@ -1301,11 +1302,11 @@ Python 3000`_.
 
 ::
 
-     `def get_confidence(self):
+    def get_confidence(self):
         if self.get_state() == constants.eNotMe:
             return 0.01
       
-        total = reduce(operator.add, self._mFreqCounter)`
+        total = reduce(operator.add, self._mFreqCounter)
 
 
 The `reduce()` function takes two argumentsa function and a list
@@ -1318,12 +1319,12 @@ function.
 
 ::
 
-     `  def get_confidence(self):
+      def get_confidence(self):
           if self.get_state() == constants.eNotMe:
               return 0.01
       
     -     total = reduce(operator.add, self._mFreqCounter)
-    +     total = sum(self._mFreqCounter)`
+    +     total = sum(self._mFreqCounter)
 
 
 Since youre no longer using the `operator` module, you can remove that
@@ -1331,9 +1332,9 @@ Since youre no longer using the `operator` module, you can remove that
 
 ::
 
-     `  from .charsetprober import CharSetProber
+      from .charsetprober import CharSetProber
       from . import constants
-    - import operator`
+    - import operator
 
 
 I CAN HAZ TESTZ?
@@ -1386,22 +1387,22 @@ Summary
 What have we learned?
 
 #. Porting any non-trivial amount of code from Python 2 to Python 3 is
-going to be a pain. Theres no way around it. Its hard.
+   going to be a pain. Theres no way around it. Its hard.
 #. The `automated `2to3` tool`_ is helpful as far as it goes, but it
-will only do the easy partsfunction renames, module renames, syntax
-changes. Its an impressive piece of engineering, but in the end its
-just an intelligent search-and-replace bot.
+   will only do the easy partsfunction renames, module renames, syntax
+   changes. Its an impressive piece of engineering, but in the end its
+   just an intelligent search-and-replace bot.
 #. The #1 porting problem in this library was the difference between
-strings and bytes. In this case that seems obvious, since the whole
-point of the `chardet` library is to convert a stream of bytes into a
-string. But a stream of bytes comes up more often than you might
-think. Reading a file in binary mode? Youll get a stream of bytes.
-Fetching a web page? Calling a web API ? They return a stream of
-bytes, too.
+   strings and bytes. In this case that seems obvious, since the whole
+   point of the `chardet` library is to convert a stream of bytes into a
+   string. But a stream of bytes comes up more often than you might
+   think. Reading a file in binary mode? Youll get a stream of bytes.
+   Fetching a web page? Calling a web API ? They return a stream of
+   bytes, too.
 #. *You* need to understand your program. Thoroughly. Preferably
-because you wrote it, but at the very least, you need to be
-comfortable with all its quirks and musty corners. The bugs are
-everywhere.
+   because you wrote it, but at the very least, you need to be
+   comfortable with all its quirks and musty corners. The bugs are
+   everywhere.
 #. Test cases are essential. Dont port anything without them. The
    *only* reason I have any confidence that `chardet` works in Python 3
    is that I started with a test suite that exercised all major code
@@ -1415,12 +1416,9 @@ everywhere.
 
 .. _The fate of reduce() in Python 3000: 'http://www.artima.com/weblogs/viewpost.jsp?thread=98196'
 .. _Mozilla Firefox contains an encoding auto-detection library: http://lxr.mozilla.org/seamonkey/source/extensions/universalchardet/src/base/
-.. _Home: index.html
 .. _Rosencrantz and Guildenstern are Dead: http://www.imdb.com/title/tt0100519/quotes
-.. _x261C;: http-web-services.html
 .. _list slicing: native-datatypes.html#slicinglists
 .. _I ported the library to Python 2: http://chardet.feedparser.org/
-.. _x261E;: packaging.html
 .. _Dive Into Python 3: table-of-contents.html#case-study-porting-chardet-to-python-3
 .. _ tool: porting-code-to-python-3-with-2to3.html
 .. _/me does a little dance: http://www.hampsterdance.com/

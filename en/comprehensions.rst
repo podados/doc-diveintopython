@@ -1,7 +1,5 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
 Difficulty level: ♦♦♢♢♢
-
 
 Comprehensions
 ==============
@@ -24,6 +22,7 @@ comprehensions, and set comprehensions: three related concepts
 centered around one very powerful technique. But first, I want to take
 a little detour into two modules that will help you navigate your
 local file system.
+
 ⁂
 
 
@@ -82,16 +81,16 @@ working directory.
 
 
 #. The `os` module comes with Python; you can import it anytime,
-anywhere.
+   anywhere.
 #. Use the `os.getcwd()` function to get the current working
-directory. When you run the graphical Python Shell, the current
-working directory starts as the directory where the Python Shell
-executable is. On Windows, this depends on where you installed Python;
-the default directory is `c:\Python31`. If you run the Python Shell
-from the command line, the current working directory starts as the
-directory you were in when you ran `python3`.
+   directory. When you run the graphical Python Shell, the current
+   working directory starts as the directory where the Python Shell
+   executable is. On Windows, this depends on where you installed Python;
+   the default directory is `c:\Python31`. If you run the Python Shell
+   from the command line, the current working directory starts as the
+   directory you were in when you ran `python3`.
 #. Use the `os.chdir()` function to change the current working
-directory.
+   directory.
 #. When I called the `os.chdir()` function, I used a Linux-style
    pathname (forward slashes, no drive letter) even though Im on Windows.
    This is one of the places where Python tries to paper over the
@@ -123,19 +122,19 @@ filenames and directory names.
 
 
 #. The `os.path.join()` function constructs a pathname out of one or
-more partial pathnames. In this case, it simply concatenates strings.
+   more partial pathnames. In this case, it simply concatenates strings.
 #. In this slightly less trivial case, calling the `os.path.join()`
-function will add an extra slash to the pathname before joining it to
-the filename. Its a backslash instead of a forward slash, because I
-constructed this example on Windows. If you replicate this example on
-Linux or Mac OS X, youll see a forward slash instead. Dont fuss with
-slashes; always use `os.path.join()` and let Python do the right
-thing.
+   function will add an extra slash to the pathname before joining it to
+   the filename. Its a backslash instead of a forward slash, because I
+   constructed this example on Windows. If you replicate this example on
+   Linux or Mac OS X, youll see a forward slash instead. Dont fuss with
+   slashes; always use `os.path.join()` and let Python do the right
+   thing.
 #. The `os.path.expanduser()` function will expand a pathname that
-uses `~` to represent the current users home directory. This works on
-any platform where users have a home directory, including Linux, Mac
-OS X, and Windows. The returned path does not have a trailing slash,
-but the `os.path.join()` function doesnt mind.
+   uses `~` to represent the current users home directory. This works on
+   any platform where users have a home directory, including Linux, Mac
+   OS X, and Windows. The returned path does not have a trailing slash,
+   but the `os.path.join()` function doesnt mind.
 #. Combining these techniques, you can easily construct pathnames for
    directories and files in the users home directory. The
    `os.path.join()` function can take any number of arguments. I was
@@ -169,18 +168,18 @@ names, and filenames into their constituent parts.
 
 
 #. The `split` function splits a full pathname and returns a tuple
-containing the path and filename.
+   containing the path and filename.
 #. Remember when I said you could use `multi-variable assignment`_ to
-return multiple values from a function? The `os.path.split()` function
-does exactly that. You assign the return value of the `split` function
-into a tuple of two variables. Each variable receives the value of the
-corresponding element of the returned tuple.
+   return multiple values from a function? The `os.path.split()` function
+   does exactly that. You assign the return value of the `split` function
+   into a tuple of two variables. Each variable receives the value of the
+   corresponding element of the returned tuple.
 #. The first variable, dirname , receives the value of the first
-element of the tuple returned from the `os.path.split()` function, the
-file path.
+   element of the tuple returned from the `os.path.split()` function, the
+   file path.
 #. The second variable, filename , receives the value of the second
-element of the tuple returned from the `os.path.split()` function, the
-filename.
+   element of the tuple returned from the `os.path.split()` function, the
+   filename.
 #. `os.path` also contains the `os.path.splitext()` function, which
    splits a filename and returns a tuple containing the filename and the
    file extension. You use the same technique to assign each of them to
@@ -230,11 +229,11 @@ wildcards.
 
 
 #. The `glob` module takes a wildcard and returns the path of all
-files and directories matching the wildcard. In this example, the
-wildcard is a directory path plus `*.xml`, which will match all `.xml`
-files in the `examples` subdirectory.
+   files and directories matching the wildcard. In this example, the
+   wildcard is a directory path plus `*.xml`, which will match all `.xml`
+   files in the `examples` subdirectory.
 #. Now change the current working directory to the `examples`
-subdirectory. The `os.chdir()` function can take relative pathnames.
+   subdirectory. The `os.chdir()` function can take relative pathnames.
 #. You can include multiple wildcards in your glob pattern. This
    example finds all the files in the current working directory that end
    in a `.py` extension and contain the word `test` anywhere in their
@@ -269,15 +268,15 @@ all you need is the filename.
 
 #. The current working directory is the `examples` folder.
 #. `feed.xml` is a file in the `examples` folder. Calling the
-`os.stat()` function returns an object that contains several different
-types of metadata about the file.
+   `os.stat()` function returns an object that contains several different
+   types of metadata about the file.
 #. `st_mtime` is the modification time, but its in a format that isnt
-terribly useful. (Technically, its the number of seconds since the
-Epoch, which is defined as the first second of January 1st, 1970.
-Seriously.)
+   terribly useful. (Technically, its the number of seconds since the
+   Epoch, which is defined as the first second of January 1st, 1970.
+   Seriously.)
 #. The `time` module is part of the Python standard library. It
-contains functions to convert between different time representations,
-format time values into strings, and fiddle with timezones.
+   contains functions to convert between different time representations,
+   format time values into strings, and fiddle with timezones.
 #. The `time.localtime()` function converts a time value from seconds-
    since-the-Epoch (from the `st_mtime` property returned from the
    `os.stat()` function) into a more useful structure of year, month,
@@ -299,9 +298,8 @@ format time values into strings, and fiddle with timezones.
 
 
 #. The `os.stat()` function also returns the size of a file, in the
-`st_size` property. The file `feed.xml` is `3070` bytes.
-#. You can pass the `st_size` property to the ` `approximate_size()`
-   function`_.
+   `st_size` property. The file `feed.xml` is `3070` bytes.
+#. You can pass the `st_size` property to the `approximate_size() function`_.
 
 
 
@@ -354,12 +352,12 @@ list.
 
 
 #. To make sense of this, look at it from right to left. a_list is the
-list youre mapping. The Python interpreter loops through a_list one
-element at a time, temporarily assigning the value of each element to
-the variable elem . Python then applies the function ` elem * 2` and
-appends that result to the returned list.
+   list youre mapping. The Python interpreter loops through a_list one
+   element at a time, temporarily assigning the value of each element to
+   the variable elem . Python then applies the function ` elem * 2` and
+   appends that result to the returned list.
 #. A list comprehension creates a new list; it does not change the
-original list.
+   original list.
 #. It is safe to assign the result of a list comprehension to the
    variable that youre mapping. Python constructs the new list in memory,
    and when the list comprehension is complete, it assigns the result to
@@ -384,7 +382,7 @@ directories.
 
 
 #. This returns a list of all the `.xml` files in the current working
-directory.
+   directory.
 #. This list comprehension takes that list of `.xml` files and
    transforms it into a list of full pathnames.
 
@@ -439,10 +437,10 @@ limit to how complex a list comprehension can be.
 
 
 #. This list comprehension finds all the `.xml` files in the current
-working directory, gets the size of each file (by calling the
-`os.stat()` function), and constructs a tuple of the file size and the
-absolute path of each file (by calling the `os.path.realpath()`
-function).
+   working directory, gets the size of each file (by calling the
+   `os.stat()` function), and constructs a tuple of the file size and the
+   absolute path of each file (by calling the `os.path.realpath()`
+   function).
 #. This comprehension builds on the previous one to call the `
    `approximate_size()` function`_ with the file size of each `.xml`
    file.
@@ -481,20 +479,20 @@ constructs a dictionary instead of a list.
 
 
 #. This is not a dictionary comprehension; its a list comprehension.
-It finds all `.py` files with `test` in their name, then constructs a
-tuple of the filename and the file metadata (from calling the
-`os.stat()` function).
+   It finds all `.py` files with `test` in their name, then constructs a
+   tuple of the filename and the file metadata (from calling the
+   `os.stat()` function).
 #. Each item of the resulting list is a tuple.
 #. This is a dictionary comprehension. The syntax is similar to a list
-comprehension, with two differences. First, it is enclosed in curly
-braces instead of square brackets. Second, instead of a single
-expression for each item, it contains two expressions separated by a
-colon. The expression before the colon ( `f` in this example) is the
-dictionary key; the expression after the colon ( `os.stat(f)` in this
-example) is the value.
+   comprehension, with two differences. First, it is enclosed in curly
+   braces instead of square brackets. Second, instead of a single
+   expression for each item, it contains two expressions separated by a
+   colon. The expression before the colon ( `f` in this example) is the
+   dictionary key; the expression after the colon ( `os.stat(f)` in this
+   example) is the value.
 #. A dictionary comprehension returns a dictionary.
 #. The keys of this particular dictionary are simply the filenames
-returned from the call to `glob.glob('*test*.py')`.
+   returned from the call to `glob.glob('*test*.py')`.
 #. The value associated with each key is the return value from the
    `os.stat()` function. That means we can look up a file by name in this
    dictionary to get its file metadata. One of the pieces of metadata is
@@ -521,18 +519,18 @@ expression which is evaluated with each item.
 
 
 #. This dictionary comprehension constructs a list of all the files in
-the current working directory ( `glob.glob('*')`), gets the file
-metadata for each file ( `os.stat(f)`), and constructs a dictionary
-whose keys are filenames and whose values are the metadata for each
-file.
+   the current working directory ( `glob.glob('*')`), gets the file
+   metadata for each file ( `os.stat(f)`), and constructs a dictionary
+   whose keys are filenames and whose values are the metadata for each
+   file.
 #. This dictionary comprehension builds on the previous comprehension,
-filters out files smaller than `6000` bytes ( `if meta.st_size >
-6000`), and uses that filtered list to construct a dictionary whose
-keys are the filename minus the extension ( `os.path.splitext(f)[0]`)
-and whose values are the approximate size of each file (
-`humansize.approximate_size(meta.st_size)`).
+   filters out files smaller than `6000` bytes ( `if meta.st_size >
+   6000`), and uses that filtered list to construct a dictionary whose
+   keys are the filename minus the extension ( `os.path.splitext(f)[0]`)
+   and whose values are the approximate size of each file (
+   `humansize.approximate_size(meta.st_size)`).
 #. As you saw in a previous example, there are six such files, thus
-there are six items in this dictionary.
+   there are six items in this dictionary.
 #. The value of each key is the string returned from the
    `approximate_size()` function.
 
@@ -595,10 +593,10 @@ pairs.
 
 
 #. Set comprehensions can take a set as input. This set comprehension
-calculates the squares of the set of numbers from 0 to `9`.
+   calculates the squares of the set of numbers from 0 to `9`.
 #. Like list comprehensions and dictionary comprehensions, set
-comprehensions can contain an `if` clause to filter each item before
-returning it in the result set.
+   comprehensions can contain an `if` clause to filter each item before
+   returning it in the result set.
 #. Set comprehensions do not need to take a set as input; they can
    take any sequence.
 
@@ -610,14 +608,14 @@ Further Reading
 ---------------
 
 
-+ ` `os` module`_
-+ ` `os`Portable access to operating system specific features`_
-+ ` `os.path` module`_
-+ ` `os.path`Platform-independent manipulation of file names`_
-+ ` `glob` module`_
-+ ` `glob`Filename pattern matching`_
-+ ` `time` module`_
-+ ` `time`Functions for manipulating clock time`_
++ `os module`_
++ `Portable access to operating system specific features`_
++ `os.path module`_
++ `Platform-independent manipulation of file names`_
++ `glob module`_
++ `Filename pattern matching`_
++ `time module`_
++ `Functions for manipulating clock time`_
 + `List comprehensions`_
 + `Nested list comprehensions`_
 + `Looping techniques`_
@@ -626,28 +624,24 @@ Further Reading
 `☜`_ `☞`_
 200111 `Mark Pilgrim`_
 
-.. _ module: http://docs.python.org/3.1/library/os.path.html
-.. _ module: http://docs.python.org/3.1/library/time.html
+.. _os.path module: http://docs.python.org/3.1/library/os.path.html
+.. _time module: http://docs.python.org/3.1/library/time.html
 .. _List comprehensions: http://docs.python.org/3.1/tutorial/datastructures.html#list-comprehensions
 .. _Looping techniques: http://docs.python.org/3.1/tutorial/datastructures.html#looping-techniques
 .. _the Python Shell: installing-python.html#idle
 .. _Nested list comprehensions: http://docs.python.org/3.1/tutorial/datastructures.html#nested-list-comprehensions
 .. _Dive Into Python 3: table-of-contents.html#comprehensions
-.. _ function: your-first-python-program.html#divingin
+.. _approximate_size() function: your-first-python-program.html#divingin
 .. _Filename pattern matching: http://www.doughellmann.com/PyMOTW/glob/
 .. _Functions for manipulating clock time: http://www.doughellmann.com/PyMOTW/time/
 .. _Platform-independent manipulation of file names: http://www.doughellmann.com/PyMOTW/ospath/
-.. _ folder: examples/
 .. _Mark Pilgrim: about.html
-.. _ module: http://docs.python.org/3.1/library/glob.html
+.. _glob module: http://docs.python.org/3.1/library/glob.html
 .. _the import search path: your-first-python-program.html#importsearchpath
 .. _Richard Feynman: http://en.wikiquote.org/wiki/Richard_Feynman
-.. _Home: index.html
 .. _Portable access to operating system specific features: http://www.doughellmann.com/PyMOTW/os/
-.. _x261C;: native-datatypes.html
 .. _multi-variable assignment: native-datatypes.html#multivar
-.. _ module: http://docs.python.org/3.1/library/os.html
-.. _x261E;: strings.html
+.. _os module: http://docs.python.org/3.2/library/os.html
 .. _all supported operating systems: installing-python.html
 
 

@@ -1,5 +1,4 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
 Difficulty level: ♦♦♦♦♢
 
 
@@ -20,7 +19,7 @@ show you a classic puzzle.
 
 ::
 
-     `HAWAII + IDAHO + IOWA + OHIO == STATES
+    HAWAII + IDAHO + IOWA + OHIO == STATES
     510199 + 98153 + 9301 + 3593 == 621246
     
     H = 5
@@ -44,11 +43,11 @@ puzzle is `SEND + MORE = MONEY`.
 In this chapter, well dive into an incredible Python program
 originally written by Raymond Hettinger. This program solves
 alphametic puzzles *in just 14 lines of code*.
-[`download `alphametics.py``_]
+[download `alphametics.py`_]
 
 ::
 
-     `import re
+    import re
     import itertools
     
     def solve(puzzle):
@@ -116,11 +115,11 @@ The first thing this alphametics solver does is find all the letters
 
 
 #. The `re` module is Pythons implementation of `regular
-expressions`_. It has a nifty function called `findall()` which takes
-a regular expression pattern and a string, and finds all occurrences
-of the pattern within the string. In this case, the pattern matches
-sequences of numbers. The `findall()` function returns a list of all
-the substrings that matched the pattern.
+   expressions`_. It has a nifty function called `findall()` which takes
+   a regular expression pattern and a string, and finds all occurrences
+   of the pattern within the string. In this case, the pattern matches
+   sequences of numbers. The `findall()` function returns a list of all
+   the substrings that matched the pattern.
 #. Here the regular expression pattern matches sequences of letters.
    Again, the return value is a list, and each item in the list is a
    string that matched the regular expression pattern.
@@ -156,6 +155,7 @@ returned and the fourth is skipped. Finally, the fifth is returned.
 Three matches, not five.
 This has nothing to do with the alphametics solver; I just thought it
 was interesting.
+
 ⁂
 
 
@@ -182,17 +182,17 @@ Finding the unique items in a sequence
 
 
 #. Given a list of several strings, the `set()` function will return a
-set of unique strings from the list. This makes sense if you think of
-it like a `for` loop. Take the first item from the list, put it in the
-set. Second. Third. Fourth. Fifthwait, thats in the set already, so it
-only gets listed once, because Python sets dont allow duplicates.
-Sixth. Seventhagain, a duplicate, so it only gets listed once. The end
-result? All the unique items in the original list, without any
-duplicates. The original list doesnt even need to be sorted first.
+   set of unique strings from the list. This makes sense if you think of
+   it like a `for` loop. Take the first item from the list, put it in the
+   set. Second. Third. Fourth. Fifthwait, thats in the set already, so it
+   only gets listed once, because Python sets dont allow duplicates.
+   Sixth. Seventhagain, a duplicate, so it only gets listed once. The end
+   result? All the unique items in the original list, without any
+   duplicates. The original list doesnt even need to be sorted first.
 #. The same technique works with strings, since a string is just a
-sequence of characters.
+   sequence of characters.
 #. Given a list of strings, `''.join( a_list )` concatenates all the
-strings together into one.
+   strings together into one.
 #. So, given a list of strings, this line of code returns all the
    unique characters across all the strings, with no duplicates.
 
@@ -202,7 +202,7 @@ unique characters in the puzzle.
 
 ::
 
-     `unique_characters = set(''.join(words))`
+     unique_characters = set(''.join(words))
 
 
 This list is later used to assign digits to characters as the solver
@@ -232,10 +232,10 @@ Heres how it works.
 
 
 #. The `assert` statement is followed by any valid Python expression.
-In this case, the expression `1 + 1 == 2` evaluates to `True`, so the
-`assert` statement does nothing.
+   In this case, the expression `1 + 1 == 2` evaluates to `True`, so the
+   `assert` statement does nothing.
 #. However, if the Python expression evaluates to `False`, the
-`assert` statement will raise an `AssertionError`.
+   `assert` statement will raise an `AssertionError`.
 #. You can also include a human-readable message that is printed if
    the `AssertionError` is raised.
 
@@ -244,15 +244,15 @@ Therefore, this line of code:
 
 ::
 
-     `assert len(unique_characters) <= 10, 'Too many letters'`
+     assert len(unique_characters) <= 10, 'Too many letters'
 
 
 is equivalent to this:
 
 ::
 
-     `if len(unique_characters) > 10:
-        raise AssertionError('Too many letters')`
+     if len(unique_characters) > 10:
+        raise AssertionError('Too many letters')
 
 
 The alphametics solver uses this exact `assert` statement to bail out
@@ -260,6 +260,7 @@ early if the puzzle contains more than ten unique letters. Since each
 letter is assigned a unique digit, and there are only ten digits, a
 puzzle with more than ten unique letters can not possibly have a
 solution.
+
 ⁂
 
 
@@ -286,8 +287,8 @@ function.
 
 
 #. A generator expression is like an anonymous function that yields
-values. The expression itself looks like a `list comprehension`_, but
-its wrapped in parentheses instead of square brackets.
+   values. The expression itself looks like a `list comprehension`_, but
+   its wrapped in parentheses instead of square brackets.
 #. The generator expression returns an iterator.
 #. Calling `next( gen )` returns the next value from the iterator.
 #. If you like, you can iterate through all the possible values and
@@ -307,14 +308,15 @@ function`_:
 
 ::
 
-     `def ord_map(a_string):
+    def ord_map(a_string):
         for c in a_string:
             yield ord(c)
     
-    gen = ord_map(unique_characters)`
+    gen = ord_map(unique_characters)
 
 
 The generator expression is more compact but functionally equivalent.
+
 ⁂
 
 
@@ -360,16 +362,15 @@ the possible ordered pairs.
 
 
 #. The `itertools` module has all kinds of fun stuff in it, including
-a `permutations()` function that does all the hard work of finding
-permutations.
+   a `permutations()` function that does all the hard work of finding
+   permutations.
 #. The `permutations()` function takes a sequence (here a list of
-three integers) and a number, which is the number of items you want in
-each smaller group. The function returns an iterator, which you can
-use in a `for` loop or any old place that iterates. Here Ill step
-through the iterator manually to show all the values.
+   three integers) and a number, which is the number of items you want in
+   each smaller group. The function returns an iterator, which you can
+   use in a `for` loop or any old place that iterates. Here Ill step
+   through the iterator manually to show all the values.
 #. The first permutation of `[1, 2, 3]` taken 2 at a time is `(1, 2)`.
-#. Note that permutations are ordered: `(2, 1)` is different than `(1,
-2)`.
+#. Note that permutations are ordered: `(2, 1)` is different than `(1, 2)`.
 #. Thats it! Those are all the permutations of `[1, 2, 3]` taken 2 at
    a time. Pairs like `(1, 1)` and `(2, 2)` never show up, because they
    contain repeats so they arent valid permutations. When there are no
@@ -377,7 +378,7 @@ through the iterator manually to show all the values.
 
 The `itertools` module has all kinds of fun stuff.
 The `permutations()` function doesnt have to take a list. It can take
-any sequenceeven a string.
+any sequence even a string.
 
 ::
 
@@ -407,12 +408,11 @@ any sequenceeven a string.
 
 
 
-#. A string is just a sequence of characters. For the purposes of
-finding permutations, the string `'ABC'` is equivalent to the list
-`['A', 'B', 'C']`.
+#. A string is just a sequence of characters. For the purposes of finding
+   permutations, the string `'ABC'` is equivalent to the list `['A', 'B', 'C']`.
 #. The first permutation of the 3 items `['A', 'B', 'C']`, taken 3 at
-a time, is `('A', 'B', 'C')`. There are five other permutationsthe
-same three characters in every conceivable order.
+   a time, is `('A', 'B', 'C')`. There are five other permutations the
+   same three characters in every conceivable order.
 #. Since the `permutations()` function always returns an iterator, an
    easy way to debug permutations is to pass that iterator to the built-
    in `list()` function to see all the permutations immediately.
@@ -438,7 +438,7 @@ Other Fun Stuff in the `itertools` Module
 
 
 #. The `itertools.product()` function returns an iterator containing
-the Cartesian product of two sequences.
+   the Cartesian product of two sequences.
 #. The `itertools.combinations()` function returns an iterator
    containing all the possible combinations of the given sequence of the
    given length. This is like the `itertools.permutations()` function,
@@ -475,12 +475,12 @@ the Cartesian product of two sequences.
 
 #. This idiom returns a list of the lines in a text file.
 #. Unfortunately (for this example), the `list(open( filename ))`
-idiom also includes the carriage returns at the end of each line. This
-list comprehension uses the `rstrip()` string method to strip trailing
-whitespace from each line. (Strings also have an `lstrip()` method to
-strip leading whitespace, and a `strip()` method which strips both.)
+   idiom also includes the carriage returns at the end of each line. This
+   list comprehension uses the `rstrip()` string method to strip trailing
+   whitespace from each line. (Strings also have an `lstrip()` method to
+   strip leading whitespace, and a `strip()` method which strips both.)
 #. The `sorted()` function takes a list and returns it sorted. By
-default, it sorts alphabetically.
+   default, it sorts alphabetically.
 #. But the `sorted()` function can also take a function as the key
    parameter, and it sorts by that key. In this case, the sort function
    is `len()`, so it sorts by `len( each item )`. Shorter names come
@@ -525,15 +525,15 @@ asked.
 
 
 #. The `itertools.groupby()` function takes a sequence and a key
-function, and returns an iterator that generates pairs. Each pair
-contains the result of `key_function( each item )` and another
-iterator containing all the items that shared that key result.
+   function, and returns an iterator that generates pairs. Each pair
+   contains the result of `key_function( each item )` and another
+   iterator containing all the items that shared that key result.
 #. Calling the `list()` function exhausted the iterator, i.e. youve
-already generated every item in the iterator to make the list. Theres
-no reset button on an iterator; you cant just start over once youve
-exhausted it. If you want to loop through it again (say, in the
-upcoming `for` loop), you need to call `itertools.groupby()` again to
-create a new iterator.
+   already generated every item in the iterator to make the list. Theres
+   no reset button on an iterator; you cant just start over once youve
+   exhausted it. If you want to loop through it again (say, in the
+   upcoming `for` loop), you need to call `itertools.groupby()` again to
+   create a new iterator.
 #. In this example, given a list of names *already sorted by length*,
    `itertools.groupby(names, len)` will put all the 4-letter names in one
    iterator, all the 5-letter names in another iterator, and so on. The
@@ -567,17 +567,17 @@ Are you watching closely?
 
 
 #. The `itertools.chain()` function takes two iterators and returns an
-iterator that contains all the items from the first iterator, followed
-by all the items from the second iterator. (Actually, it can take any
-number of iterators, and it chains them all in the order they were
-passed to the function.)
+   iterator that contains all the items from the first iterator, followed
+   by all the items from the second iterator. (Actually, it can take any
+   number of iterators, and it chains them all in the order they were
+   passed to the function.)
 #. The `zip()` function does something prosaic that turns out to be
-extremely useful: it takes any number of sequences and returns an
-iterator which returns tuples of the first items of each sequence,
-then the second items of each, then the third, and so on.
+   extremely useful: it takes any number of sequences and returns an
+   iterator which returns tuples of the first items of each sequence,
+   then the second items of each, then the third, and so on.
 #. The `zip()` function stops at the end of the shortest sequence.
-`range(10, 14)` has 4 items (10, 11, 12, and 13), but `range(0, 3)`
-only has 3, so the `zip()` function returns an iterator of 3 items.
+   `range(10, 14)` has 4 items (10, 11, 12, and 13), but `range(0, 3)`
+   only has 3, so the `zip()` function returns an iterator of 3 items.
 #. On the other hand, the `itertools.zip_longest()` function stops at
    the end of the *longest* sequence, inserting `None` values for items
    past the end of the shorter sequences.
@@ -601,8 +601,8 @@ alphametics solver? Heres how:
 
 
 #. Given a list of letters and a list of digits (each represented here
-as 1-character strings), the `zip` function will create a pairing of
-letters and digits, in order.
+   as 1-character strings), the `zip` function will create a pairing of
+   letters and digits, in order.
 #. Why is that cool? Because that data structure happens to be exactly
    the right structure to pass to the `dict()` function to create a
    dictionary that uses letters as keys and their associated digits as
@@ -620,16 +620,17 @@ possible solution.
 
 ::
 
-     `characters = tuple(ord(c) for c in sorted_characters)
+    characters = tuple(ord(c) for c in sorted_characters)
     digits = tuple(ord(c) for c in '0123456789')
     ...
     for guess in itertools.permutations(digits, len(characters)):
         ...
-        equation = puzzle.translate(dict(zip(characters, guess)))`
+        equation = puzzle.translate(dict(zip(characters, guess)))
 
 
 But what is this `translate()` method? Ah, now youre getting to the
 *really* fun part.
+
 ⁂
 
 
@@ -653,11 +654,11 @@ string manipulation technique: the `translate()` method.
 
 
 #. String translation starts with a translation table, which is just a
-dictionary that maps one character to another. Actually, character is
-incorrectthe translation table really maps one *byte* to another.
+   dictionary that maps one character to another. Actually, character is
+   incorrectthe translation table really maps one *byte* to another.
 #. Remember, bytes in Python 3 are integers. The `ord()` function
-returns the ASCII value of a character, which, in the case of AZ, is
-always a byte from 65 to 90.
+   returns the ASCII value of a character, which, in the case of AZ, is
+   always a byte from 65 to 90.
 #. The `translate()` method on a string takes a translation table and
    runs the string through it. That is, it replaces all occurrences of
    the keys of the translation table with the corresponding values. In
@@ -685,16 +686,16 @@ out, everything.
 
 
 #. Using a generator expression, we quickly compute the byte values
-for each character in a string. characters is an example of the value
-of sorted_characters in the `alphametics.solve()` function.
+   for each character in a string. characters is an example of the value
+   of sorted_characters in the `alphametics.solve()` function.
 #. Using another generator expression, we quickly compute the byte
-values for each digit in this string. The result, guess , is of the
-form returned by the `itertools.permutations()` function in the
-`alphametics.solve()` function.
+   values for each digit in this string. The result, guess , is of the
+   form returned by the `itertools.permutations()` function in the
+   `alphametics.solve()` function.
 #. This translation table is generated by zipping characters and guess
-together and building a dictionary from the resulting sequence of
-pairs. This is exactly what the `alphametics.solve()` function does
-inside the `for` loop.
+   together and building a dictionary from the resulting sequence of
+   pairs. This is exactly what the `alphametics.solve()` function does
+   inside the `for` loop.
 #. Finally, we pass this translation table to the `translate()` method
    of the original puzzle string. This converts each letter in the string
    to the corresponding digit (based on the letters in characters and the
@@ -761,8 +762,8 @@ But wait, thats not all!
 
 
 #. The expression that `eval()` takes can reference global variables
-defined outside the `eval()`. If called within a function, it can
-reference local variables too.
+   defined outside the `eval()`. If called within a function, it can
+   reference local variables too.
 #. And functions.
 #. And modules.
 
@@ -782,7 +783,7 @@ Hey, wait a minute
 
 
 #. The `subprocess` module allows you to run arbitrary shell commands
-and get the result as a Python string.
+   and get the result as a Python string.
 #. Arbitrary shell commands can have permanent consequences.
 
 
@@ -802,7 +803,8 @@ can construct a single expression that will wipe out all your files:
    any output, but you wouldnt have any files left either.
 
 
-eval() is EVIL
+*eval() is EVIL*
+
 Well, the evil part is evaluating arbitrary expressions from untrusted
 sources. You should only use `eval()` on trusted input. Of course, the
 trick is figuring out whats trusted. But heres something I know for
@@ -838,13 +840,13 @@ Well, yes and no.
 
 
 #. The second and third parameters passed to the `eval()` function act
-as the global and local namespaces for evaluating the expression. In
-this case, they are both empty, which means that when the string `"x *
-5"` is evaluated, there is no reference to x in either the global or
-local namespace, so `eval()` throws an exception.
+   as the global and local namespaces for evaluating the expression. In
+   this case, they are both empty, which means that when the string `"x *
+   5"` is evaluated, there is no reference to x in either the global or
+   local namespace, so `eval()` throws an exception.
 #. You can selectively include specific values in the global namespace
-by listing them individually. Then thoseand only thosevariables will
-be available during evaluation.
+   by listing them individually. Then thoseand only thosevariables will
+   be available during evaluation.
 #. Even though you just imported the `math` module, you didnt include
    it in the namespace passed to the `eval()` function, so the evaluation
    failed.
@@ -863,9 +865,9 @@ Gee, that was easy. Lemme make an alphametics web service now!
 
 
 #. Even though youve passed empty dictionaries for the global and
-local namespaces, all of Pythons built-in functions are still
-available during evaluation. So `pow(5, 2)` works, because `5` and `2`
-are literals, and `pow()` is a built-in function.
+   local namespaces, all of Pythons built-in functions are still
+   available during evaluation. So `pow(5, 2)` works, because `5` and `2`
+   are literals, and `pow()` is a built-in function.
 #. Unfortunately (and if you dont see why its unfortunate, read on),
    the `__import__()` function is also a built-in function, so it works
    too.
@@ -902,11 +904,11 @@ Oops. Im glad I didnt make that alphametics web service. Is there
 
 
 #. To evaluate untrusted expressions safely, you need to define a
-global namespace dictionary that maps `"__builtins__"` to `None`, the
-Python null value. Internally, the built-in functions are contained
-within a pseudo-module called `"__builtins__"`. This pseudo-module (
-i.e. the set of built-in functions) is made available to evaluated
-expressions unless you explicitly override it.
+   global namespace dictionary that maps `"__builtins__"` to `None`, the
+   Python null value. Internally, the built-in functions are contained
+   within a pseudo-module called `"__builtins__"`. This pseudo-module (
+   i.e. the set of built-in functions) is made available to evaluated
+   expressions unless you explicitly override it.
 #. Be sure youve overridden `__builtins__`. Not `__builtin__`,
    `__built-ins__`, or some other variation that will work just fine but
    expose you to catastrophic risks.
@@ -946,19 +948,19 @@ To recap: this program solves alphametic puzzles by brute force, i.e.
 through an exhaustive search of all possible solutions. To do this, it
 
 #. Finds all the letters in the puzzle with the `re.findall()`
-function
+   function
 #. Find all the *unique* letters in the puzzle with sets and the
-`set()` function
+   `set()` function
 #. Checks if there are more than 10 unique letters (meaning the puzzle
-is definitely unsolvable) with an `assert` statement
+   is definitely unsolvable) with an `assert` statement
 #. Converts the letters to their ASCII equivalents with a generator
-object
+   object
 #. Calculates all the possible solutions with the
-`itertools.permutations()` function
+   `itertools.permutations()` function
 #. Converts each possible solution to a Python expression with the
-`translate()` string method
+   `translate()` string method
 #. Tests each possible solution by evaluating the Python expression
-with the `eval()` function
+   with the `eval()` function
 #. Returns the first solution that evaluates to `True`
 
 
@@ -970,13 +972,13 @@ Further Reading
 ---------------
 
 
-+ ` `itertools` module`_
-+ ` `itertools`Iterator functions for efficient looping`_
++ `itertools module`_
++ `Iterator functions for efficient looping`_
 + `Watch Raymond Hettingers Easy AI with Python talk`_ at PyCon 2009
 + `Recipe 576615: Alphametics solver`_, Raymond Hettingers original
-alphametics solver for Python 2
+  alphametics solver for Python 2
 + `More of Raymond Hettingers recipes`_ in the ActiveState Code
-repository
+  repository
 + `Alphametics on Wikipedia`_
 + `Alphametics Index`_, including `lots of puzzles`_ and `a generator
   to make your own`_
@@ -988,12 +990,12 @@ I could port it to Python 3 and use it as the basis for this chapter.
 200111 `Mark Pilgrim`_
 
 .. _x261C;: iterators.html
-.. _dictionary comprehension: comprehensions.html#dictionarycomprehension
+.. _dictionary comprehension: #!comprehensions.html::dictionarycomprehension
 .. _alphametics.py: examples/alphametics.py
 .. _Recipe 576615: Alphametics solver: http://code.activestate.com/recipes/576615/
 .. _Iterator functions for efficient looping: http://www.doughellmann.com/PyMOTW/itertools/
-.. _ module: http://docs.python.org/3.1/library/itertools.html
-.. _ talk: http://blip.tv/file/1947373/
+.. _itertools module: http://docs.python.org/3.1/library/itertools.html
+.. _Watch Raymond Hettinger's Easy AI with Python talk: http://blip.tv/file/1947373/
 .. _list comprehension: comprehensions.html#listcomprehension
 .. _hardest tongue twister: http://en.wikipedia.org/wiki/Tongue-twister
 .. _Dive Into Python 3: table-of-contents.html#advanced-iterators

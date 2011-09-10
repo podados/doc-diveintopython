@@ -1,7 +1,5 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
 Difficulty level: ♦♦♦♢♢
-
 
 Files
 =====
@@ -29,7 +27,7 @@ in Python couldnt be easier:
 
 ::
 
-     `a_file = open('examples/chinese.txt', encoding='utf-8')`
+     a_file = open('examples/chinese.txt', encoding='utf-8')
 
 
 Python has a built-in `open()` function, which takes a filename as an
@@ -37,20 +35,20 @@ argument. Here the filename is `'examples/chinese.txt'`. There are
 five interesting things about this filename:
 
 #. Its not just the name of a file; its a combination of a directory
-path and a filename. A hypothetical file-opening function could have
-taken two argumentsa directory path and a filenamebut the `open()`
-function only takes one. In Python, whenever you need a filename, you
-can include some or all of a directory path as well.
+   path and a filename. A hypothetical file-opening function could have
+   taken two argumentsa directory path and a filenamebut the `open()`
+   function only takes one. In Python, whenever you need a filename, you
+   can include some or all of a directory path as well.
 #. The directory path uses a forward slash, but I didnt say what
-operating system I was using. Windows uses backward slashes to denote
-subdirectories, while Mac OS X and Linux use forward slashes. But in
-Python, forward slashes always Just Work, even on Windows.
+   operating system I was using. Windows uses backward slashes to denote
+   subdirectories, while Mac OS X and Linux use forward slashes. But in
+   Python, forward slashes always Just Work, even on Windows.
 #. The directory path does not begin with a slash or a drive letter,
-so it is called a relative path . Relative to what, you might ask?
-Patience, grasshopper.
+   so it is called a relative path . Relative to what, you might ask?
+   Patience, grasshopper.
 #. Its a string. All modern operating systems (even Windows!) use
-Unicode to store the names of files and directories. Python 3 fully
-supports non- ASCII pathnames.
+   Unicode to store the names of files and directories. Python 3 fully
+   supports non- ASCII pathnames.
 #. It doesnt need to be on your local disk. You might have a network
    drive mounted. That file might be a figment of `an entirely virtual
    filesystem`_. If your computer considers it a file and can access it
@@ -88,6 +86,7 @@ Unicode characters (otherwise known as a string).
     >>> 
 
 The default encoding is platform-dependent.
+
 What just happened? You didnt specify a character encoding, so Python
 is forced to use the default encoding. Whats the default encoding? If
 you look closely at the traceback, you can see that its dying in
@@ -96,11 +95,13 @@ encoding here. (CP-1252 is a common encoding on computers running
 Microsoft Windows.) The CP-1252 character set doesnt support the
 characters that are in this file, so the read fails with an ugly
 `UnicodeDecodeError`.
+
 But wait, its worse than that! The default encoding is *platform-
 dependent*, so this code *might* work on your computer (if your
 default encoding is UTF-8 ), but then it will fail when you distribute
 it to someone else (whose default encoding is different, like
 CP-1252).
+
 ☞If you need to get the default character encoding, import the
 `locale` module and call `locale.getpreferredencoding()`. On my
 Windows laptop, it returns `'cp1252'`, but on my Linux box upstairs,
@@ -133,12 +134,12 @@ a stream of characters.
 
 
 #. The `name` attribute reflects the name you passed in to the
-`open()` function when you opened the file. It is not normalized to an
-absolute pathname.
+   `open()` function when you opened the file. It is not normalized to an
+   absolute pathname.
 #. Likewise, `encoding` attribute reflects the encoding you passed in
-to the `open()` function. If you didnt specify the encoding when you
-opened the file (bad developer!) then the `encoding` attribute will
-reflect `locale.getpreferredencoding()`.
+   to the `open()` function. If you didnt specify the encoding when you
+   opened the file (bad developer!) then the `encoding` attribute will
+   reflect `locale.getpreferredencoding()`.
 #. The `mode` attribute tells you in which mode the file was opened.
    You can pass an optional mode parameter to the `open()` function. You
    didnt specify a mode when you opened this file, so Python defaults to
@@ -170,8 +171,8 @@ at some point.
 
 
 #. Once you open a file (with the correct encoding), reading from it
-is just a matter of calling the stream objects `read()` method. The
-result is a string.
+   is just a matter of calling the stream objects `read()` method. The
+   result is a string.
 #. Perhaps somewhat surprisingly, reading the file again does not
    raise an exception. Python does not consider reading past end-of-file
    to be an error; it simply returns an empty string.
@@ -199,10 +200,10 @@ What if you want to re-read a file?
 
 
 #. Since youre still at the end of the file, further calls to the
-stream objects `read()` method simply return an empty string.
+   stream objects `read()` method simply return an empty string.
 #. The `seek()` method moves to a specific byte position in a file.
 #. The `read()` method can take an optional parameter, the number of
-characters to read.
+   characters to read.
 #. If you like, you can even read one character at a time.
 #. 16 + 1 + 1 = 20?
 
@@ -234,6 +235,7 @@ encode in UTF-8 `_. The English characters in the file only require
 one byte each, so you might be misled into thinking that the `seek()`
 and `read()` methods are counting the same thing. But thats only true
 for some characters.
+
 But wait, it gets worse!
 
 ::
@@ -303,14 +305,13 @@ doesnt destroy the object itself. But its not terribly useful.
 
 
 
-#. You cant read from a closed file; that raises an `IOError`
-exception.
+#. You cant read from a closed file; that raises an `IOError` exception.
 #. You cant seek in a closed file either.
-#. Theres no current position in a closed file, so the `tell()` method
-also fails.
+#. Theres no current position in a closed file, so the `tell()` method also
+   fails.
 #. Perhaps surprisingly, calling the `close()` method on a stream
-object whose file has been closed does *not* raise an exception. Its
-just a no-op.
+   object whose file has been closed does *not* raise an exception. Its
+   just a no-op.
 #. Closed stream objects do have one useful attribute: the `closed`
    attribute will confirm that the file is closed.
 
@@ -333,10 +334,10 @@ cleaner solution, which is now the preferred solution in Python 3: the
 
 ::
 
-     `with open('examples/chinese.txt', encoding='utf-8') as a_file:
+    with open('examples/chinese.txt', encoding='utf-8') as a_file:
         a_file.seek(17)
         a_character = a_file.read(1)
-        print(a_character)`
+        print(a_character)
 
 
 This code calls `open()`, but it never calls `a_file.close()`. The
@@ -346,11 +347,13 @@ the stream object returned from the call to `open()`. All the regular
 stream object methods are available `seek()`, `read()`, whatever you
 need. When the `with` block ends, *Python calls `a_file.close()`
 automatically*.
+
 Heres the kicker: no matter how or when you exit the `with` block,
 Python will close that file even if you exit it via an unhandled
 exception. Thats right, even if your code raises an exception and your
 entire program comes to a screeching halt, that file will get closed.
 Guaranteed.
+
 ☞In technical terms, the `with` statement creates a runtime
 context . In these examples, the stream object acts as a context
 manager . Python creates the stream object a_file and tells it that it
@@ -359,6 +362,7 @@ completed, Python tells the stream object that it is exiting the
 runtime context, and the stream object calls its own `close()` method.
 See `Appendix B, Classes That Can Be Used in a `with` Block`_ for
 details.
+
 Theres nothing file-specific about the `with` statement; its just a
 generic framework for creating runtime contexts and telling objects
 that theyre entering and exiting a runtime context. If the object in
@@ -393,20 +397,20 @@ is. Its so simple, its beautiful.
 
 ::
 
-     `line_number = 0
+    line_number = 0
     with open('examples/favorite-people.txt', encoding='utf-8') as a_file:  ①
         for a_line in a_file:                                               ②
             line_number += 1
-            print('{:>4} {}'.format(line_number, a_line.rstrip()))          ③`
+            print('{:>4} {}'.format(line_number, a_line.rstrip()))          ③
 
 
 
 #. Using the `with` pattern, you safely open the file and let Python
-close it for you.
+   close it for you.
 #. To read a file one line at a time, use a `for` loop. Thats it.
-Besides having explicit methods like `read()`, *the stream object is
-also an `iterator`_* which spits out a single line every time you ask
-for a value.
+   Besides having explicit methods like `read()`, *the stream object is
+   also an `iterator`_* which spits out a single line every time you ask
+   for a value.
 #. Using `the `format()` string method`_, you can print out the line
    number and the line itself. The format specifier `{:>4}` means print
    this argument right-justified within 4 spaces. The a_line variable
@@ -453,7 +457,7 @@ argument indexes in your format specifiers. Here is the Python
 
 ::
 
-     `print('{0:>4} {1}'.format(line_number, a_line.rstrip()))`
+    print('{0:>4} {1}'.format(line_number, a_line.rstrip()))
 
 
 ⁂
@@ -461,7 +465,9 @@ argument indexes in your format specifiers. Here is the Python
 
 Writing to Text Files
 ---------------------
+
 Just open a file and start writing.
+
 You can write to files in much the same way that you read from them.
 First you open a file and get a stream object, then you use methods on
 the stream object to write data to the file, then you close the file.
@@ -469,7 +475,7 @@ To open a file for writing, use the `open()` function and specify the
 write mode. There are two file modes for writing:
 
 + Write mode will overwrite the file. Pass `mode='w'` to the `open()`
-function.
+  function.
 + Append mode will add data to the end of the file. Pass `mode='a'` to
   the `open()` function.
 
@@ -502,16 +508,16 @@ recommend.
 
 
 #. You start boldly by creating the new file `test.log` (or
-overwriting the existing file), and opening the file for writing. The
-`mode='w'` parameter means open the file for writing. Yes, thats all
-as dangerous as it sounds. I hope you didnt care about the previous
-contents of that file (if any), because that data is gone now.
+   overwriting the existing file), and opening the file for writing. The
+   `mode='w'` parameter means open the file for writing. Yes, thats all
+   as dangerous as it sounds. I hope you didnt care about the previous
+   contents of that file (if any), because that data is gone now.
 #. You can add data to the newly opened file with the `write()` method
-of the stream object returned by the `open()` function. After the
-`with` block ends, Python automatically closes the file.
+   of the stream object returned by the `open()` function. After the
+   `with` block ends, Python automatically closes the file.
 #. That was so fun, lets do it again. But this time, with `mode='a'`
-to append to the file instead of overwriting it. Appending will
-*never* harm the existing contents of the file.
+   to append to the file instead of overwriting it. Appending will
+   *never* harm the existing contents of the file.
 #. Both the original line you wrote and the second line you appended
    are now in the file `test.log`. Also note that neither carriage
    returns nor line feeds are included. Since you didnt write them
@@ -538,6 +544,7 @@ to write to the file, Python needs to know how to convert your string
 into a sequence of bytes. The only way to be sure its performing the
 correct conversion is to specify the `encoding` parameter when you
 open the file for writing.
+
 ⁂
 
 
@@ -563,13 +570,13 @@ Not all files contain text. Some of them contain pictures of my dog.
 
 
 #. Opening a file in binary mode is simple but subtle. The only
-difference from opening it in text mode is that the `mode` parameter
-contains a `'b'` character.
+   difference from opening it in text mode is that the `mode` parameter
+   contains a `'b'` character.
 #. The stream object you get from opening a file in binary mode has
-many of the same attributes, including `mode`, which reflects the
-`mode` parameter you passed into the `open()` function.
+   many of the same attributes, including `mode`, which reflects the
+   `mode` parameter you passed into the `open()` function.
 #. Binary stream objects also have a `name` attribute, just like text
-stream objects.
+   stream objects.
 #. Heres one difference, though: a binary stream object has no
    `encoding` attribute. That makes sense, right? Youre reading (or
    writing) bytes, not strings, so theres no conversion for Python to do.
@@ -601,10 +608,10 @@ Did I mention youre reading bytes? Oh yes you are.
 
 
 #. Like text files, you can read binary files a little bit at a time.
-But theres a crucial difference
+   But theres a crucial difference
 #. youre reading bytes, not strings. Since you opened the file in
-binary mode, the `read()` method takes *the number of bytes to read*,
-not the number of characters.
+   binary mode, the `read()` method takes *the number of bytes to read*,
+   not the number of characters.
 #. That means that theres never an unexpected mismatch between the
    number you passed into the `read()` method and the position index you
    get out of the `tell()` method. The `read()` method reads bytes, and
@@ -617,7 +624,9 @@ not the number of characters.
 
 Stream Objects From Non-File Sources
 ------------------------------------
+
 To read from a fake file, just call `read()`.
+
 Imagine youre writing a library, and one of your library functions is
 going to read some data from a file. The function could simply take a
 filename as a string, go open the file for reading, read it, and close
@@ -663,18 +672,18 @@ file, without specific code to handle each kind of input.
 
 
 #. The `io` module defines the `StringIO` class that you can use to
-treat a string in memory as a file.
+   treat a string in memory as a file.
 #. To create a stream object out of a string, create an instance of
-the `io.StringIO()` class and pass it the string you want to use as
-your file data. Now you have a stream object, and you can do all sorts
-of stream-like things with it.
+   the `io.StringIO()` class and pass it the string you want to use as
+   your file data. Now you have a stream object, and you can do all sorts
+   of stream-like things with it.
 #. Calling the `read()` method reads the entire file, which in the
-case of a `StringIO` object simply returns the original string.
+   case of a `StringIO` object simply returns the original string.
 #. Just like a real file, calling the `read()` method again returns an
-empty string.
+   empty string.
 #. You can explicitly seek to the beginning of the string, just like
-seeking through a real file, by using the `seek()` method of the
-`StringIO` object.
+   seeking through a real file, by using the `seek()` method of the
+   `StringIO` object.
 #. You can also read the string in chunks, by passing a size parameter
    to the `read()` method.
 
@@ -723,17 +732,17 @@ done with it.
 
 
 #. You should always open gzipped files in binary mode. (Note the
-`'b'` character in the `mode` argument.)
+   `'b'` character in the `mode` argument.)
 #. I constructed this example on Linux. If youre not familiar with the
-command line, this command is showing the long listing of the gzip-
-compressed file you just created in the Python Shell. This listing
-shows that the file exists (good), and that it is 79 bytes long. Thats
-actually larger than the string you started with! The gzip file format
-includes a fixed-length header that contains some metadata about the
-file, so its inefficient for extremely small files.
+   command line, this command is showing the long listing of the gzip-
+   compressed file you just created in the Python Shell. This listing
+   shows that the file exists (good), and that it is 79 bytes long. Thats
+   actually larger than the string you started with! The gzip file format
+   includes a fixed-length header that contains some metadata about the
+   file, so its inefficient for extremely small files.
 #. The `gunzip` command (pronounced gee-unzip) decompresses the file
-and stores the contents in a new file named the same as the compressed
-file but without the `.gz` file extension.
+   and stores the contents in a new file named the same as the compressed
+   file but without the `.gz` file extension.
 #. The `cat` command displays the contents of a file. This file
    contains the string you originally wrote directly to the compressed
    file `out.log.gz` from within the Python Shell.
@@ -762,7 +771,9 @@ to use gzipped-file objects in a `with` statement.
 
 Standard Input, Output, and Error
 ---------------------------------
+
 `sys.stdin`, `sys.stdout`, `sys.stderr`.
+
 Command-line gurus are already familiar with the concept of standard
 input, standard output, and standard error. This section is for the
 rest of you.
@@ -798,10 +809,10 @@ your Interactive Window.
 
 #. The `print()` function, in a loop. Nothing surprising here.
 #. `stdout` is defined in the `sys` module, and it is a stream object.
-Calling its `write()` function will print out whatever string you give
-it, then return the length of the output. In fact, this is what the
-`print` function really does; it adds a carriage return to the end of
-the string youre printing, and calls `sys.stdout.write`.
+   Calling its `write()` function will print out whatever string you give
+   it, then return the length of the output. In fact, this is what the
+   `print` function really does; it adds a carriage return to the end of
+   the string youre printing, and calls `sys.stdout.write`.
 #. In the simplest case, `sys.stdout` and `sys.stderr` send their
    output to the same place: the Python IDE (if youre in one), or the
    terminal (if youre running Python from the command line). Like
@@ -837,7 +848,7 @@ redirect their output.
 
 ::
 
-     `import sys
+    import sys
     
     class RedirectStdoutTo:
         def __init__(self, out_new):
@@ -853,7 +864,7 @@ redirect their output.
     print('A')
     with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):
         print('B')
-    print('C')`
+    print('C')
 
 
 Check this out:
@@ -889,10 +900,10 @@ Lets take the last part first.
 
 ::
 
-     `print('A')
+    print('A')
     with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):
         print('B')
-    print('C')`
+    print('C')
 
 
 Thats a complicated `with` statement. Let me rewrite it as something
@@ -900,9 +911,9 @@ more recognizable.
 
 ::
 
-     `with open('out.log', mode='w', encoding='utf-8') as a_file:
+    with open('out.log', mode='w', encoding='utf-8') as a_file:
         with RedirectStdoutTo(a_file):
-            print('B')`
+            print('B')
 
 
 As the rewrite shows, you actually have *two* `with` statements, one
@@ -913,7 +924,7 @@ named a_file . But thats not the only thing odd here.
 
 ::
 
-     `with RedirectStdoutTo(a_file):`
+    with RedirectStdoutTo(a_file):
 
 
 Wheres the `as` clause? The `with` statement doesnt actually require
@@ -928,7 +939,7 @@ context manager by defining two `special methods`_: `__enter__()` and
 
 ::
 
-     `class RedirectStdoutTo:
+    class RedirectStdoutTo:
         def __init__(self, out_new):    ①
             self.out_new = out_new
     
@@ -937,20 +948,20 @@ context manager by defining two `special methods`_: `__enter__()` and
             sys.stdout = self.out_new
     
         def __exit__(self, *args):      ③
-            sys.stdout = self.out_old`
+            sys.stdout = self.out_old
 
 
 
 #. The `__init__()` method is called immediately after an instance is
-created. It takes one parameter, the stream object that you want to
-use as standard output for the life of the context. This method just
-saves the stream object in an instance variable so other methods can
-use it later.
+   created. It takes one parameter, the stream object that you want to
+   use as standard output for the life of the context. This method just
+   saves the stream object in an instance variable so other methods can
+   use it later.
 #. The `__enter__()` method is a `special class method`_; Python calls
-it when entering a context ( i.e. at the beginning of the `with`
-statement). This method saves the current value of `sys.stdout` in
-self.out_old , then redirects standard output by assigning
-self.out_new to sys.stdout .
+   it when entering a context ( i.e. at the beginning of the `with`
+   statement). This method saves the current value of `sys.stdout` in
+   self.out_old , then redirects standard output by assigning
+   self.out_new to sys.stdout .
 #. The `__exit__()` method is another special class method; Python
    calls it when exiting the context ( i.e. at the end of the `with`
    statement). This method restores standard output to its original value
@@ -961,25 +972,24 @@ Putting it all together:
 
 ::
 
-     `
     print('A')                                                                             ①
     with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):  ②
         print('B')                                                                         ③
-    print('C')                                                                             ④`
+    print('C')                                                                             ④
 
 
 
 #. This will print to the IDE Interactive Window (or the terminal, if
-running the script from the command line).
+   running the script from the command line).
 #. This `with` statement takes *a comma-separated list of contexts*.
-The comma-separated list acts like a series of nested `with` blocks.
-The first context listed is the outer block; the last one listed is
-the inner block. The first context opens a file; the second context
-redirects `sys.stdout` to the stream object that was created in the
-first context.
+   The comma-separated list acts like a series of nested `with` blocks.
+   The first context listed is the outer block; the last one listed is
+   the inner block. The first context opens a file; the second context
+   redirects `sys.stdout` to the stream object that was created in the
+   first context.
 #. Because this `print()` function is executed with the context
-created by the `with` statement, it will not print to the screen; it
-will write to the file `out.log`.
+   created by the `with` statement, it will not print to the screen; it
+   will write to the file `out.log`.
 #. The `with` code block is over. Python has told each context manager
    to do whatever it is they do upon exiting a context. The context
    managers form a last-in-first-out stack. Upon exiting, the second
@@ -999,11 +1009,11 @@ Further Reading
 
 
 + `Reading and writing files`_ in the Python.org tutorial
-+ ` `io` module`_
++ `io module`_
 + `Stream objects`_
 + `Context manager types`_
-+ ` `sys.stdout` and `sys.stderr``_
-+ ` FUSE on Wikipedia`_
++ `sys.stdout and sys.stderr`_
++ `FUSE on Wikipedia`_
 
 
 `☜`_ `☞`_
@@ -1014,22 +1024,19 @@ Further Reading
 .. _oneline.py: examples/oneline.py
 .. _context manager: special-method-names.html#context-managers
 .. _UTF-8: strings.html#boring-stuff
-.. _ module: http://docs.python.org/3.1/library/io.html
-.. _x261E;: xml.html
+.. _io module: http://docs.python.org/3.1/library/io.html
 .. _Mark Pilgrim: about.html
 .. _Context manager types: http://docs.python.org/3.1/library/stdtypes.html#context-manager-types
 .. _PKZIP archives: http://docs.python.org/3.1/library/zipfile.html
 .. _stdout.py: examples/stdout.py
-.. _x261C;: refactoring.html
 .. _ function documentation: http://docs.python.org/3.1/library/io.html#module-interface
 .. _Reading and writing files: http://docs.python.org/py3k/tutorial/inputoutput.html#reading-and-writing-files
-.. _ on Wikipedia: http://en.wikipedia.org/wiki/Filesystem_in_Userspace
+.. _FUSE on Wikipedia: http://en.wikipedia.org/wiki/Filesystem_in_Userspace
 .. _gzip: http://docs.python.org/3.1/library/gzip.html
 .. _Stream objects: http://docs.python.org/3.1/library/stdtypes.html#file-objects
 .. _bzip2: http://docs.python.org/3.1/library/bz2.html
-.. _Home: index.html
 .. _Dive Into Python 3: table-of-contents.html#files
-.. _sys.stderr: http://docs.python.org/3.1/library/sys.html#sys.stdout
+.. _sys.stdout and sys.stderr: http://docs.python.org/3.1/library/sys.html#sys.stdout
 .. _imagining an alternative: http://en.wikipedia.org/wiki/Computer_file#History
 .. _special class method: iterators.html#a-fibonacci-iterator
 .. _explicitly numbered format specifiers: strings.html#formatting-strings

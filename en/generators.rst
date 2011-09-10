@@ -1,7 +1,5 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
 Difficulty level: ♦♦♦♢♢
-
 
 Closures & Generators
 =====================
@@ -33,15 +31,15 @@ If you grew up in an English-speaking country or learned English in a
 formal school setting, youre probably familiar with the basic rules:
 
 + If a word ends in S, X, or Z, add ES. Bass becomes basses , fax
-becomes faxes , and waltz becomes waltzes .
+  becomes faxes , and waltz becomes waltzes .
 + If a word ends in a noisy H, add ES; if it ends in a silent H, just
-add S. Whats a noisy H? One that gets combined with other letters to
-make a sound that you can hear. So coach becomes coaches and rash
-becomes rashes , because you can hear the CH and SH sounds when you
-say them. But cheetah becomes cheetahs , because the H is silent.
+  add S. Whats a noisy H? One that gets combined with other letters to
+  make a sound that you can hear. So coach becomes coaches and rash
+  becomes rashes , because you can hear the CH and SH sounds when you
+  say them. But cheetah becomes cheetahs , because the H is silent.
 + If a word ends in Y that sounds like I, change the Y to IES; if the
-Y is combined with a vowel to sound like something else, just add S.
-So vacancy becomes vacancies , but day becomes days .
+  Y is combined with a vowel to sound like something else, just add S.
+  So vacancy becomes vacancies , but day becomes days .
 + If all else fails, just add S and hope for the best.
 
 
@@ -55,6 +53,7 @@ Other languages, of course, are completely different.
 Lets design a Python library that automatically pluralizes English
 nouns. Well start with just these four rules, but keep in mind that
 youll inevitably need to add more.
+
 ⁂
 
 
@@ -69,7 +68,7 @@ them. This sounds like a job for regular expressions!
 
 ::
 
-     `import re
+    import re
     
     def plural(noun):          
         if re.search('[sxz]$', noun):             ①
@@ -79,16 +78,16 @@ them. This sounds like a job for regular expressions!
         elif re.search('[^aeiou]y$', noun):      
             return re.sub('y$', 'ies', noun)     
         else:
-            return noun + 's'`
+            return noun + 's'
 
 
 
 #. This is a regular expression, but it uses a syntax you didnt see in
-` Regular Expressions `_. The square brackets mean match exactly one
-of these characters. So `[sxz]` means `s`, or `x`, or `z`, but only
-one of them. The `$` should be familiar; it matches the end of string.
-Combined, this regular expression tests whether noun ends with `s`,
-`x`, or `z`.
+   `Regular Expressions`_. The square brackets mean match exactly one
+   of these characters. So `[sxz]` means `s`, or `x`, or `z`, but only
+   one of them. The `$` should be familiar; it matches the end of string.
+   Combined, this regular expression tests whether noun ends with `s`,
+   `x`, or `z`.
 #. This `re.sub()` function performs regular expression-based string
    substitutions.
 
@@ -110,10 +109,9 @@ Lets look at regular expression substitutions in more detail.
 
 
 
-#. Does the string `Mark` contain `a`, `b`, or `c`? Yes, it contains
-`a`.
+#. Does the string `Mark` contain `a`, `b`, or `c`? Yes, it contains `a`.
 #. OK, now find `a`, `b`, or `c`, and replace it with `o`. `Mark`
-becomes `Mork`.
+   becomes `Mork`.
 #. The same function turns `rock` into `rook`.
 #. You might think this would turn `caps` into `oaps`, but it doesnt.
    `re.sub` replaces *all* of the matches, not just the first one. So
@@ -125,7 +123,7 @@ And now, back to the `plural()` function
 
 ::
 
-     `def plural(noun):          
+    def plural(noun):          
         if re.search('[sxz]$', noun):            
             return re.sub('$', 'es', noun)         ①
         elif re.search('[^aeioudgkprt]h$', noun):  ②
@@ -133,22 +131,20 @@ And now, back to the `plural()` function
         elif re.search('[^aeiou]y$', noun):        ③
             return re.sub('y$', 'ies', noun)     
         else:
-            return noun + 's'`
-
-
+            return noun + 's'
 
 #. Here, youre replacing the end of the string (matched by `$`) with
-the string `es`. In other words, adding `es` to the string. You could
-accomplish the same thing with string concatenation, for example `noun
-+ 'es'`, but I chose to use regular expressions for each rule, for
-reasons that will become clear later in the chapter.
+   the string `es`. In other words, adding `es` to the string. You could
+   accomplish the same thing with string concatenation, for example `noun
+   + 'es'`, but I chose to use regular expressions for each rule, for
+   reasons that will become clear later in the chapter.
 #. Look closely, this is another new variation. The `^` as the first
-character inside the square brackets means something special:
-negation. `[^abc]` means any single character *except* `a`, `b`, or
-`c`. So `[^aeioudgkprt]` means any character except `a`, `e`, `i`,
-`o`, `u`, `d`, `g`, `k`, `p`, `r`, or `t`. Then that character needs
-to be followed by `h`, followed by end of string. Youre looking for
-words that end in H where the H can be heard.
+   character inside the square brackets means something special:
+   negation. `[^abc]` means any single character *except* `a`, `b`, or
+   `c`. So `[^aeioudgkprt]` means any character except `a`, `e`, `i`,
+   `o`, `u`, `d`, `g`, `k`, `p`, `r`, or `t`. Then that character needs
+   to be followed by `h`, followed by end of string. Youre looking for
+   words that end in H where the H can be heard.
 #. Same pattern here: match words that end in Y, where the character
    before the Y is *not* `a`, `e`, `i`, `o`, or `u`. Youre looking for
    words that end in Y that sounds like I.
@@ -172,10 +168,10 @@ Lets look at negation regular expressions in more detail.
 
 
 #. `vacancy` matches this regular expression, because it ends in `cy`,
-and `c` is not `a`, `e`, `i`, `o`, or `u`.
+   and `c` is not `a`, `e`, `i`, `o`, or `u`.
 #. `boy` does not match, because it ends in `oy`, and you specifically
-said that the character before the `y` could not be `o`. `day` does
-not match, because it ends in `ay`.
+   said that the character before the `y` could not be `o`. `day` does
+   not match, because it ends in `ay`.
 #. `pita` does not match, because it does not end in `y`.
 
 
@@ -192,10 +188,10 @@ not match, because it ends in `ay`.
 
 
 #. This regular expression turns `vacancy` into `vacancies` and
-`agency` into `agencies`, which is what you wanted. Note that it would
-also turn `boy` into `boies`, but that will never happen in the
-function because you did that `re.search` first to find out whether
-you should do this `re.sub`.
+   `agency` into `agencies`, which is what you wanted. Note that it would
+   also turn `boy` into `boies`, but that will never happen in the
+   function because you did that `re.search` first to find out whether
+   you should do this `re.sub`.
 #. Just in passing, I want to point out that it is possible to combine
    these two regular expressions (one to find out if the rule applies,
    and another to actually apply it) into a single regular expression.
@@ -218,6 +214,7 @@ rules. You originally laid out rules like if the word ends in S, X, or
 Z, then add ES. If you look at this function, you have two lines of
 code that say if the word ends in S, X, or Z, then add ES. It doesnt
 get much more direct than that.
+
 ⁂
 
 
@@ -232,7 +229,7 @@ part.
 
 ::
 
-     `import re
+    import re
     
     def match_sxz(noun):
         return re.search('[sxz]$', noun)
@@ -267,17 +264,17 @@ part.
     def plural(noun):           
         for matches_rule, apply_rule in rules:       ④
             if matches_rule(noun):
-                return apply_rule(noun)`
+                return apply_rule(noun)
 
 
 
 #. Now, each match rule is its own function which returns the results
-of calling the `re.search()` function.
+   of calling the `re.search()` function.
 #. Each apply rule is also its own function which calls the `re.sub()`
-function to apply the appropriate pluralization rule.
+   function to apply the appropriate pluralization rule.
 #. Instead of having one function ( `plural()`) with multiple rules,
-you have the `rules` data structure, which is a sequence of pairs of
-functions.
+   you have the `rules` data structure, which is a sequence of pairs of
+   functions.
 #. Since the rules have been broken out into a separate data
    structure, the new `plural()` function can be reduced to a few lines
    of code. Using a `for` loop, you can pull out the match and apply
@@ -304,7 +301,6 @@ equivalent to the following:
 
 ::
 
-     `
     def plural(noun):
         if match_sxz(noun):
             return apply_sxz(noun)
@@ -313,7 +309,7 @@ equivalent to the following:
         if match_y(noun):
             return apply_y(noun)
         if match_default(noun):
-            return apply_default(noun)`
+            return apply_default(noun)
 
 
 The benefit here is that the `plural()` function is now simplified. It
@@ -335,7 +331,8 @@ two functions, `match_foo()` and `apply_foo()`, and then updating the
 rules sequence to specify where in the order the new match and apply
 functions should be called relative to the other rules.
 But this is really just a stepping stone to the next section. Lets
-move on
+move on.
+
 ⁂
 
 
@@ -352,33 +349,33 @@ factor out the patterns so that defining new rules can be easier.
 
 ::
 
-     `import re
+    import re
     
     def build_match_and_apply_functions(pattern, search, replace):
         def matches_rule(word):                                     ①
             return re.search(pattern, word)
         def apply_rule(word):                                       ②
             return re.sub(search, replace, word)
-        return (matches_rule, apply_rule)                           ③`
+        return (matches_rule, apply_rule)                           ③
 
 
 
 #. `build_match_and_apply_functions()` is a function that builds other
-functions dynamically. It takes pattern , search and replace , then
-defines a `matches_rule()` function which calls `re.search()` with the
-pattern that was passed to the `build_match_and_apply_functions()`
-function, and the word that was passed to the `matches_rule()`
-function youre building. Whoa.
+   functions dynamically. It takes pattern , search and replace , then
+   defines a `matches_rule()` function which calls `re.search()` with the
+   pattern that was passed to the `build_match_and_apply_functions()`
+   function, and the word that was passed to the `matches_rule()`
+   function youre building. Whoa.
 #. Building the apply function works the same way. The apply function
-is a function that takes one parameter, and calls `re.sub()` with the
-search and replace parameters that were passed to the
-`build_match_and_apply_functions()` function, and the word that was
-passed to the `apply_rule()` function youre building. This technique
-of using the values of outside parameters within a dynamic function is
-called *closures*. Youre essentially defining constants within the
-apply function youre building: it takes one parameter ( word ), but it
-then acts on that plus two other values ( search and replace ) which
-were set when you defined the apply function.
+   is a function that takes one parameter, and calls `re.sub()` with the
+   search and replace parameters that were passed to the
+   `build_match_and_apply_functions()` function, and the word that was
+   passed to the `apply_rule()` function youre building. This technique
+   of using the values of outside parameters within a dynamic function is
+   called *closures*. Youre essentially defining constants within the
+   apply function youre building: it takes one parameter ( word ), but it
+   then acts on that plus two other values ( search and replace ) which
+   were set when you defined the apply function.
 #. Finally, the `build_match_and_apply_functions()` function returns a
    tuple of two values: the two functions you just created. The constants
    you defined within those functions ( pattern within the
@@ -392,7 +389,7 @@ stuff), it may become clearer when you see how to use it.
 
 ::
 
-     `patterns = \                                                        ①
+    patterns = \                                                        ①
       (
         ('[sxz]$',           '$',  'es'),
         ('[^aeioudgkprt]h$', '$',  'es'),
@@ -400,27 +397,27 @@ stuff), it may become clearer when you see how to use it.
         ('$',                '$',  's')                                 ②
       )
     rules = [build_match_and_apply_functions(pattern, search, replace)  ③
-             for (pattern, search, replace) in patterns]`
+             for (pattern, search, replace) in patterns]
 
 
 
 #. Our pluralization rules are now defined as a tuple of tuples of
-*strings* (not functions). The first string in each group is the
-regular expression pattern that you would use in `re.search()` to see
-if this rule matches. The second and third strings in each group are
-the search and replace expressions you would use in `re.sub()` to
-actually apply the rule to turn a noun into its plural.
+   *strings* (not functions). The first string in each group is the
+   regular expression pattern that you would use in `re.search()` to see
+   if this rule matches. The second and third strings in each group are
+   the search and replace expressions you would use in `re.sub()` to
+   actually apply the rule to turn a noun into its plural.
 #. Theres a slight change here, in the fallback rule. In the previous
-example, the `match_default()` function simply returned `True`,
-meaning that if none of the more specific rules matched, the code
-would simply add an `s` to the end of the given word. This example
-does something functionally equivalent. The final regular expression
-asks whether the word has an end ( `$` matches the end of a string).
-Of course, every string has an end, even an empty string, so this
-expression always matches. Thus, it serves the same purpose as the
-`match_default()` function that always returned `True`: it ensures
-that if no more specific rule matches, the code adds an `s` to the end
-of the given word.
+   example, the `match_default()` function simply returned `True`,
+   meaning that if none of the more specific rules matched, the code
+   would simply add an `s` to the end of the given word. This example
+   does something functionally equivalent. The final regular expression
+   asks whether the word has an end ( `$` matches the end of a string).
+   Of course, every string has an end, even an empty string, so this
+   expression always matches. Thus, it serves the same purpose as the
+   `match_default()` function that always returned `True`: it ensures
+   that if no more specific rule matches, the code adds an `s` to the end
+   of the given word.
 #. This line is magic. It takes the sequence of strings in patterns
    and turns them into a sequence of functions. How? By mapping the
    strings to the `build_match_and_apply_functions()` function. That is,
@@ -439,10 +436,10 @@ Rounding out this version of the script is the main entry point, the
 
 ::
 
-     `def plural(noun):
+    def plural(noun):
         for matches_rule, apply_rule in rules:  ①
             if matches_rule(noun):
-                return apply_rule(noun)`
+                return apply_rule(noun)
 
 
 
@@ -475,10 +472,10 @@ columns. Lets call it `plural4-rules.txt`.
 
 ::
 
-     `[sxz]$               $    es
+    [sxz]$               $    es
     [^aeioudgkprt]h$     $    es
     [^aeiou]y$          y$    ies
-    $                    $    s`
+    $                    $    s
 
 
 Now lets see how you can use this rules file.
@@ -486,7 +483,7 @@ Now lets see how you can use this rules file.
 
 ::
 
-     `import re
+    import re
     
     def build_match_and_apply_functions(pattern, search, replace):  ①
         def matches_rule(word):
@@ -500,33 +497,33 @@ Now lets see how you can use this rules file.
         for line in pattern_file:                                      ③
             pattern, search, replace = line.split(None, 3)             ④
             rules.append(build_match_and_apply_functions(              ⑤
-                    pattern, search, replace))`
+                    pattern, search, replace))
 
 
 
 #. The `build_match_and_apply_functions()` function has not changed.
-Youre still using closures to build two functions dynamically that use
-variables defined in the outer function.
+   Youre still using closures to build two functions dynamically that use
+   variables defined in the outer function.
 #. The global `open()` function opens a file and returns a file
-object. In this case, the file were opening contains the pattern
-strings for pluralizing nouns. The `with` statement creates whats
-called a context : when the `with` block ends, Python will
-automatically close the file, even if an exception is raised inside
-the `with` block. Youll learn more about `with` blocks and file
-objects in the `Files`_ chapter.
+   object. In this case, the file were opening contains the pattern
+   strings for pluralizing nouns. The `with` statement creates whats
+   called a context : when the `with` block ends, Python will
+   automatically close the file, even if an exception is raised inside
+   the `with` block. Youll learn more about `with` blocks and file
+   objects in the `Files`_ chapter.
 #. The `for line in <fileobject>` idiom reads data from the open file,
-one line at a time, and assigns the text to the line variable. Youll
-learn more about reading from files in the `Files`_ chapter.
+   one line at a time, and assigns the text to the line variable. Youll
+   learn more about reading from files in the `Files`_ chapter.
 #. Each line in the file really has three values, but theyre separated
-by whitespace (tabs or spaces, it makes no difference). To split it
-out, use the `split()` string method. The first argument to the
-`split()` method is `None`, which means split on any whitespace (tabs
-or spaces, it makes no difference). The second argument is `3`, which
-means split on whitespace 3 times, then leave the rest of the line
-alone. A line like `[sxz]$ $ es` will be broken up into the list
-`['[sxz]$', '$', 'es']`, which means that pattern will get `'[sxz]$'`,
-search will get `'$'`, and replace will get `'es'`. Thats a lot of
-power in one little line of code.
+   by whitespace (tabs or spaces, it makes no difference). To split it
+   out, use the `split()` string method. The first argument to the
+   `split()` method is `None`, which means split on any whitespace (tabs
+   or spaces, it makes no difference). The second argument is `3`, which
+   means split on whitespace 3 times, then leave the rest of the line
+   alone. A line like `[sxz]$ $ es` will be broken up into the list
+   `['[sxz]$', '$', 'es']`, which means that pattern will get `'[sxz]$'`,
+   search will get `'$'`, and replace will get `'es'`. Thats a lot of
+   power in one little line of code.
 #. Finally, you pass `pattern`, `search`, and `replace` to the
    `build_match_and_apply_functions()` function, which returns a tuple of
    functions. You append this tuple to the rules list, and rules ends up
@@ -538,6 +535,7 @@ The improvement here is that youve completely separated the
 pluralization rules into an external file, so it can be maintained
 separately from the code that uses it. Code is code, data is data, and
 life is good.
+
 ⁂
 
 
@@ -552,7 +550,7 @@ to do, and thats all the `plural()` function should do.
 
 ::
 
-     `def rules(rules_filename):
+    def rules(rules_filename):
         with open(rules_filename, encoding='utf-8') as pattern_file:
             for line in pattern_file:
                 pattern, search, replace = line.split(None, 3)
@@ -562,7 +560,7 @@ to do, and thats all the `plural()` function should do.
         for matches_rule, apply_rule in rules(rules_filename):
             if matches_rule(noun):
                 return apply_rule(noun)
-        raise ValueError('no matching rule for {0}'.format(noun))`
+        raise ValueError('no matching rule for {0}'.format(noun))
 
 
 How the heck does *that* work? Lets look at an interactive example
@@ -594,30 +592,30 @@ first.
 
 
 #. The presence of the `yield` keyword in `make_counter` means that
-this is not a normal function. It is a special kind of function which
-generates values one at a time. You can think of it as a resumable
-function. Calling it will return a generator that can be used to
-generate successive values of x .
+   this is not a normal function. It is a special kind of function which
+   generates values one at a time. You can think of it as a resumable
+   function. Calling it will return a generator that can be used to
+   generate successive values of x .
 #. To create an instance of the `make_counter` generator, just call it
-like any other function. Note that this does not actually execute the
-function code. You can tell this because the first line of the
-`make_counter()` function calls `print()`, but nothing has been
-printed yet.
+   like any other function. Note that this does not actually execute the
+   function code. You can tell this because the first line of the
+   `make_counter()` function calls `print()`, but nothing has been
+   printed yet.
 #. The `make_counter()` function returns a generator object.
 #. The `next()` function takes a generator object and returns its next
-value. The first time you call `next()` with the counter generator, it
-executes the code in `make_counter()` up to the first `yield`
-statement, then returns the value that was yielded. In this case, that
-will be `2`, because you originally created the generator by calling
-`make_counter(2)`.
+   value. The first time you call `next()` with the counter generator, it
+   executes the code in `make_counter()` up to the first `yield`
+   statement, then returns the value that was yielded. In this case, that
+   will be `2`, because you originally created the generator by calling
+   `make_counter(2)`.
 #. Repeatedly calling `next()` with the same generator object resumes
-exactly where it left off and continues until it hits the next `yield`
-statement. All variables, local state, & c. are saved on `yield` and
-restored on `next()`. The next line of code waiting to be executed
-calls `print()`, which prints incrementing x . After that, the
-statement `x = x + 1`. Then it loops through the `while` loop again,
-and the first thing it hits is the statement `yield x`, which saves
-the state of everything and returns the current value of x (now `3`).
+   exactly where it left off and continues until it hits the next `yield`
+   statement. All variables, local state, & c. are saved on `yield` and
+   restored on `next()`. The next line of code waiting to be executed
+   calls `print()`, which prints incrementing x . After that, the
+   statement `x = x + 1`. Then it loops through the `while` loop again,
+   and the first thing it hits is the statement `yield x`, which saves
+   the state of everything and returns the current value of x (now `3`).
 #. The second time you call `next(counter)`, you do all the same
    things again, but this time x is now `4`.
 
@@ -630,23 +628,24 @@ instead.
 
 A Fibonacci Generator
 ~~~~~~~~~~~~~~~~~~~~~
+
 yield pauses a function. next() resumes where it left off.
 [`download `fibonacci.py``_]
 
 ::
 
-     `def fib(max):
+    def fib(max):
         a, b = 0, 1          ①
         while a < max:
             yield a          ②
-            a, b = b, a + b  ③`
+            a, b = b, a + b  ③
 
 
 
 #. The Fibonacci sequence is a sequence of numbers where each number
-is the sum of the two numbers before it. It starts with 0 and `1`,
-goes up slowly at first, then more and more rapidly. To start the
-sequence, you need two variables: a starts at 0, and b starts at `1`.
+   is the sum of the two numbers before it. It starts with 0 and `1`,
+   goes up slowly at first, then more and more rapidly. To start the
+   sequence, you need two variables: a starts at 0, and b starts at `1`.
 #. a is the current number in the sequence, so yield it.
 #. b is the next number in the sequence, so assign that to a , but
    also calculate the next value ( `a + b`) and assign that to b for
@@ -672,13 +671,13 @@ read. Also, it works well with `for` loops.
 
 
 #. You can use a generator like `fib()` in a `for` loop directly. The
-`for` loop will automatically call the `next()` function to get values
-from the `fib()` generator and assign them to the `for` loop index
-variable ( n ).
+   `for` loop will automatically call the `next()` function to get values
+   from the `fib()` generator and assign them to the `for` loop index
+   variable ( n ).
 #. Each time through the `for` loop, n gets a new value from the
-`yield` statement in `fib()`, and all you have to do is print it out.
-Once `fib()` runs out of numbers ( a becomes bigger than max , which
-in this case is `1000`), then the `for` loop exits gracefully.
+   `yield` statement in `fib()`, and all you have to do is print it out.
+   Once `fib()` runs out of numbers ( a becomes bigger than max , which
+   in this case is `1000`), then the `for` loop exits gracefully.
 #. This is a useful idiom: pass a generator to the `list()` function,
    and it will iterate through the entire generator (just like the `for`
    loop in the previous example) and return a list of all the values.
@@ -694,7 +693,7 @@ Lets go back to `plural5.py` and see how this version of the
 
 ::
 
-     `def rules(rules_filename):
+    def rules(rules_filename):
         with open(rules_filename, encoding='utf-8') as pattern_file:
             for line in pattern_file:
                 pattern, search, replace = line.split(None, 3)                   ①
@@ -704,17 +703,17 @@ Lets go back to `plural5.py` and see how this version of the
         for matches_rule, apply_rule in rules(rules_filename):                   ③
             if matches_rule(noun):
                 return apply_rule(noun)
-        raise ValueError('no matching rule for {0}'.format(noun))`
+        raise ValueError('no matching rule for {0}'.format(noun))
 
 
 
 #. No magic here. Remember that the lines of the rules file have three
-values separated by whitespace, so you use `line.split(None, 3)` to
-get the three columns and assign them to three local variables.
+   values separated by whitespace, so you use `line.split(None, 3)` to
+   get the three columns and assign them to three local variables.
 #. *And then you yield.* What do you yield? Two functions, built
-dynamically with your old friend, `build_match_and_apply_functions()`,
-which is identical to the previous examples. In other words, `rules()`
-is a generator that spits out match and apply functions *on demand*.
+   dynamically with your old friend, `build_match_and_apply_functions()`,
+   which is identical to the previous examples. In other words, `rules()`
+   is a generator that spits out match and apply functions *on demand*.
 #. Since `rules()` is a generator, you can use it directly in a `for`
    loop. The first time through the `for` loop, you will call the
    `rules()` function, which will open the pattern file, read the first
@@ -735,10 +734,12 @@ about calling the `plural()` function. With generators, you can do
 everything lazily: you read the first rule and create functions and
 try them, and if that works you dont ever read the rest of the file or
 create any other functions.
+
 What have you lost? Performance! Every time you call the `plural()`
 function, the `rules()` generator starts over from the beginningwhich
 means re-opening the patterns file and reading from the beginning, one
 line at a time.
+
 What if you could have the best of both worlds: minimal startup cost
 (dont execute any code on `import`), *and* maximum performance (dont
 build the same functions over and over again). Oh, and you still want
@@ -746,6 +747,7 @@ to keep the rules in a separate file (because code is code and data is
 data), just as long as you never have to read the same line twice.
 To do that, youll need to build your own iterator. But before you do
 *that*, you need to learn about Python classes.
+
 ⁂
 
 
@@ -765,18 +767,15 @@ Further Reading
 
 .. _fibonacci.py: examples/fibonacci.py
 .. _English Irregular Plural Nouns: http://www2.gsu.edu/~wwwesl/egw/crump.htm
-.. _x261C;: regular-expressions.html
 .. _plural4-rules.txt: examples/plural4-rules.txt
 .. _plural5.py: examples/plural5.py
 .. _plural2.py: examples/plural2.py
 .. _plural1.py: examples/plural1.py
 .. _Closures in Python: http://ynniv.com/blog/2007/08/closures-in-python.html
-.. _ statement: http://effbot.org/zone/python-with-statement.htm
+.. _with statement: http://effbot.org/zone/python-with-statement.htm
 .. _Dive Into Python 3: table-of-contents.html#generators
 .. _Files: files.html
-.. _x261E;: iterators.html
 .. _plural4.py: examples/plural4.py
-.. _Home: index.html
 .. _everything in Python is an object: your-first-python-program.html#everythingisanobject
 .. _Case study: Parsing Phone Numbers: regular-expressions.html#phonenumbers
 .. _Mark Pilgrim: about.html
