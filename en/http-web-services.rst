@@ -1,7 +1,5 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
 Difficulty level: ♦♦♦♦♢
-
 
 HTTP Web Services
 =================
@@ -24,19 +22,20 @@ into the HTTP protocol ( `GET`, `POST`, `PUT`, and `DELETE`) map
 directly to application-level operations for retrieving, creating,
 modifying, and deleting data.
 The main advantage of this approach is simplicity, and its simplicity
-has proven popular. Datausually ` XML `_ or ` JSON `_can be built and
+has proven popular. Data, usually `XML`_ or `JSON`_ can be built and
 stored statically, or generated dynamically by a server-side script,
 and all major programming languages (including Python, of course!)
 include an HTTP library for downloading it. Debugging is also easier;
 because each resource in an HTTP web service has a unique address (in
 the form of a URL ), you can load it in your web browser and
 immediately see the raw data.
+
 Examples of HTTP web services:
 
 + `Google Data API s`_ allow you to interact with a wide variety of
-Google services, including `Blogger`_ and `YouTube`_.
+   Google services, including `Blogger`_ and `YouTube`_.
 + `Flickr Services`_ allow you to upload and download photos from
-`Flickr`_.
+   `Flickr`_.
 + `Twitter API `_ allows you to publish status updates on `Twitter`_.
 + `and many more`_
 
@@ -44,20 +43,21 @@ Google services, including `Blogger`_ and `YouTube`_.
 Python 3 comes with two different libraries for interacting with HTTP
 web services:
 
-+ ` `http.client``_ is a low-level library that implements ` RFC
-2616`_, the HTTP protocol.
-+ ` `urllib.request``_ is an abstraction layer built on top of
++ `http.client`_ is a low-level library that implements `RFC
+   2616`_, the HTTP protocol.
++ `urllib.request`_ is an abstraction layer built on top of
   `http.client`. It provides a standard API for accessing both HTTP and
   FTP servers, automatically follows HTTP redirects, and handles some
   common forms of HTTP authentication.
 
 
 So which one should you use? Neither of them. Instead, you should use
-` `httplib2``_, an open source third-party library that implements
+`httplib2`_, an open source third-party library that implements
 HTTP more fully than `http.client` but provides a better abstraction
 than `urllib.request`.
 To understand why `httplib2` is the right choice, you first need to
 understand HTTP .
+
 ⁂
 
 
@@ -87,14 +87,14 @@ devices (called caching proxies) whose only job is to sit between you
 and the rest of the world and minimize network access. Your company or
 ISP almost certainly maintains caching proxies, even if youre unaware
 of them. They work because caching is built into the HTTP protocol.
-Heres a concrete example of how caching works. You visit `
-`diveintomark.org``_ in your browser. That page includes a background
-image, ` `wearehugh.com/m.jpg``_. When your browser downloads that
+Heres a concrete example of how caching works. You visit
+`diveintomark.org`_ in your browser. That page includes a background
+image, `wearehugh.com/m.jpg`_. When your browser downloads that
 image, the server includes the following HTTP headers:
 
 ::
 
-     `HTTP/1.1 200 OK
+    HTTP/1.1 200 OK
     Date: Sun, 31 May 2009 17:14:04 GMT
     Server: Apache
     Last-Modified: Fri, 22 Aug 2008 04:28:16 GMT
@@ -104,7 +104,7 @@ image, the server includes the following HTTP headers:
     Cache-Control: max-age=31536000, public
     Expires: Mon, 31 May 2010 17:14:04 GMT
     Connection: close
-    Content-Type: image/jpeg`
+    Content-Type: image/jpeg
 
 
 The `Cache-Control` and `Expires` headers tell your browser (and any
@@ -113,6 +113,7 @@ cached for up to a year. *A year!* And if, in the next year, you visit
 another page which also includes a link to this image, your browser
 will load the image from its cache *without generating any network
 activity whatsoever*.
+
 But wait, it gets better. Lets say your browser purges the image from
 your local cache for some reason. Maybe it ran out of disk space;
 maybe you manually cleared the cache. Whatever. But the HTTP headers
@@ -122,6 +123,7 @@ said that this data could be cached by public caching proxies.
 is cacheable by default.) Caching proxies are designed to have tons of
 storage space, probably far more than your local browser has
 allocated.
+
 If your company or ISP maintain a caching proxy, the proxy may still
 have the image cached. When you visit `diveintomark.org` again, your
 browser will look in its local cache for the image, but it wont find
@@ -132,12 +134,14 @@ That means that your request will never reach the remote server; in
 fact, it will never leave your companys network. That makes for a
 faster download (fewer network hops) and saves your company money
 (less data being downloaded from the outside world).
+
 HTTP caching only works when everybody does their part. On one side,
 servers need to send the correct headers in their response. On the
 other side, clients need to understand and respect those headers
 before they request the same data twice. The proxies in the middle are
 not a panacea; they can only be as smart as the servers and clients
 allow them to be.
+
 Pythons HTTP libraries do not support caching, but `httplib2` does.
 
 
@@ -162,7 +166,7 @@ Modified` header.
 
 ::
 
-     `HTTP/1.1 200 OK
+    HTTP/1.1 200 OK
     Date: Sun, 31 May 2009 17:14:04 GMT
     Server: Apache
     Last-Modified: Fri, 22 Aug 2008 04:28:16 GMT
@@ -173,7 +177,6 @@ Modified` header.
     Expires: Mon, 31 May 2010 17:14:04 GMT
     Connection: close
     Content-Type: image/jpeg
-    `
 
 
 When you request the same data a second (or third or fourth) time, you
@@ -206,7 +209,7 @@ bonus, this `304` response also includes caching headers. Proxies will
 keep a copy of data even after it officially expires, in the hopes
 that the data hasnt *really* changed and the next request responds
 with a `304` status code and updated cache information.)
-Pythons HTTP libraries do not support last-modified date checking, but
+Python's HTTP libraries do not support last-modified date checking, but
 `httplib2` does.
 
 
@@ -222,7 +225,7 @@ referenced from `diveintomark.org` had an `ETag` header.
 
 ::
 
-     `HTTP/1.1 200 OK
+    HTTP/1.1 200 OK
     Date: Sun, 31 May 2009 17:14:04 GMT
     Server: Apache
     Last-Modified: Fri, 22 Aug 2008 04:28:16 GMT
@@ -233,9 +236,9 @@ referenced from `diveintomark.org` had an `ETag` header.
     Expires: Mon, 31 May 2010 17:14:04 GMT
     Connection: close
     Content-Type: image/jpeg
-    `
 
 `ETag` means theres nothing new under the sun.
+
 The second time you request the same data, you include the ETag hash
 in an `If-None-Match` header of your request. If the data hasnt
 changed, the server will send you back a `304` status code. As with
@@ -244,6 +247,7 @@ the last-modified date checking, the server sends back *only* the
 including the ETag hash in your second request, youre telling the
 server that theres no need to re-send the same data if it still
 matches this hash, since you still have the data from the last time.
+
 Again with the curl :
 
 ::
@@ -277,6 +281,7 @@ XML , maybe its JSON , maybe its just `plain text`_. Regardless of the
 format, text compresses well. The example feed in `the XML chapter`_
 is 3070 bytes uncompressed, but would be 941 bytes after gzip
 compression. Thats just 30% of the original size!
+
 HTTP supports `several compression algorithms`_. The two most common
 types are `gzip`_ and `deflate`_. When you request a resource over
 HTTP , you can ask the server to send it in compressed format. You
@@ -285,12 +290,14 @@ compression algorithms you support. If the server supports any of the
 same algorithms, it will send you back compressed data (with a
 `Content-encoding` header that tells you which algorithm it used).
 Then its up to you to decompress the data.
+
 ☞Important tip for server-side developers: make sure that the
 compressed version of a resource has a different Etag than the
 uncompressed version. Otherwise, caching proxies will get confused and
 may serve the compressed version to clients that cant handle it. Read
 the discussion of `Apache bug 39727`_ for more details on this subtle
 issue.
+
 Pythons HTTP libraries do not support compression, but `httplib2`
 does.
 
@@ -298,7 +305,7 @@ does.
 Redirects
 ~~~~~~~~~
 
-`Cool URI s dont change`_, but many URI s are seriously uncool. Web
+`Cool URIs don't change`_, but many URI s are seriously uncool. Web
 sites get reorganized, pages move to new addresses. Even web services
 can reorganize. A syndicated feed at `http://example.com/index.xml`
 might be moved to `http://example.com/xml/atom.xml`. Or an entire
@@ -322,6 +329,7 @@ get what you asked for, but the next time you want to access the same
 resource, you should retry the old address. But if you get a `301`
 status code and a new address, youre supposed to use the new address
 from then on.
+
 The `urllib.request` module automatically follow redirects when it
 receives the appropriate status code from the HTTP server, but it
 doesnt tell you that it did so. Youll end up getting data you asked
@@ -332,10 +340,12 @@ and each time the `urllib.request` module will helpfully follow the
 redirect. In other words, it treats permanent redirects the same as
 temporary redirects. That means two round trips instead of one, which
 is bad for the server and bad for you.
+
 `httplib2` handles permanent redirects for you. Not only will it tell
 you that a permanent redirect occurred, it will keep track of them
 locally and automatically rewrite redirected URL s before requesting
 them.
+
 ⁂
 
 
@@ -369,10 +379,10 @@ first, and then see how you can do better.
 
 
 #. Downloading anything over HTTP is incredibly easy in Python; in
-fact, its a one-liner. The `urllib.request` module has a handy
-`urlopen()` function that takes the address of the page you want, and
-returns a file-like object that you can just `read()` from to get the
-full contents of the page. It just cant get any easier.
+   fact, its a one-liner. The `urllib.request` module has a handy
+   `urlopen()` function that takes the address of the page you want, and
+   returns a file-like object that you can just `read()` from to get the
+   full contents of the page. It just cant get any easier.
 #. The `urlopen().read()` method always returns `a `bytes` object, not
    a string`_. Remember, bytes are bytes; characters are an abstraction.
    HTTP servers dont deal in abstractions. If you request a resource, you
@@ -387,6 +397,7 @@ The same technique works for any web page. But once you start thinking
 in terms of a web service that you want to access on a regular basis (
 e.g. requesting this feed once an hour), then youre being inefficient,
 and youre being rude.
+
 ⁂
 
 
@@ -415,22 +426,22 @@ features of Pythons HTTP library and see whats being sent on the wire
 
 
 #. As I mentioned at the beginning of the chapter, `urllib.request`
-relies on another standard Python library, `http.client`. Normally you
-dont need to touch `http.client` directly. (The `urllib.request`
-module imports it automatically.) But we import it here so we can
-toggle the debugging flag on the `HTTPConnection` class that
-`urllib.request` uses to connect to the HTTP server.
+   relies on another standard Python library, `http.client`. Normally you
+   dont need to touch `http.client` directly. (The `urllib.request`
+   module imports it automatically.) But we import it here so we can
+   toggle the debugging flag on the `HTTPConnection` class that
+   `urllib.request` uses to connect to the HTTP server.
 #. Now that the debugging flag is set, information on the HTTP request
-and response is printed out in real time. As you can see, when you
-request the Atom feed, the `urllib.request` module sends five lines to
-the server.
+   and response is printed out in real time. As you can see, when you
+   request the Atom feed, the `urllib.request` module sends five lines to
+   the server.
 #. The first line specifies the HTTP verb youre using, and the path of
-the resource (minus the domain name).
+   the resource (minus the domain name).
 #. The second line specifies the domain name from which were
-requesting this feed.
+   requesting this feed.
 #. The third line specifies the compression algorithms that the client
-supports. As I mentioned earlier, `urllib.request` does not support
-compression by default.
+   supports. As I mentioned earlier, `urllib.request` does not support
+   compression by default.
 #. The fourth line specifies the name of the library that is making
    the request. By default, this is `Python-urllib` plus a version
    number. Both `urllib.request` and `httplib2` support changing the user
@@ -461,19 +472,18 @@ Now lets look at what the server sent back in its response.
     3070
 
 
-
 #. The response returned from the `urllib.request.urlopen()` function
-contains all the HTTP headers the server sent back. It also contains
-methods to download the actual data; well get to that in a minute.
+   contains all the HTTP headers the server sent back. It also contains
+   methods to download the actual data; well get to that in a minute.
 #. The server tells you when it handled your request.
 #. This response includes a `Last-Modified` header.
 #. This response includes an `ETag` header.
 #. The data is 3070 bytes long. Notice what *isnt* here: a `Content-
-encoding` header. Your request stated that you only accept
-uncompressed data ( `Accept-encoding: identity`), and sure enough,
-this response contains uncompressed data.
+   encoding` header. Your request stated that you only accept
+   uncompressed data ( `Accept-encoding: identity`), and sure enough,
+   this response contains uncompressed data.
 #. This response includes caching headers that state that this feed
-can be cached for up to 24 hours (86400 seconds).
+   can be cached for up to 24 hours (86400 seconds).
 #. And finally, download the actual data by calling `response.read()`.
    As you can tell from the `len()` function, this fetched a total of
    3070 bytes.
@@ -533,10 +543,10 @@ response. Twice.
 
 
 #. The server is still sending the same array of smart headers:
-`Cache-Control` and `Expires` to allow caching, `Last-Modified` and
-`ETag` to enable not-modified tracking. Even the `Vary: Accept-
-Encoding` header hints that the server would support compression, if
-only you would ask for it. But you didnt.
+   `Cache-Control` and `Expires` to allow caching, `Last-Modified` and
+   `ETag` to enable not-modified tracking. Even the `Vary: Accept-
+   Encoding` header hints that the server would support compression, if
+   only you would ask for it. But you didnt.
 #. Once again, this request fetches the whole 3070 bytes
 #. the exact same 3070 bytes you got last time.
 
@@ -545,14 +555,15 @@ HTTP is designed to work better than this. `urllib` speaks HTTP like I
 speak Spanishenough to get by in a jam, but not enough to hold a
 conversation. HTTP is a conversation. Its time to upgrade to a library
 that speaks HTTP fluently.
+
 ⁂
 
 
 Introducing `httplib2`
 ----------------------
 
-Before you can use `httplib2`, youll need to install it. Visit `
-`code.google.com/p/httplib2/``_ and download the latest version.
+Before you can use `httplib2`, youll need to install it. Visit
+`code.google.com/p/httplib2/`_ and download the latest version.
 `httplib2` is available for Python 2.x and Python 3.x; make sure you
 get the Python 3 version, named something like
 `httplib2-python3-0.5.0.zip`.
@@ -644,17 +655,17 @@ To use `httplib2`, create an instance of the `httplib2.Http` class.
 
 
 #. The primary interface to `httplib2` is the `Http` object. For
-reasons youll see in the next section, you should always pass a
-directory name when you create an `Http` object. The directory does
-not need to exist; `httplib2` will create it if necessary.
+   reasons youll see in the next section, you should always pass a
+   directory name when you create an `Http` object. The directory does
+   not need to exist; `httplib2` will create it if necessary.
 #. Once you have an `Http` object, retrieving data is as simple as
-calling the `request()` method with the address of the data you want.
-This will issue an HTTP `GET` request for that URL . (Later in this
-chapter, youll see how to issue other HTTP requests, like `POST`.)
+   calling the `request()` method with the address of the data you want.
+   This will issue an HTTP `GET` request for that URL . (Later in this
+   chapter, youll see how to issue other HTTP requests, like `POST`.)
 #. The `request()` method returns two values. The first is an
-`httplib2.Response` object, which contains all the HTTP headers the
-server returned. For example, a `status` code of `200` indicates that
-the request was successful.
+   `httplib2.Response` object, which contains all the HTTP headers the
+   server returned. For example, a `status` code of `200` indicates that
+   the request was successful.
 #. The content variable contains the actual data that was returned by
    the HTTP server. The data is returned as `a `bytes` object, not a
    string`_. If you want it as a string, youll need to `determine the
@@ -668,9 +679,9 @@ URL s is not a valid reason. Re-use the `Http` object and just call
 the `request()` method twice.
 
 
-A Short Digression To Explain Why `httplib2` Returns Bytes Instead of
-Strings
-~~~~~~~
+
+A Short Digression To Explain Why `httplib2` Returns Bytes Instead of Strings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Bytes. Strings. What a pain. Why cant `httplib2` just do the
 conversion for you? Well, its complicated, because the rules for
@@ -690,7 +701,7 @@ documents do that. If an XML document doesnt include encoding
 information, the client is supposed to look at the enclosing transport
 i.e. the `Content-Type` HTTP header, which can include a `charset`
 parameter.
-` `_
+
 But its worse than that. Now character encoding information can be in
 two places: within the XML document itself, and within the `Content-
 Type` HTTP header. If the information is in *both* places, which one
@@ -702,9 +713,9 @@ as `application/atom+xml` or `application/rss+xml` or even
 `application/rdf+xml`, then the encoding is
 
 #. the encoding given in the `charset` parameter of the `Content-Type`
-HTTP header, or
+   HTTP header, or
 #. the encoding given in the `encoding` attribute of the XML
-declaration within the document, or
+   declaration within the document, or
 #. UTF-8
 
 
@@ -715,7 +726,7 @@ declaration within the document is ignored completely, and the
 encoding is
 
 #. the encoding given in the charset parameter of the `Content-Type`
-HTTP header, or
+   HTTP header, or
 #. `us-ascii`
 
 
@@ -747,7 +758,7 @@ reason.
 
 
 #. This shouldnt be terribly surprising. Its the same thing you did
-last time, except youre putting the result into two new variables.
+   last time, except youre putting the result into two new variables.
 #. The HTTP `status` is once again `200`, just like last time.
 #. The downloaded content is the same as last time, too.
 
@@ -775,28 +786,30 @@ a new session, and Ill show you.
 
 
 #. Lets turn on debugging and see whats on the wire. This is the
-`httplib2` equivalent of turning on debugging in `http.client`.
-`httplib2` will print all the data being sent to the server and some
-key information being sent back.
+   `httplib2` equivalent of turning on debugging in `http.client`.
+   `httplib2` will print all the data being sent to the server and some
+   key information being sent back.
 #. Create an `httplib2.Http` object with the same directory name as
-before.
+   before.
 #. Request the same URL as before. *Nothing appears to happen.* More
-precisely, nothing gets sent to the server, and nothing gets returned
-from the server. There is absolutely no network activity whatsoever.
+   precisely, nothing gets sent to the server, and nothing gets returned
+   from the server. There is absolutely no network activity whatsoever.
 #. Yet we did receive some datain fact, we received all of it.
 #. We also received an HTTP status code indicating that the request
-was successful.
-#. Heres the rub: this response was generated from `httplib2`s local
+   was successful.
+#. Heres the rub: this response was generated from `httplib2`'s local
    cache. That directory name you passed in when you created the
-   `httplib2.Http` objectthat directory holds `httplib2`s cache of all
+   `httplib2.Http` objectthat directory holds `httplib2`'s cache of all
    the operations its ever performed.
 
 Whats on the wire? Absolutely nothing.
+
 ☞If you want to turn on `httplib2` debugging, you need to set a
 module-level constant ( `httplib2.debuglevel`), then create a new
 `httplib2.Http` object. If you want to turn off debugging, you need to
 change the same module-level constant, then create a new
 `httplib2.Http` object.
+
 You previously requested the data at this URL . That request was
 successful ( `status: 200`). That response included not only the feed
 data, but also a set of caching headers that told anyone who was
@@ -808,11 +821,13 @@ you passed in when you create the `Http` object). That cache hasnt
 expired yet, so the second time you request the data at this URL ,
 `httplib2` simply returns the cached result without ever hitting the
 network.
+
 I say simply, but obviously there is a lot of complexity hidden behind
 that simplicity. `httplib2` handles HTTP caching *automatically* and
 *by default*. If for some reason you need to know whether a response
 came from the cache, you can check `response.fromcache`. Otherwise, it
 Just Works.
+
 Now, suppose you have data cached, but you want to bypass the cache
 and re-request it from the remote server. Browsers sometimes do this
 if the user specifically requests it. For example, pressing F5
@@ -865,18 +880,18 @@ reaches the remote server.
 
 
 #. `httplib2` allows you to add arbitrary HTTP headers to any outgoing
-request. In order to bypass *all* caches (not just your local disk
-cache, but also any caching proxies between you and the remote
-server), add a `no-cache` header in the headers dictionary.
+   request. In order to bypass *all* caches (not just your local disk
+   cache, but also any caching proxies between you and the remote
+   server), add a `no-cache` header in the headers dictionary.
 #. Now you see `httplib2` initiating a network request. `httplib2`
-understands and respects caching headers *in both directions*as part
-of the incoming response *and as part of the outgoing request*. It
-noticed that you added the `no-cache` header, so it bypassed its local
-cache altogether and then had no choice but to hit the network to
-request the data.
+   understands and respects caching headers *in both directions* as part
+   of the incoming response *and as part of the outgoing request*. It
+   noticed that you added the `no-cache` header, so it bypassed its local
+   cache altogether and then had no choice but to hit the network to
+   request the data.
 #. This response was *not* generated from your local cache. You knew
-that, of course, because you saw the debugging information on the
-outgoing request. But its nice to have that programmatically verified.
+   that, of course, because you saw the debugging information on the
+   outgoing request. But its nice to have that programmatically verified.
 #. The request succeeded; you downloaded the entire feed again from
    the remote server. Of course, the server also sent back a full
    complement of HTTP headers along with the feed data. That includes
@@ -886,8 +901,6 @@ outgoing request. But its nice to have that programmatically verified.
    and minimize network access. Even though you bypassed the cache this
    time, the remote server would really appreciate it if you would cache
    the result for next time.
-
-
 
 
 How `httplib2` Handles `Last-Modified` and `ETag` Headers
@@ -900,6 +913,7 @@ exactly the behavior you saw in the previous section: given a
 freshness indicator, `httplib2` *does not generate a single byte of
 network activity* to serve up cached data (unless you explicitly
 bypass the cache, of course).
+
 But what about the case where the data *might* have changed, but
 hasnt? HTTP defines `Last-Modified` and `Etag` headers for this
 purpose. These headers are called validators . If the local cache is
@@ -941,12 +955,12 @@ fewer bytes.
 
 
 #. Instead of the feed, this time were going to download the sites
-home page, which is HTML . Since this is the first time youve ever
-requested this page, `httplib2` has little to work with, and it sends
-out a minimum of headers with the request.
+   home page, which is HTML . Since this is the first time youve ever
+   requested this page, `httplib2` has little to work with, and it sends
+   out a minimum of headers with the request.
 #. The response contains a multitude of HTTP headers but no caching
-information. However, it does include both an `ETag` and `Last-
-Modified` header.
+   information. However, it does include both an `ETag` and `Last-
+   Modified` header.
 #. At the time I constructed this example, this page was 6657 bytes.
    Its probably changed since then, but dont worry about it.
 
@@ -977,24 +991,24 @@ Modified` header.
 
 
 #. You request the same page again, with the same `Http` object (and
-the same local cache).
+   the same local cache).
 #. `httplib2` sends the `ETag` validator back to the server in the
-`If-None-Match` header.
+   `If-None-Match` header.
 #. `httplib2` also sends the `Last-Modified` validator back to the
-server in the `If-Modified-Since` header.
+   server in the `If-Modified-Since` header.
 #. The server looked at these validators, looked at the page you
-requested, and determined that the page has not changed since you last
-requested it, so it sends back a `304` status code *and no data*.
+   requested, and determined that the page has not changed since you last
+   requested it, so it sends back a `304` status code *and no data*.
 #. Back on the client, `httplib2` notices the `304` status code and
-loads the content of the page from its cache.
+   loads the content of the page from its cache.
 #. This might be a bit confusing. There are really *two* status codes
-`304` (returned from the server this time, which caused `httplib2` to
-look in its cache), and `200` (returned from the server *last time*,
-and stored in `httplib2`s cache along with the page data).
-`response.status` returns the status from the cache.
+   `304` (returned from the server this time, which caused `httplib2` to
+   look in its cache), and `200` (returned from the server *last time*,
+   and stored in `httplib2`s cache along with the page data).
+   `response.status` returns the status from the cache.
 #. If you want the raw status code returned from the server, you can
-get that by looking in `response.dict`, which is a dictionary of the
-actual headers returned from the server.
+   get that by looking in `response.dict`, which is a dictionary of the
+   actual headers returned from the server.
 #. However, you still get the data in the content variable. Generally,
    you dont need to know why a response was served from the cache. (You
    may not even care that it was served from the cache at all, and thats
@@ -1038,8 +1052,8 @@ are gzip and deflate. `httplib2` supports both of these.
 
 
 #. Every time `httplib2` sends a request, it includes an `Accept-
-Encoding` header to tell the server that it can handle either
-`deflate` or `gzip` compression.
+   Encoding` header to tell the server that it can handle either
+   `deflate` or `gzip` compression.
 #. In this case, the server has responded with a gzip-compressed
    payload. By the time the `request()` method returns, `httplib2` has
    already decompressed the body of the response and placed it in the
@@ -1079,10 +1093,10 @@ which `httplib2` does automatically.
 
 
 #. There is no feed at this URL . Ive set up my server to issue a
-temporary redirect to the correct address.
+   temporary redirect to the correct address.
 #. Theres the request.
 #. And theres the response: `302 Found`. Not shown here, this response
-also includes a `Location` header that points to the real URL .
+   also includes a `Location` header that points to the real URL .
 #. `httplib2` immediately turns around and follows the redirect by
    issuing another request for the URL given in the `Location` header:
    `http://diveintopython3.org/examples/feed.xml`
@@ -1116,10 +1130,10 @@ back with a response that says No no, look over there instead.
 
 
 #. The response you get back from this single call to the `request()`
-method is the response from the final URL .
+   method is the response from the final URL .
 #. `httplib2` adds the final URL to the response dictionary, as
-`content-location`. This is not a header that came from the server;
-its specific to `httplib2`.
+   `content-location`. This is not a header that came from the server;
+   its specific to `httplib2`.
 #. Apropos of nothing, this feed is compressed.
 #. And cacheable. (This is important, as youll see in a minute.)
 
@@ -1154,10 +1168,9 @@ do that, too.
 
 
 #. The response.previous attribute holds a reference to the previous
-response object that `httplib2` followed to get to the current
-response object.
-#. Both response and response.previous are `httplib2.Response`
-objects.
+   response object that `httplib2` followed to get to the current
+   response object.
+#. Both response and response.previous are `httplib2.Response` objects.
 #. That means you can check response.previous.previous to follow the
    redirect chain backwards even further. (Scenario: one URL redirects to
    a second URL which redirects to a third URL . It could happen!) In
@@ -1183,18 +1196,17 @@ What happens if you request the same URL again?
 
 
 
-#. Same URL , same `httplib2.Http` object (and therefore the same
-cache).
+#. Same URL , same `httplib2.Http` object (and therefore the same cache).
 #. The `302` response was not cached, so `httplib2` sends another
-request for the same URL .
+   request for the same URL .
 #. Once again, the server responds with a `302`. But notice what
-*didnt* happen: there wasnt ever a second request for the final URL ,
-`http://diveintopython3.org/examples/feed.xml`. That response was
-cached (remember the `Cache-Control` header that you saw in the
-previous example). Once `httplib2` received the `302 Found` code, *it
-checked its cache before issuing another request*. The cache contained
-a fresh copy of `http://diveintopython3.org/examples/feed.xml`, so
-there was no need to re-request it.
+   *didnt* happen: there wasnt ever a second request for the final URL ,
+   `http://diveintopython3.org/examples/feed.xml`. That response was
+   cached (remember the `Cache-Control` header that you saw in the
+   previous example). Once `httplib2` received the `302 Found` code, *it
+   checked its cache before issuing another request*. The cache contained
+   a fresh copy of `http://diveintopython3.org/examples/feed.xml`, so
+   there was no need to re-request it.
 #. By the time the `request()` method returns, it has read the feed
    data from the cache and returned it. Of course, its the same as the
    data you received last time.
@@ -1224,11 +1236,11 @@ Permanent redirects are just as simple.
 
 
 #. Once again, this URL doesnt really exist. Ive set up my server to
-issue a permanent redirect to
-`http://diveintopython3.org/examples/feed.xml`.
+   issue a permanent redirect to
+   `http://diveintopython3.org/examples/feed.xml`.
 #. And here it is: status code `301`. But again, notice what *didnt*
-happen: there was no request to the redirect URL . Why not? Because
-its already cached locally.
+   happen: there was no request to the redirect URL . Why not? Because
+   its already cached locally.
 #. `httplib2` followed the redirect right into its cache.
 
 
@@ -1247,16 +1259,17 @@ But wait! Theres more!
 
 
 #. Heres the difference between temporary and permanent redirects:
-once `httplib2` follows a permanent redirect, all further requests for
-that URL will transparently be rewritten to the target URL *without
-hitting the network for the original URL *. Remember, debugging is
-still turned on, yet there is no output of network activity
-whatsoever.
+   once `httplib2` follows a permanent redirect, all further requests for
+   that URL will transparently be rewritten to the target URL *without
+   hitting the network for the original URL*. Remember, debugging is
+   still turned on, yet there is no output of network activity
+   whatsoever.
 #. Yep, this response was retrieved from the local cache.
 #. Yep, you got the entire feed (from the cache).
 
 
 HTTP . It works.
+
 ⁂
 
 
@@ -1268,21 +1281,22 @@ to create something new? Whenever you post a comment on a discussion
 forum, update your weblog, publish your status on a microblogging
 service like `Twitter`_ or `Identi.ca`_, youre probably already using
 HTTP `POST`.
+
 Both Twitter and Identi.ca both offer a simple HTTP -based API for
 publishing and updating your status in 140 characters or less. Lets
 look at `Identi.cas API documentation`_ for updating your status:
-**Identi.ca REST API Method: statuses/update**
-Updates the authenticating users status. Requires the `status`
-parameter specified below. Request must be a `POST`.
-: URL `https://identi.ca/api/statuses/update. format `:Formats `xml`,
-  `json`, `rss`, `atom`: HTTP Method(s) `POST`:Requires Authentication
-  true:Parameters `status`. Required. The text of your status update.
-  URL -encode as necessary.
-:
-:
-:
-:
-:
+
+::
+
+    **Identi.ca REST API Method: statuses/update**
+    Updates the authenticating users status. Requires the `status`
+    parameter specified below. Request must be a `POST`.
+    :URL: `https://identi.ca/api/statuses/update. format `
+    :Formats: `xml`, `json`, `rss`, `atom`
+    :HTTP Method(s): `POST`
+    :Requires Authentication: true
+    :Parameters: `status`. Required. The text of your status update.
+                 URL -encode as necessary.
 
 How does this work? To publish a new message on Identi.ca, you need to
 issue an HTTP `POST` request to `http://identi.ca/api/statuses/update.
