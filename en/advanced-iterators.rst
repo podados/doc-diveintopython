@@ -72,7 +72,7 @@ alphametic puzzles *in just 14 lines of code*.
             print(puzzle)
             solution = solve(puzzle)
             if solution:
-                print(solution)`
+                print(solution)
 
 
 You can run the program from the command line. On Linux, it would look
@@ -106,9 +106,9 @@ The first thing this alphametics solver does is find all the letters
 
     
     >>> import re
-    >>> re.findall('[0-9]+', '16 2-by-4s in rows of 8')  ①
+    >>> re.findall('[0-9]+', '16 2-by-4s in rows of 8')  #①
     ['16', '2', '4', '8']
-    >>> re.findall('[A-Z]+', 'SEND + MORE == MONEY')     ②
+    >>> re.findall('[A-Z]+', 'SEND + MORE == MONEY')     #②
     ['SEND', 'MORE', 'MONEY']
 
 
@@ -167,15 +167,15 @@ Finding the unique items in a sequence
 
     
     >>> a_list = ['The', 'sixth', 'sick', "sheik's", 'sixth', "sheep's", 'sick']
-    >>> set(a_list)                      ①
+    >>> set(a_list)                      #--①
     {'sixth', 'The', "sheep's", 'sick', "sheik's"}
     >>> a_string = 'EAST IS EAST'
-    >>> set(a_string)                    ②
+    >>> set(a_string)                    #--②
     {'A', ' ', 'E', 'I', 'S', 'T'}
     >>> words = ['SEND', 'MORE', 'MONEY']
-    >>> ''.join(words)                   ③
+    >>> ''.join(words)                   #--③
     'SENDMOREMONEY'
-    >>> set(''.join(words))              ④
+    >>> set(''.join(words))              #--④
     {'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}
 
 
