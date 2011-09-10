@@ -39,6 +39,7 @@ Table of Contents (`expand`_)
     special-method-names
     where-to-go-from-here
     troubleshooting
+    about
 
 
 The book is freely licensed under the `Creative Commons Attribution
