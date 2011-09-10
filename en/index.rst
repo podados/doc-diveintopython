@@ -13,31 +13,32 @@ material. The book is now complete, but `feedback is always welcome`_.
 Table of Contents (`expand`_)
 -----------------------------
 
-` *Also available on dead trees!*
-`_
+` *Also available on dead trees!* `_
 
-#. `Whats New in Dive Into Python 3`_
-#. `Installing Python`_
-#. `Your First Python Program`_
-#. `Native Datatypes`_
-#. `Comprehensions`_
-#. `Strings`_
-#. `Regular Expressions`_
-#. `Closures & Generators`_
-#. `Classes & Iterators`_
-#. `Advanced Iterators`_
-#. `Unit Testing`_
-#. `Refactoring`_
-#. `Files`_
-#. `XML`_
-#. `Serializing Python Objects`_
-#. `HTTP Web Services`_
-#. `Case Study: Porting `chardet` to Python 3`_
-#. `Packaging Python Libraries`_
-#. `Porting Code to Python 3 with `2to3``_
-#. `Special Method Names`_
-#. `Where to Go From Here`_
-#. `Troubleshooting`_
+.. toctree::
+
+    whats-new
+    installing-python
+    your-first-python-program
+    native-datatypes
+    comprehensions
+    strings
+    regular-expressions
+    generators
+    iterators
+    advanced-iterators
+    unit-testing
+    refactoring
+    files
+    xml
+    serializing
+    http-web-services
+    case-study-porting-chardet-to-python-3
+    packaging
+    porting-code-to-python-3-with-2to3
+    special-method-names
+    where-to-go-from-here
+    troubleshooting
 
 
 The book is freely licensed under the `Creative Commons Attribution
@@ -46,7 +47,7 @@ ber-geeks can also clone the Git repository:
 
 ::
 
-    you@localhost:~$ git clone `git://github.com/diveintomark/diveintopython3.git`_
+    you@localhost:~$ git clone git://github.com/diveintomark/diveintopython3.git
 
 
 200111 `Mark Pilgrim`_
