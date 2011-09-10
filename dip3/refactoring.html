@@ -10,15 +10,15 @@ body{counter-reset:h1 10}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=root value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#refactoring>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#refactoring">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=advanced>&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>Refactoring</h1>
 <blockquote class=q>
-<p><span class=u>&#x275D;</span> After one has played a vast quantity of notes and more notes, it is simplicity that emerges as the crowning reward of art. <span class=u>&#x275E;</span><br>&mdash; <a href=http://en.wikiquote.org/wiki/Fr%C3%A9d%C3%A9ric_Chopin>Fr&eacute;d&eacute;ric Chopin</a>
+<p><span class=u>&#x275D;</span> After one has played a vast quantity of notes and more notes, it is simplicity that emerges as the crowning reward of art. <span class=u>&#x275E;</span><br>&mdash; <a href="http://en.wikiquote.org/wiki/Fr%C3%A9d%C3%A9ric_Chopin">Fr&eacute;d&eacute;ric Chopin</a>
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>Diving In</h2>
-<p class=f>Like it or not, bugs happen. Despite your best efforts to write comprehensive <a href=unit-testing.html>unit tests</a>, bugs happen. What do I mean by &#8220;bug&#8221;? A bug is a test case you haven&#8217;t written yet.
+<p class=f>Like it or not, bugs happen. Despite your best efforts to write comprehensive <a href="unit-testing.html">unit tests</a>, bugs happen. What do I mean by &#8220;bug&#8221;? A bug is a test case you haven&#8217;t written yet.
 
 <pre class=screen><samp class=p>>>> </samp><kbd class=pp>import roman7</kbd>
 <a><samp class=p>>>> </samp><kbd class=pp>roman7.from_roman('')</kbd> <span class=u>&#x2460;</span></a>
@@ -86,7 +86,7 @@ FAILED (failures=1)</samp></pre>
     return result</code></pre>
 <ol>
 <li>Only two lines of code are required: an explicit check for an empty string, and a <code>raise</code> statement.
-<li>I don&#8217;t think I&#8217;ve mentioned this yet anywhere in this book, so let this serve as your final lesson in <a href=strings.html#formatting-strings>string formatting</a>. Starting in Python 3.1, you can skip the numbers when using positional indexes in a format specifier. That is, instead of using the format specifier <code>{0}</code> to refer to the first parameter to the <code>format()</code> method, you can simply use <code>{}</code> and Python will fill in the proper positional index for you. This works for any number of arguments; the first <code>{}</code> is <code>{0}</code>, the second <code>{}</code> is <code>{1}</code>, and so forth.
+<li>I don&#8217;t think I&#8217;ve mentioned this yet anywhere in this book, so let this serve as your final lesson in <a href="strings.html#formatting-strings">string formatting</a>. Starting in Python 3.1, you can skip the numbers when using positional indexes in a format specifier. That is, instead of using the format specifier <code>{0}</code> to refer to the first parameter to the <code>format()</code> method, you can simply use <code>{}</code> and Python will fill in the proper positional index for you. This works for any number of arguments; the first <code>{}</code> is <code>{0}</code>, the second <code>{}</code> is <code>{1}</code>, and so forth.
 </ol>
 
 <pre class='screen cmdline'>
@@ -121,7 +121,7 @@ Ran 11 tests in 0.156s
 
 <p>Suppose, for instance, that you wanted to expand the range of the Roman numeral conversion functions. Normally, no character in a Roman numeral can be repeated more than three times in a row. But the Romans were willing to make an exception to that rule by having 4 <code>M</code> characters in a row to represent <code>4000</code>. If you make this change, you&#8217;ll be able to expand the range of convertible numbers from <code>1..3999</code> to <code>1..4999</code>. But first, you need to make some changes to your test cases.
 
-<p class=d>[<a href=examples/roman8.py>download <code>roman8.py</code></a>]
+<p class=d>[<a href="examples/roman8.py">download <code>roman8.py</code></a>]
 <pre class=pp><code>class KnownValues(unittest.TestCase):
     known_values = ( (1, 'I'),
                       .
@@ -225,7 +225,7 @@ FAILED (errors=3)</samp></pre>
 
 <p>Now that you have test cases that fail due to the new requirements, you can think about fixing the code to bring it in line with the test cases. (When you first start coding unit tests, it might feel strange that the code being tested is never &#8220;ahead&#8221; of the test cases. While it&#8217;s behind, you still have some work to do, and as soon as it catches up to the test cases, you stop coding. After you get used to it, you&#8217;ll wonder how you ever programmed without tests.)
 
-<p class=d>[<a href=examples/roman9.py>download <code>roman9.py</code></a>]
+<p class=d>[<a href="examples/roman9.py">download <code>roman9.py</code></a>]
 <pre class=pp><code>roman_numeral_pattern = re.compile('''
     ^                   # beginning of string
 <a>    M{0,4}              # thousands - 0 to 4 Ms  <span class=u>&#x2460;</span></a>
@@ -302,7 +302,7 @@ Ran 12 tests in 0.203s
 
 <p>And best of all, you already have a complete set of unit tests. You can change over half the code in the module, but the unit tests will stay the same. That means you can prove&nbsp;&mdash;&nbsp;to yourself and to others&nbsp;&mdash;&nbsp;that the new code works just as well as the original.
 
-<p class=d>[<a href=examples/roman10.py>download <code>roman10.py</code></a>]
+<p class=d>[<a href="examples/roman10.py">download <code>roman10.py</code></a>]
 <pre class=pp><code>class OutOfRangeError(ValueError): pass
 class NotIntegerError(ValueError): pass
 class InvalidRomanNumeralError(ValueError): pass
@@ -470,8 +470,8 @@ OK</samp></pre>
 <li>Refactoring mercilessly to improve performance, scalability, readability, maintainability, or whatever other -ility you&#8217;re lacking
 </ul>
 
-<p class=v><a rel=prev href=unit-testing.html title='back to &#8220;Unit Testing&#8221;'><span class=u>&#x261C;</span></a> <a href=files.html rel=next title='onward to &#8220;Files&#8221;'><span class=u>&#x261E;</span></a>
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=v><a rel=prev href="unit-testing.html" title='back to &#8220;Unit Testing&#8221;'><span class=u>&#x261C;</span></a> <a href="files.html" rel=next title='onward to &#8220;Files&#8221;'><span class=u>&#x261E;</span></a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

@@ -11,7 +11,7 @@ mark{display:inline}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=root value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#http-web-services>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#http-web-services">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=advanced>&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>HTTP Web Services</h1>
 <blockquote class=q>
@@ -21,24 +21,24 @@ mark{display:inline}
 <h2 id=divingin>Diving In</h2>
 <p class=f>Philosophically, I can describe HTTP web services in 12 words: exchanging data with remote servers using nothing but the operations of <abbr>HTTP</abbr>. If you want to get data from the server, use <abbr>HTTP</abbr> <code>GET</code>. If you want to send new data to the server, use <abbr>HTTP</abbr> <code>POST</code>. Some more advanced <abbr>HTTP</abbr> web service <abbr>API</abbr>s also allow creating, modifying, and deleting data, using <abbr>HTTP</abbr> <code>PUT</code> and <abbr>HTTP</abbr> <code>DELETE</code>. That&#8217;s it. No registries, no envelopes, no wrappers, no tunneling. The &#8220;verbs&#8221; built into the <abbr>HTTP</abbr> protocol (<code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code>) map directly to application-level operations for retrieving, creating, modifying, and deleting data.
 
-<p>The main advantage of this approach is simplicity, and its simplicity has proven popular. Data&nbsp;&mdash;&nbsp;usually <a href=xml.html><abbr>XML</abbr></a> or <a href=serializing.html#json><abbr>JSON</abbr></a>&nbsp;&mdash;&nbsp;can be built and stored statically, or generated dynamically by a server-side script, and all major programming languages (including Python, of course!) include an <abbr>HTTP</abbr> library for downloading it. Debugging is also easier; because each resource in an <abbr>HTTP</abbr> web service has a unique address (in the form of a <abbr>URL</abbr>), you can load it in your web browser and immediately see the raw data.
+<p>The main advantage of this approach is simplicity, and its simplicity has proven popular. Data&nbsp;&mdash;&nbsp;usually <a href="xml.html"><abbr>XML</abbr></a> or <a href="serializing.html#json"><abbr>JSON</abbr></a>&nbsp;&mdash;&nbsp;can be built and stored statically, or generated dynamically by a server-side script, and all major programming languages (including Python, of course!) include an <abbr>HTTP</abbr> library for downloading it. Debugging is also easier; because each resource in an <abbr>HTTP</abbr> web service has a unique address (in the form of a <abbr>URL</abbr>), you can load it in your web browser and immediately see the raw data.
 
 <p>Examples of <abbr>HTTP</abbr> web services:
 <ul>
-<li><a href=http://code.google.com/apis/gdata/>Google Data <abbr>API</abbr>s</a> allow you to interact with a wide variety of Google services, including <a href=http://www.blogger.com/>Blogger</a> and <a href=http://www.youtube.com/>YouTube</a>.
-<li><a href=http://www.flickr.com/services/api/>Flickr Services</a> allow you to upload and download photos from <a href=http://www.flickr.com/>Flickr</a>.
-<li><a href=http://apiwiki.twitter.com/>Twitter <abbr>API</abbr></a> allows you to publish status updates on <a href=http://twitter.com/>Twitter</a>.
-<li><a href='http://www.programmableweb.com/apis/directory/1?sort=mashups'>&hellip;and many more</a>
+<li><a href="http://code.google.com/apis/gdata/">Google Data <abbr>API</abbr>s</a> allow you to interact with a wide variety of Google services, including <a href="http://www.blogger.com/">Blogger</a> and <a href="http://www.youtube.com/">YouTube</a>.
+<li><a href="http://www.flickr.com/services/api/">Flickr Services</a> allow you to upload and download photos from <a href="http://www.flickr.com/">Flickr</a>.
+<li><a href="http://apiwiki.twitter.com/">Twitter <abbr>API</abbr></a> allows you to publish status updates on <a href="http://twitter.com/">Twitter</a>.
+<li><a href="'http://www.programmableweb.com/apis/directory/1?sort=mashups'">&hellip;and many more</a>
 </ul>
 
 <p>Python 3 comes with two different libraries for interacting with <abbr>HTTP</abbr> web services:
 
 <ul>
-<li><a href=http://docs.python.org/3.1/library/http.client.html><code>http.client</code></a> is a low-level library that implements <a href=http://www.w3.org/Protocols/rfc2616/rfc2616.html><abbr>RFC</abbr> 2616</a>, the <abbr>HTTP</abbr> protocol.
-<li><a href=http://docs.python.org/3.1/library/urllib.request.html><code>urllib.request</code></a> is an abstraction layer built on top of <code>http.client</code>. It provides a standard <abbr>API</abbr> for accessing both <abbr>HTTP</abbr> and <abbr>FTP</abbr> servers, automatically follows <abbr>HTTP</abbr> redirects, and handles some common forms of <abbr>HTTP</abbr> authentication.
+<li><a href="http://docs.python.org/3.1/library/http.client.html"><code>http.client</code></a> is a low-level library that implements <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html"><abbr>RFC</abbr> 2616</a>, the <abbr>HTTP</abbr> protocol.
+<li><a href="http://docs.python.org/3.1/library/urllib.request.html"><code>urllib.request</code></a> is an abstraction layer built on top of <code>http.client</code>. It provides a standard <abbr>API</abbr> for accessing both <abbr>HTTP</abbr> and <abbr>FTP</abbr> servers, automatically follows <abbr>HTTP</abbr> redirects, and handles some common forms of <abbr>HTTP</abbr> authentication.
 </ul>
 
-<p>So which one should you use? Neither of them. Instead, you should use <a href=http://code.google.com/p/httplib2/><code>httplib2</code></a>, an open source third-party library that implements <abbr>HTTP</abbr> more fully than <code>http.client</code> but provides a better abstraction than <code>urllib.request</code>.
+<p>So which one should you use? Neither of them. Instead, you should use <a href="http://code.google.com/p/httplib2/"><code>httplib2</code></a>, an open source third-party library that implements <abbr>HTTP</abbr> more fully than <code>http.client</code> but provides a better abstraction than <code>urllib.request</code>.
 
 <p>To understand why <code>httplib2</code> is the right choice, you first need to understand <abbr>HTTP</abbr>.
 
@@ -50,13 +50,13 @@ mark{display:inline}
 
 <h3 id=caching>Caching</h3>
 
-<p>The most important thing to understand about any type of web service is that network access is incredibly expensive. I don&#8217;t mean &#8220;dollars and cents&#8221; expensive (although bandwidth ain&#8217;t free). I mean that it takes an extraordinary long time to open a connection, send a request, and retrieve a response from a remote server. Even on the fastest broadband connection, <i>latency</i> (the time it takes to send a request and start retrieving data in a response) can still be higher than you anticipated. A router misbehaves, a packet is dropped, an intermediate proxy is under attack&nbsp;&mdash;&nbsp;there&#8217;s <a href=http://isc.sans.org/>never a dull moment</a> on the public internet, and there may be nothing you can do about it.
+<p>The most important thing to understand about any type of web service is that network access is incredibly expensive. I don&#8217;t mean &#8220;dollars and cents&#8221; expensive (although bandwidth ain&#8217;t free). I mean that it takes an extraordinary long time to open a connection, send a request, and retrieve a response from a remote server. Even on the fastest broadband connection, <i>latency</i> (the time it takes to send a request and start retrieving data in a response) can still be higher than you anticipated. A router misbehaves, a packet is dropped, an intermediate proxy is under attack&nbsp;&mdash;&nbsp;there&#8217;s <a href="http://isc.sans.org/">never a dull moment</a> on the public internet, and there may be nothing you can do about it.
 
 <aside><code>Cache-Control: max-age</code> means &#8220;don't bug me until next week.&#8221;</aside>
 
 <p><abbr>HTTP</abbr> is designed with caching in mind. There is an entire class of devices (called &#8220;caching proxies&#8221;) whose only job is to sit between you and the rest of the world and minimize network access. Your company or <abbr>ISP</abbr> almost certainly maintains caching proxies, even if you&#8217;re unaware of them. They work because caching is built into the <abbr>HTTP</abbr> protocol.
 
-<p>Here&#8217;s a concrete example of how caching works. You visit <a href=http://diveintomark.org/><code>diveintomark.org</code></a> in your browser. That page includes a background image, <a href=http://wearehugh.com/m.jpg><code>wearehugh.com/m.jpg</code></a>. When your browser downloads that image, the server includes the following <abbr>HTTP</abbr> headers:
+<p>Here&#8217;s a concrete example of how caching works. You visit <a href="http://diveintomark.org/"><code>diveintomark.org</code></a> in your browser. That page includes a background image, <a href="http://wearehugh.com/m.jpg"><code>wearehugh.com/m.jpg</code></a>. When your browser downloads that image, the server includes the following <abbr>HTTP</abbr> headers:
 
 <pre class=nd><code>HTTP/1.1 200 OK
 Date: Sun, 31 May 2009 17:14:04 GMT
@@ -101,7 +101,7 @@ Connection: close
 Content-Type: image/jpeg
 </code></pre>
 
-<p>When you request the same data a second (or third or fourth) time, you can send an <code>If-Modified-Since</code> header with your request, with the date you got back from the server last time. If the data has changed since then, then the server gives you the new data with a <code>200</code> status code. But if the data <em>hasn&#8217;t</em> changed since then, the server sends back a special <abbr>HTTP</abbr> <code>304</code> status code, which means &#8220;this data hasn&#8217;t changed since the last time you asked for it.&#8221; You can test this on the command line, using <a href=http://curl.haxx.se/>curl</a>:
+<p>When you request the same data a second (or third or fourth) time, you can send an <code>If-Modified-Since</code> header with your request, with the date you got back from the server last time. If the data has changed since then, then the server gives you the new data with a <code>200</code> status code. But if the data <em>hasn&#8217;t</em> changed since then, the server sends back a special <abbr>HTTP</abbr> <code>304</code> status code, which means &#8220;this data hasn&#8217;t changed since the last time you asked for it.&#8221; You can test this on the command line, using <a href="http://curl.haxx.se/">curl</a>:
 
 <pre class='nd screen'>
 <samp class=p>you@localhost:~$ </samp><kbd>curl -I <mark>-H "If-Modified-Since: Fri, 22 Aug 2008 04:28:16 GMT"</mark> http://wearehugh.com/m.jpg</kbd>
@@ -119,7 +119,7 @@ Cache-Control: max-age=31536000, public</samp></pre>
 
 <h3 id=etags>ETag Checking</h3>
 
-<p>ETags are an alternate way to accomplish the same thing as the <a href=#last-modified>last-modified checking</a>. With Etags, the server sends a hash code in an <code>ETag</code> header along with the data you requested. (Exactly how this hash is determined is entirely up to the server. The only requirement is that it changes when the data changes.) That background image referenced from <code>diveintomark.org</code> had an <code>ETag</code> header.
+<p>ETags are an alternate way to accomplish the same thing as the <a href="#last-modified">last-modified checking</a>. With Etags, the server sends a hash code in an <code>ETag</code> header along with the data you requested. (Exactly how this hash is determined is entirely up to the server. The only requirement is that it changes when the data changes.) That background image referenced from <code>diveintomark.org</code> had an <code>ETag</code> header.
 
 <pre class=nd><code>HTTP/1.1 200 OK
 Date: Sun, 31 May 2009 17:14:04 GMT
@@ -136,7 +136,7 @@ Content-Type: image/jpeg
 
 <aside><code>ETag</code> means &#8220;there&#8217;s nothing new under the sun.&#8221;</aside>
 
-<p>The second time you request the same data, you include the ETag hash in an <code>If-None-Match</code> header of your request. If the data hasn&#8217;t changed, the server will send you back a <code>304</code> status code. As with the last-modified date checking, the server sends back <em>only</em> the <code>304</code> status code; it doesn&#8217;t send you the same data a second time. By including the ETag hash in your second request, you&#8217;re telling the server that there&#8217;s no need to re-send the same data if it still matches this hash, since <a href=#caching>you still have the data from the last time</a>.
+<p>The second time you request the same data, you include the ETag hash in an <code>If-None-Match</code> header of your request. If the data hasn&#8217;t changed, the server will send you back a <code>304</code> status code. As with the last-modified date checking, the server sends back <em>only</em> the <code>304</code> status code; it doesn&#8217;t send you the same data a second time. By including the ETag hash in your second request, you&#8217;re telling the server that there&#8217;s no need to re-send the same data if it still matches this hash, since <a href="#caching">you still have the data from the last time</a>.
 
 <p>Again with the <kbd>curl</kbd>:
 
@@ -157,19 +157,19 @@ Cache-Control: max-age=31536000, public</samp></pre>
 
 <h3 id=compression>Compression</h3>
 
-<p>When you talk about <abbr>HTTP</abbr> web services, you&#8217;re almost always talking about moving text-based data back and forth over the wire. Maybe it&#8217;s <abbr>XML</abbr>, maybe it&#8217;s <abbr>JSON</abbr>, maybe it&#8217;s just <a href=strings.html#boring-stuff title='there ain&#8217;t no such thing as plain text'>plain text</a>. Regardless of the format, text compresses well. The example feed in <a href=xml.html>the XML chapter</a> is 3070 bytes uncompressed, but would be 941 bytes after gzip compression. That&#8217;s just 30% of the original size!
+<p>When you talk about <abbr>HTTP</abbr> web services, you&#8217;re almost always talking about moving text-based data back and forth over the wire. Maybe it&#8217;s <abbr>XML</abbr>, maybe it&#8217;s <abbr>JSON</abbr>, maybe it&#8217;s just <a href="strings.html#boring-stuff" title='there ain&#8217;t no such thing as plain text'>plain text</a>. Regardless of the format, text compresses well. The example feed in <a href="xml.html">the XML chapter</a> is 3070 bytes uncompressed, but would be 941 bytes after gzip compression. That&#8217;s just 30% of the original size!
 
-<p><abbr>HTTP</abbr> supports <a href=http://www.iana.org/assignments/http-parameters>several compression algorithms</a>. The two most common types are <a href=http://www.ietf.org/rfc/rfc1952.txt>gzip</a> and <a href=http://www.ietf.org/rfc/rfc1951.txt>deflate</a>. When you request a resource over <abbr>HTTP</abbr>, you can ask the server to send it in compressed format. You include an <code>Accept-encoding</code> header in your request that lists which compression algorithms you support. If the server supports any of the same algorithms, it will send you back compressed data (with a <code>Content-encoding</code> header that tells you which algorithm it used). Then it&#8217;s up to you to decompress the data.
+<p><abbr>HTTP</abbr> supports <a href="http://www.iana.org/assignments/http-parameters">several compression algorithms</a>. The two most common types are <a href="http://www.ietf.org/rfc/rfc1952.txt">gzip</a> and <a href="http://www.ietf.org/rfc/rfc1951.txt">deflate</a>. When you request a resource over <abbr>HTTP</abbr>, you can ask the server to send it in compressed format. You include an <code>Accept-encoding</code> header in your request that lists which compression algorithms you support. If the server supports any of the same algorithms, it will send you back compressed data (with a <code>Content-encoding</code> header that tells you which algorithm it used). Then it&#8217;s up to you to decompress the data.
 
 <blockquote class=note>
-<p><span class=u>&#x261E;</span>Important tip for server-side developers: make sure that the compressed version of a resource has a different <a href=#etags>Etag</a> than the uncompressed version. Otherwise, caching proxies will get confused and may serve the compressed version to clients that can&#8217;t handle it. Read the discussion of <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=39727">Apache bug 39727</a> for more details on this subtle issue.
+<p><span class=u>&#x261E;</span>Important tip for server-side developers: make sure that the compressed version of a resource has a different <a href="#etags">Etag</a> than the uncompressed version. Otherwise, caching proxies will get confused and may serve the compressed version to clients that can&#8217;t handle it. Read the discussion of <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=39727">Apache bug 39727</a> for more details on this subtle issue.
 </blockquote>
 
 <p>Python&#8217;s <abbr>HTTP</abbr> libraries do not support compression, but <code>httplib2</code> does.
 
 <h3 id=redirects>Redirects</h3>
 
-<p><a href=http://www.w3.org/Provider/Style/URI>Cool <abbr>URI</abbr>s don&#8217;t change</a>, but many <abbr>URI</abbr>s are seriously uncool. Web sites get reorganized, pages move to new addresses. Even web services can reorganize. A syndicated feed at <code>http://example.com/index.xml</code> might be moved to <code>http://example.com/xml/atom.xml</code>. Or an entire domain might move, as an organization expands and reorganizes; <code>http://www.example.com/index.xml</code> becomes <code>http://server-farm-1.example.com/index.xml</code>.
+<p><a href="http://www.w3.org/Provider/Style/URI">Cool <abbr>URI</abbr>s don&#8217;t change</a>, but many <abbr>URI</abbr>s are seriously uncool. Web sites get reorganized, pages move to new addresses. Even web services can reorganize. A syndicated feed at <code>http://example.com/index.xml</code> might be moved to <code>http://example.com/xml/atom.xml</code>. Or an entire domain might move, as an organization expands and reorganizes; <code>http://www.example.com/index.xml</code> becomes <code>http://server-farm-1.example.com/index.xml</code>.
 
 <aside><code>Location</code> means &#8220;look over there!&#8221;</aside>
 
@@ -185,7 +185,7 @@ Cache-Control: max-age=31536000, public</samp></pre>
 
 <h2 id=dont-try-this-at-home>How Not To Fetch Data Over HTTP</h2>
 
-<p>Let&#8217;s say you want to download a resource over <abbr>HTTP</abbr>, such as <a href=xml.html>an Atom feed</a>. Being a feed, you&#8217;re not just going to download it once; you&#8217;re going to download it over and over again. (Most feed readers will check for changes once an hour.) Let&#8217;s do it the quick-and-dirty way first, and then see how you can do better.
+<p>Let&#8217;s say you want to download a resource over <abbr>HTTP</abbr>, such as <a href="xml.html">an Atom feed</a>. Being a feed, you&#8217;re not just going to download it once; you&#8217;re going to download it over and over again. (Most feed readers will check for changes once an hour.) Let&#8217;s do it the quick-and-dirty way first, and then see how you can do better.
 <pre class='nd screen'>
 <samp class=p>>>> </samp><kbd class=pp>import urllib.request</kbd>
 <samp class=p>>>> </samp><kbd class=pp>a_url = 'http://diveintopython3.org/examples/feed.xml'</kbd>
@@ -204,7 +204,7 @@ Cache-Control: max-age=31536000, public</samp></pre>
 </samp></pre>
 <ol>
 <li>Downloading anything over <abbr>HTTP</abbr> is incredibly easy in Python; in fact, it&#8217;s a one-liner. The <code>urllib.request</code> module has a handy <code>urlopen()</code> function that takes the address of the page you want, and returns a file-like object that you can just <code>read()</code> from to get the full contents of the page. It just can&#8217;t get any easier.
-<li>The <code>urlopen().read()</code> method always returns <a href=strings.html#byte-arrays>a <code>bytes</code> object, not a string</a>. Remember, bytes are bytes; characters are an abstraction. <abbr>HTTP</abbr> servers don&#8217;t deal in abstractions. If you request a resource, you get bytes. If you want it as a string, you&#8217;ll need to <a href=http://feedparser.org/docs/character-encoding.html>determine the character encoding</a> and explicitly convert it to a string.
+<li>The <code>urlopen().read()</code> method always returns <a href="strings.html#byte-arrays">a <code>bytes</code> object, not a string</a>. Remember, bytes are bytes; characters are an abstraction. <abbr>HTTP</abbr> servers don&#8217;t deal in abstractions. If you request a resource, you get bytes. If you want it as a string, you&#8217;ll need to <a href="http://feedparser.org/docs/character-encoding.html">determine the character encoding</a> and explicitly convert it to a string.
 </ol>
 
 <p>So what&#8217;s wrong with this? For a quick one-off during testing or development, there&#8217;s nothing wrong with it. I do it all the time. I wanted the contents of the feed, and I got the contents of the feed. The same technique works for any web page. But once you start thinking in terms of a web service that you want to access on a regular basis (<i>e.g.</i> requesting this feed once an hour), then you&#8217;re being inefficient, and you&#8217;re being rude.
@@ -232,7 +232,7 @@ reply: 'HTTP/1.1 200 OK'
 <li>Now that the debugging flag is set, information on the <abbr>HTTP</abbr> request and response is printed out in real time. As you can see, when you request the Atom feed, the <code>urllib.request</code> module sends five lines to the server.
 <li>The first line specifies the <abbr>HTTP</abbr> verb you&#8217;re using, and the path of the resource (minus the domain name).
 <li>The second line specifies the domain name from which we&#8217;re requesting this feed.
-<li>The third line specifies the compression algorithms that the client supports. As I mentioned earlier, <a href=#compression><code>urllib.request</code> does not support compression</a> by default.
+<li>The third line specifies the compression algorithms that the client supports. As I mentioned earlier, <a href="#compression"><code>urllib.request</code> does not support compression</a> by default.
 <li>The fourth line specifies the name of the library that is making the request. By default, this is <code>Python-urllib</code> plus a version number. Both <code>urllib.request</code> and <code>httplib2</code> support changing the user agent, simply by adding a <code>User-Agent</code> header to the request (which will override the default value).
 </ol>
 
@@ -260,19 +260,19 @@ Content-Type: application/xml</samp>
 <ol>
 <li>The <var>response</var> returned from the <code>urllib.request.urlopen()</code> function contains all the <abbr>HTTP</abbr> headers the server sent back. It also contains methods to download the actual data; we&#8217;ll get to that in a minute.
 <li>The server tells you when it handled your request.
-<li>This response includes a <a href=#last-modified><code>Last-Modified</code></a> header.
-<li>This response includes an <a href=#etags><code>ETag</code></a> header.
+<li>This response includes a <a href="#last-modified"><code>Last-Modified</code></a> header.
+<li>This response includes an <a href="#etags"><code>ETag</code></a> header.
 <li>The data is 3070 bytes long. Notice what <em>isn&#8217;t</em> here: a <code>Content-encoding</code> header. Your request stated that you only accept uncompressed data (<code>Accept-encoding: identity</code>), and sure enough, this response contains uncompressed data.
 <li>This response includes caching headers that state that this feed can be cached for up to 24 hours (86400 seconds).
 <li>And finally, download the actual data by calling <code>response.read()</code>. As you can tell from the <code>len()</code> function, this fetched a total of 3070 bytes.
 </ol>
 
-<p>As you can see, this code is already inefficient: it asked for (and received) uncompressed data. I know for a fact that this server supports <a href=#compression>gzip compression</a>, but <abbr>HTTP</abbr> compression is opt-in. We didn&#8217;t ask for it, so we didn&#8217;t get it. That means we&#8217;re fetching 3070 bytes when we could have fetched 941. Bad dog, no biscuit.
+<p>As you can see, this code is already inefficient: it asked for (and received) uncompressed data. I know for a fact that this server supports <a href="#compression">gzip compression</a>, but <abbr>HTTP</abbr> compression is opt-in. We didn&#8217;t ask for it, so we didn&#8217;t get it. That means we&#8217;re fetching 3070 bytes when we could have fetched 941. Bad dog, no biscuit.
 
 <p>But wait, it gets worse! To see just how inefficient this code is, let&#8217;s request the same feed a second time.
 
 <pre class='nd screen'>
-# continued from the <a href=#whats-on-the-wire>previous example</a>
+# continued from the <a href="#whats-on-the-wire">previous example</a>
 <samp class=p>>>> </samp><kbd class=pp>response2 = urlopen('http://diveintopython3.org/examples/feed.xml')</kbd>
 <samp>send: b'GET /examples/feed.xml HTTP/1.1
 Host: diveintopython3.org
@@ -282,7 +282,7 @@ Connection: close
 reply: 'HTTP/1.1 200 OK'
 &hellip;further debugging information omitted&hellip;</samp></pre>
 
-<p>Notice anything peculiar about this request? It hasn&#8217;t changed! It&#8217;s exactly the same as the first request. No sign of <a href=#last-modified><code>If-Modified-Since</code> headers</a>. No sign of <a href=#etags><code>If-None-Match</code> headers</a>. No respect for the caching headers. Still no compression.
+<p>Notice anything peculiar about this request? It hasn&#8217;t changed! It&#8217;s exactly the same as the first request. No sign of <a href="#last-modified"><code>If-Modified-Since</code> headers</a>. No sign of <a href="#etags"><code>If-None-Match</code> headers</a>. No respect for the caching headers. Still no compression.
 
 <p>And what happens when you do the same thing twice? You get the same response. Twice.
 
@@ -317,7 +317,7 @@ Content-Type: application/xml</samp>
 
 <h2 id=introducing-httplib2>Introducing <code>httplib2</code></h2>
 
-<p>Before you can use <code>httplib2</code>, you&#8217;ll need to install it. Visit <a href=http://code.google.com/p/httplib2/><code>code.google.com/p/httplib2/</code></a> and download the latest version. <code>httplib2</code> is available for Python 2.x and Python 3.x; make sure you get the Python 3 version, named something like <code>httplib2-python3-0.5.0.zip</code>.
+<p>Before you can use <code>httplib2</code>, you&#8217;ll need to install it. Visit <a href="http://code.google.com/p/httplib2/"><code>code.google.com/p/httplib2/</code></a> and download the latest version. <code>httplib2</code> is available for Python 2.x and Python 3.x; make sure you get the Python 3 version, named something like <code>httplib2-python3-0.5.0.zip</code>.
 
 <p>Unzip the archive, open a terminal window, and go to the newly created <code>httplib2</code> directory. On Windows, open the <code>Start</code> menu, select <code>Run...</code>, type <kbd>cmd.exe</kbd> and press <kbd>ENTER</kbd>.
 
@@ -394,7 +394,7 @@ Writing /usr/local/lib/python3.1/dist-packages/httplib2-python3_0.5.0.egg-info</
 <li>The primary interface to <code>httplib2</code> is the <code>Http</code> object. For reasons you&#8217;ll see in the next section, you should always pass a directory name when you create an <code>Http</code> object. The directory does not need to exist; <code>httplib2</code> will create it if necessary.
 <li>Once you have an <code>Http</code> object, retrieving data is as simple as calling the <code>request()</code> method with the address of the data you want. This will issue an <abbr>HTTP</abbr> <code>GET</code> request for that <abbr>URL</abbr>. (Later in this chapter, you&#8217;ll see how to issue other <abbr>HTTP</abbr> requests, like <code>POST</code>.)
 <li>The <code>request()</code> method returns two values. The first is an <code>httplib2.Response</code> object, which contains all the <abbr>HTTP</abbr> headers the server returned. For example, a <code>status</code> code of <code>200</code> indicates that the request was successful.
-<li>The <var>content</var> variable contains the actual data that was returned by the <abbr>HTTP</abbr> server. The data is returned as <a href=strings.html#byte-arrays>a <code>bytes</code> object, not a string</a>. If you want it as a string, you&#8217;ll need to <a href=http://feedparser.org/docs/character-encoding.html>determine the character encoding</a> and convert it yourself.
+<li>The <var>content</var> variable contains the actual data that was returned by the <abbr>HTTP</abbr> server. The data is returned as <a href="strings.html#byte-arrays">a <code>bytes</code> object, not a string</a>. If you want it as a string, you&#8217;ll need to <a href="http://feedparser.org/docs/character-encoding.html">determine the character encoding</a> and convert it yourself.
 </ol>
 
 <blockquote class=note>
@@ -405,11 +405,11 @@ Writing /usr/local/lib/python3.1/dist-packages/httplib2-python3_0.5.0.egg-info</
 
 <p>Bytes. Strings. What a pain. Why can&#8217;t <code>httplib2</code> &#8220;just&#8221; do the conversion for you? Well, it&#8217;s complicated, because the rules for determining the character encoding are specific to what kind of resource you&#8217;re requesting. How could <code>httplib2</code> know what kind of resource you&#8217;re requesting? It&#8217;s usually listed in the <code>Content-Type</code> <abbr>HTTP</abbr> header, but that&#8217;s an optional feature of <abbr>HTTP</abbr> and not all <abbr>HTTP</abbr> servers include it. If that header is not included in the <abbr>HTTP</abbr> response, it&#8217;s left up to the client to guess. (This is commonly called &#8220;content sniffing,&#8221; and it&#8217;s never perfect.)
 
-<p>If you know what sort of resource you&#8217;re expecting (an <abbr>XML</abbr> document in this case), perhaps you could &#8220;just&#8221; pass the returned <code>bytes</code> object to the <a href=xml.html#xml-parse><code>xml.etree.ElementTree.parse()</code> function</a>. That&#8217;ll work as long as the <abbr>XML</abbr> document includes information on its own character encoding (as this one does), but that&#8217;s an optional feature and not all <abbr>XML</abbr> documents do that. If an <abbr>XML</abbr> document doesn&#8217;t include encoding information, the client is supposed to look at the enclosing transport&nbsp;&mdash;&nbsp;<i>i.e.</i> the <code>Content-Type</code> <abbr>HTTP</abbr> header, which can include a <code>charset</code> parameter.
+<p>If you know what sort of resource you&#8217;re expecting (an <abbr>XML</abbr> document in this case), perhaps you could &#8220;just&#8221; pass the returned <code>bytes</code> object to the <a href="xml.html#xml-parse"><code>xml.etree.ElementTree.parse()</code> function</a>. That&#8217;ll work as long as the <abbr>XML</abbr> document includes information on its own character encoding (as this one does), but that&#8217;s an optional feature and not all <abbr>XML</abbr> documents do that. If an <abbr>XML</abbr> document doesn&#8217;t include encoding information, the client is supposed to look at the enclosing transport&nbsp;&mdash;&nbsp;<i>i.e.</i> the <code>Content-Type</code> <abbr>HTTP</abbr> header, which can include a <code>charset</code> parameter.
 
-<p class=ss><a style=border:0 href=http://www.cafepress.com/feedparser><img src=http://feedparser.org/img/feedparser.jpg alt="[I support RFC 3023 t-shirt]" width=150 height=150></a>
+<p class=ss><a style=border:0 href="http://www.cafepress.com/feedparser"><img src="http://feedparser.org/img/feedparser.jpg" alt="[I support RFC 3023 t-shirt]" width=150 height=150></a>
 
-<p>But it&#8217;s worse than that. Now character encoding information can be in two places: within the <abbr>XML</abbr> document itself, and within the <code>Content-Type</code> <abbr>HTTP</abbr> header. If the information is in <em>both</em> places, which one wins? According to <a href=http://www.ietf.org/rfc/rfc3023.txt>RFC 3023</a> (I swear I am not making this up), if the media type given in the <code>Content-Type</code> <abbr>HTTP</abbr> header is <code>application/xml</code>, <code>application/xml-dtd</code>, <code>application/xml-external-parsed-entity</code>, or any one of the subtypes of <code>application/xml</code> such as <code>application/atom+xml</code> or <code>application/rss+xml</code> or even <code>application/rdf+xml</code>, then the encoding is
+<p>But it&#8217;s worse than that. Now character encoding information can be in two places: within the <abbr>XML</abbr> document itself, and within the <code>Content-Type</code> <abbr>HTTP</abbr> header. If the information is in <em>both</em> places, which one wins? According to <a href="http://www.ietf.org/rfc/rfc3023.txt">RFC 3023</a> (I swear I am not making this up), if the media type given in the <code>Content-Type</code> <abbr>HTTP</abbr> header is <code>application/xml</code>, <code>application/xml-dtd</code>, <code>application/xml-external-parsed-entity</code>, or any one of the subtypes of <code>application/xml</code> such as <code>application/atom+xml</code> or <code>application/rss+xml</code> or even <code>application/rdf+xml</code>, then the encoding is
 
 <ol>
 <li>the encoding given in the <code>charset</code> parameter of the <code>Content-Type</code> <abbr>HTTP</abbr> header, or
@@ -424,16 +424,16 @@ Writing /usr/local/lib/python3.1/dist-packages/httplib2-python3_0.5.0.egg-info</
 <li><code>us-ascii</code>
 </ol>
 
-<p>And that&#8217;s just for <abbr>XML</abbr> documents. For <abbr>HTML</abbr> documents, web browsers have constructed such <a type=application/pdf href=http://www.adambarth.com/papers/2009/barth-caballero-song.pdf>byzantine rules for content-sniffing</a> [<abbr>PDF</abbr>] that <a href='http://www.google.com/search?q=barth+content-type+processing+model'>we&#8217;re still trying to figure them all out</a>.
+<p>And that&#8217;s just for <abbr>XML</abbr> documents. For <abbr>HTML</abbr> documents, web browsers have constructed such <a type=application/pdf href="http://www.adambarth.com/papers/2009/barth-caballero-song.pdf">byzantine rules for content-sniffing</a> [<abbr>PDF</abbr>] that <a href="'http://www.google.com/search?q=barth+content-type+processing+model'">we&#8217;re still trying to figure them all out</a>.
 
-<p>&#8220;<a href=http://code.google.com/p/httplib2/source/checkout>Patches welcome</a>.&#8221;
+<p>&#8220;<a href="http://code.google.com/p/httplib2/source/checkout">Patches welcome</a>.&#8221;
 
 <h3 id=httplib2-caching>How <code>httplib2</code> Handles Caching</h3>
 
 <p>Remember in the previous section when I said you should always create an <code>httplib2.Http</code> object with a directory name? Caching is the reason.
 
 <pre class=screen>
-# continued from the <a href=#introducing-httplib2>previous example</a>
+# continued from the <a href="#introducing-httplib2">previous example</a>
 <a><samp class=p>>>> </samp><kbd class=pp>response2, content2 = h.request('http://diveintopython3.org/examples/feed.xml')</kbd>  <span class=u>&#x2460;</span></a>
 <a><samp class=p>>>> </samp><kbd class=pp>response2.status</kbd>                                                                 <span class=u>&#x2461;</span></a>
 <samp class=pp>200</samp>
@@ -464,7 +464,7 @@ Writing /usr/local/lib/python3.1/dist-packages/httplib2-python3_0.5.0.egg-info</
 <a><samp class=p>>>> </samp><kbd class=pp>response.fromcache</kbd>                                                             <span class=u>&#x2465;</span></a>
 <samp class=pp>True</samp></pre>
 <ol>
-<li>Let&#8217;s turn on debugging and see <a href=#whats-on-the-wire>what&#8217;s on the wire</a>. This is the <code>httplib2</code> equivalent of turning on debugging in <code>http.client</code>. <code>httplib2</code> will print all the data being sent to the server and some key information being sent back.
+<li>Let&#8217;s turn on debugging and see <a href="#whats-on-the-wire">what&#8217;s on the wire</a>. This is the <code>httplib2</code> equivalent of turning on debugging in <code>http.client</code>. <code>httplib2</code> will print all the data being sent to the server and some key information being sent back.
 <li>Create an <code>httplib2.Http</code> object with the same directory name as before.
 <li>Request the same <abbr>URL</abbr> as before. <em>Nothing appears to happen.</em> More precisely, nothing gets sent to the server, and nothing gets returned from the server. There is absolutely no network activity whatsoever.
 <li>Yet we did &#8220;receive&#8221; some data&nbsp;&mdash;&nbsp;in fact, we received all of it.
@@ -478,7 +478,7 @@ Writing /usr/local/lib/python3.1/dist-packages/httplib2-python3_0.5.0.egg-info</
 <p><span class=u>&#x261E;</span>If you want to turn on <code>httplib2</code> debugging, you need to set a module-level constant (<code>httplib2.debuglevel</code>), then create a new <code>httplib2.Http</code> object. If you want to turn off debugging, you need to change the same module-level constant, then create a new <code>httplib2.Http</code> object.
 </blockquote>
 
-<p>You previously requested the data at this <abbr>URL</abbr>. That request was successful (<code>status: 200</code>). That response included not only the feed data, but also a set of <a href=#caching>caching headers</a> that told anyone who was listening that they could cache this resource for up to 24 hours (<code>Cache-Control: max-age=86400</code>, which is 24 hours measured in seconds). <code>httplib2</code> understand and respects those caching headers, and it stored the previous response in the <code>.cache</code> directory (which you passed in when you create the <code>Http</code> object). That cache hasn&#8217;t expired yet, so the second time you request the data at this <abbr>URL</abbr>, <code>httplib2</code> simply returns the cached result without ever hitting the network.
+<p>You previously requested the data at this <abbr>URL</abbr>. That request was successful (<code>status: 200</code>). That response included not only the feed data, but also a set of <a href="#caching">caching headers</a> that told anyone who was listening that they could cache this resource for up to 24 hours (<code>Cache-Control: max-age=86400</code>, which is 24 hours measured in seconds). <code>httplib2</code> understand and respects those caching headers, and it stored the previous response in the <code>.cache</code> directory (which you passed in when you create the <code>Http</code> object). That cache hasn&#8217;t expired yet, so the second time you request the data at this <abbr>URL</abbr>, <code>httplib2</code> simply returns the cached result without ever hitting the network.
 
 <p>I say &#8220;simply,&#8221; but obviously there is a lot of complexity hidden behind that simplicity. <code>httplib2</code> handles <abbr>HTTP</abbr> caching <em>automatically</em> and <em>by default</em>. If for some reason you need to know whether a response came from the cache, you can check <code>response.fromcache</code>. Otherwise, it Just Works.
 
@@ -526,9 +526,9 @@ reply: 'HTTP/1.1 200 OK'
 
 <h3 id=httplib2-etags>How <code>httplib2</code> Handles <code>Last-Modified</code> and <code>ETag</code> Headers</h3>
 
-<p>The <code>Cache-Control</code> and <code>Expires</code> <a href=#caching>caching headers</a> are called <i>freshness indicators</i>. They tell caches in no uncertain terms that you can completely avoid all network access until the cache expires. And that&#8217;s exactly the behavior you saw <a href=#httplib2-caching>in the previous section</a>: given a freshness indicator, <code>httplib2</code> <em>does not generate a single byte of network activity</em> to serve up cached data (unless you explicitly <a href=#bypass-the-cache>bypass the cache</a>, of course).
+<p>The <code>Cache-Control</code> and <code>Expires</code> <a href="#caching">caching headers</a> are called <i>freshness indicators</i>. They tell caches in no uncertain terms that you can completely avoid all network access until the cache expires. And that&#8217;s exactly the behavior you saw <a href="#httplib2-caching">in the previous section</a>: given a freshness indicator, <code>httplib2</code> <em>does not generate a single byte of network activity</em> to serve up cached data (unless you explicitly <a href="#bypass-the-cache">bypass the cache</a>, of course).
 
-<p>But what about the case where the data <em>might</em> have changed, but hasn&#8217;t? <abbr>HTTP</abbr> defines <a href=#last-modified><code>Last-Modified</code></a> and <a href=#etags><code>Etag</code></a> headers for this purpose. These headers are called <i>validators</i>. If the local cache is no longer fresh, a client can send the validators with the next request to see if the data has actually changed. If the data hasn&#8217;t changed, the server sends back a <code>304</code> status code <em>and no data</em>. So there&#8217;s still a round-trip over the network, but you end up downloading fewer bytes.
+<p>But what about the case where the data <em>might</em> have changed, but hasn&#8217;t? <abbr>HTTP</abbr> defines <a href="#last-modified"><code>Last-Modified</code></a> and <a href="#etags"><code>Etag</code></a> headers for this purpose. These headers are called <i>validators</i>. If the local cache is no longer fresh, a client can send the validators with the next request to see if the data has actually changed. If the data hasn&#8217;t changed, the server sends back a <code>304</code> status code <em>and no data</em>. So there&#8217;s still a round-trip over the network, but you end up downloading fewer bytes.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>import httplib2</kbd>
@@ -596,7 +596,7 @@ user-agent: Python-httplib2/$Rev: 259 $'
 
 <aside>&#8220;We have both kinds of music, country AND western.&#8221;</aside>
 
-<p><abbr>HTTP</abbr> supports <a href=#compression>several types of compression</a>; the two most common types are gzip and deflate. <code>httplib2</code> supports both of these.
+<p><abbr>HTTP</abbr> supports <a href="#compression">several types of compression</a>; the two most common types are gzip and deflate. <code>httplib2</code> supports both of these.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>response, content = h.request('http://diveintopython3.org/')</kbd>
@@ -626,7 +626,7 @@ reply: 'HTTP/1.1 200 OK'</samp>
 
 <h3 id=httplib2-redirects>How <code>httplib2</code> Handles Redirects</h3>
 
-<p><abbr>HTTP</abbr> defines <a href=#redirects>two kinds of redirects</a>: temporary and permanent. There&#8217;s nothing special to do with temporary redirects except follow them, which <code>httplib2</code> does automatically.
+<p><abbr>HTTP</abbr> defines <a href="#redirects">two kinds of redirects</a>: temporary and permanent. There&#8217;s nothing special to do with temporary redirects except follow them, which <code>httplib2</code> does automatically.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>import httplib2</kbd>
@@ -673,7 +673,7 @@ reply: 'HTTP/1.1 200 OK'</samp></pre>
 <ol>
 <li>The <var>response</var> you get back from this single call to the <code>request()</code> method is the response from the final <abbr>URL</abbr>.
 <li><code>httplib2</code> adds the final <abbr>URL</abbr> to the <var>response</var> dictionary, as <code>content-location</code>. This is not a header that came from the server; it&#8217;s specific to <code>httplib2</code>.
-<li>Apropos of nothing, this feed is <a href=#httplib2-compression>compressed</a>.
+<li>Apropos of nothing, this feed is <a href="#httplib2-compression">compressed</a>.
 <li>And cacheable. (This is important, as you&#8217;ll see in a minute.)
 </ol>
 
@@ -767,9 +767,9 @@ user-agent: Python-httplib2/$Rev: 259 $'
 
 <h2 id=beyond-get>Beyond HTTP GET</h2>
 
-<p><abbr>HTTP</abbr> web services are not limited to <code>GET</code> requests. What if you want to create something new? Whenever you post a comment on a discussion forum, update your weblog, publish your status on a microblogging service like <a href=http://twitter.com/>Twitter</a> or <a href=http://identi.ca/>Identi.ca</a>, you&#8217;re probably already using <abbr>HTTP</abbr> <code>POST</code>.
+<p><abbr>HTTP</abbr> web services are not limited to <code>GET</code> requests. What if you want to create something new? Whenever you post a comment on a discussion forum, update your weblog, publish your status on a microblogging service like <a href="http://twitter.com/">Twitter</a> or <a href="http://identi.ca/">Identi.ca</a>, you&#8217;re probably already using <abbr>HTTP</abbr> <code>POST</code>.
 
-<p>Both Twitter and Identi.ca both offer a simple <abbr>HTTP</abbr>-based <abbr>API</abbr> for publishing and updating your status in 140 characters or less. Let&#8217;s look at <a href=http://laconi.ca/trac/wiki/TwitterCompatibleAPI>Identi.ca&#8217;s <abbr>API</abbr> documentation</a> for updating your status:
+<p>Both Twitter and Identi.ca both offer a simple <abbr>HTTP</abbr>-based <abbr>API</abbr> for publishing and updating your status in 140 characters or less. Let&#8217;s look at <a href="http://laconi.ca/trac/wiki/TwitterCompatibleAPI">Identi.ca&#8217;s <abbr>API</abbr> documentation</a> for updating your status:
 
 <blockquote class=pf>
 <p><b>Identi.ca <abbr>REST</abbr> <abbr>API</abbr> Method: statuses/update</b><br>
@@ -791,9 +791,9 @@ Updates the authenticating user&#8217;s status.  Requires the <code>status</code
 
 <p>How does this work? To publish a new message on Identi.ca, you need to issue an <abbr>HTTP</abbr> <code>POST</code> request to <code>http://identi.ca/api/statuses/update.<i>format</i></code>. (The <var>format</var> bit is not part of the <abbr>URL</abbr>; you replace it with the data format you want the server to return in response to your request. So if you want a response in <abbr>XML</abbr>, you would post the request to <code>https://identi.ca/api/statuses/update.xml</code>.) The request needs to include a parameter called <code>status</code>, which contains the text of your status update. And the request needs to be authenticated.
 
-<p>Authenticated? Sure. To update your status on Identi.ca, you need to prove who you are. Identi.ca is not a wiki; only you can update your own status. Identi.ca uses <a href=http://en.wikipedia.org/wiki/Basic_access_authentication><abbr>HTTP</abbr> Basic Authentication</a> (<i>a.k.a.</i> <a href=http://www.ietf.org/rfc/rfc2617.txt>RFC 2617</a>) over <abbr>SSL</abbr> to provide secure but easy-to-use authentication. <code>httplib2</code> supports both <abbr>SSL</abbr> and <abbr>HTTP</abbr> Basic Authentication, so this part is easy.
+<p>Authenticated? Sure. To update your status on Identi.ca, you need to prove who you are. Identi.ca is not a wiki; only you can update your own status. Identi.ca uses <a href="http://en.wikipedia.org/wiki/Basic_access_authentication"><abbr>HTTP</abbr> Basic Authentication</a> (<i>a.k.a.</i> <a href="http://www.ietf.org/rfc/rfc2617.txt">RFC 2617</a>) over <abbr>SSL</abbr> to provide secure but easy-to-use authentication. <code>httplib2</code> supports both <abbr>SSL</abbr> and <abbr>HTTP</abbr> Basic Authentication, so this part is easy.
 
-<p>A <code>POST</code> request is different from a <code>GET</code> request, because it includes a <i>payload</i>. The payload is the data you want to send to the server. The one piece of data that this <abbr>API</abbr> method <em>requires</em> is <code>status</code>, and it should be <i><abbr>URL</abbr>-encoded</i>. This is a very simple serialization format that takes a set of key-value pairs (<i>i.e.</i> a <a href=native-datatypes.html#dictionaries>dictionary</a>) and transforms it into a string.
+<p>A <code>POST</code> request is different from a <code>GET</code> request, because it includes a <i>payload</i>. The payload is the data you want to send to the server. The one piece of data that this <abbr>API</abbr> method <em>requires</em> is <code>status</code>, and it should be <i><abbr>URL</abbr>-encoded</i>. This is a very simple serialization format that takes a set of key-value pairs (<i>i.e.</i> a <a href="native-datatypes.html#dictionaries">dictionary</a>) and transforms it into a string.
 
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>from urllib.parse import urlencode</kbd>              <span class=u>&#x2460;</span></a>
@@ -860,7 +860,7 @@ status=Test+update+from+Python+3'
 <li>It worked!
 </ol>
 
-<p>What does the server send back after a successful request? That depends entirely on the web service <abbr>API</abbr>. In some protocols (like the <a href=http://www.ietf.org/rfc/rfc5023.txt>Atom Publishing Protocol</a>), the server sends back a <code>201 Created</code> status code and the location of the newly created resource in the <code>Location</code> header. Identi.ca sends back a <code>200 OK</code> and an <abbr>XML</abbr> document containing information about the newly created resource.
+<p>What does the server send back after a successful request? That depends entirely on the web service <abbr>API</abbr>. In some protocols (like the <a href="http://www.ietf.org/rfc/rfc5023.txt">Atom Publishing Protocol</a>), the server sends back a <code>201 Created</code> status code and the location of the newly created resource in the <code>Location</code> header. Identi.ca sends back a <code>200 OK</code> and an <abbr>XML</abbr> document containing information about the newly created resource.
 
 <pre class=screen>
 # continued from the previous example
@@ -904,14 +904,14 @@ status=Test+update+from+Python+3'
 &lt;/user>
 &lt;/status></samp></pre>
 <ol>
-<li>Remember, the data returned by <code>httplib2</code> is always <a href=strings.html#byte-arrays>bytes</a>, not a string. To convert it to a string, you need to decode it using the proper character encoding. Identi.ca&#8217;s <abbr>API</abbr> always returns results in <abbr>UTF-8</abbr>, so that part is easy.
+<li>Remember, the data returned by <code>httplib2</code> is always <a href="strings.html#byte-arrays">bytes</a>, not a string. To convert it to a string, you need to decode it using the proper character encoding. Identi.ca&#8217;s <abbr>API</abbr> always returns results in <abbr>UTF-8</abbr>, so that part is easy.
 <li>There&#8217;s the text of the status message we just published.
 <li>There&#8217;s the unique identifier for the new status message. Identi.ca uses this to construct a <abbr>URL</abbr> for viewing the message on the web.
 </ol>
 
 <p>And here it is:
 
-<p class=c><img class=fr src=i/identica-screenshot.png alt="screenshot showing published status message on Identi.ca" width=740 height=449>
+<p class=c><img class=fr src="i/identica-screenshot.png" alt="screenshot showing published status message on Identi.ca" width=740 height=449>
 
 <p class=a>&#x2042;
 
@@ -929,7 +929,7 @@ status=Test+update+from+Python+3'
 <a><samp class=p>>>> </samp><kbd class=pp>url = 'https://identi.ca/api/statuses/destroy/{0}.xml'.format(status_id)</kbd>  <span class=u>&#x2462;</span></a>
 <a><samp class=p>>>> </samp><kbd class=pp>resp, deleted_content = h.request(url, 'DELETE')</kbd>                          <span class=u>&#x2463;</span></a></pre>
 <ol>
-<li>The server returned <abbr>XML</abbr>, right? You know <a href=xml.html#xml-parse>how to parse <abbr>XML</abbr></a>.
+<li>The server returned <abbr>XML</abbr>, right? You know <a href="xml.html#xml-parse">how to parse <abbr>XML</abbr></a>.
 <li>The <code>findtext()</code> method finds the first instance of the given expression and extracts its text content. In this case, we&#8217;re just looking for an <code>&lt;id></code> element.
 <li>Based on the text content of the <code>&lt;id></code> element, we can construct a <abbr>URL</abbr> to delete the status message we just published.
 <li>To delete a message, you simply issue an <abbr>HTTP</abbr> <code>DELETE</code> request to that <abbr>URL</abbr>.
@@ -965,7 +965,7 @@ user-agent: Python-httplib2/$Rev: 259 $
 
 <p>And just like that, poof, it&#8217;s gone.
 
-<p class=c><img class=fr src=i/identica-deleted.png alt="screenshot showing deleted message on Identi.ca" width=740 height=449>
+<p class=c><img class=fr src="i/identica-deleted.png" alt="screenshot showing deleted message on Identi.ca" width=740 height=449>
 
 <p class=a>&#x2042;
 
@@ -974,30 +974,30 @@ user-agent: Python-httplib2/$Rev: 259 $
 <p><code>httplib2</code>:
 
 <ul>
-<li><a href=http://code.google.com/p/httplib2/><code>httplib2</code> project page</a>
-<li><a href=http://code.google.com/p/httplib2/wiki/ExamplesPython3>More <code>httplib2</code> code examples</a>
-<li><a href=http://www.xml.com/pub/a/2006/02/01/doing-http-caching-right-introducing-httplib2.html>Doing <abbr>HTTP</abbr> Caching Right: Introducing <code>httplib2</code></a>
-<li><a href=http://www.xml.com/pub/a/2006/03/29/httplib2-http-persistence-and-authentication.html><code>httplib2</code>: <abbr>HTTP</abbr> Persistence and Authentication</a>
+<li><a href="http://code.google.com/p/httplib2/"><code>httplib2</code> project page</a>
+<li><a href="http://code.google.com/p/httplib2/wiki/ExamplesPython3">More <code>httplib2</code> code examples</a>
+<li><a href="http://www.xml.com/pub/a/2006/02/01/doing-http-caching-right-introducing-httplib2.html">Doing <abbr>HTTP</abbr> Caching Right: Introducing <code>httplib2</code></a>
+<li><a href="http://www.xml.com/pub/a/2006/03/29/httplib2-http-persistence-and-authentication.html"><code>httplib2</code>: <abbr>HTTP</abbr> Persistence and Authentication</a>
 </ul>
 
 <p><abbr>HTTP</abbr> caching:
 
 <ul>
-<li><a href=http://www.mnot.net/cache_docs/><abbr>HTTP</abbr> Caching Tutorial</a> by Mark Nottingham
-<li><a href=http://code.google.com/p/doctype/wiki/ArticleHttpCaching>How to control caching with <abbr>HTTP</abbr> headers</a> on Google Doctype
+<li><a href="http://www.mnot.net/cache_docs/"><abbr>HTTP</abbr> Caching Tutorial</a> by Mark Nottingham
+<li><a href="http://code.google.com/p/doctype/wiki/ArticleHttpCaching">How to control caching with <abbr>HTTP</abbr> headers</a> on Google Doctype
 </ul>
 
 <p><abbr>RFC</abbr>s:
 
 <ul>
-<li><a href=http://www.ietf.org/rfc/rfc2616.txt>RFC 2616: <abbr>HTTP</abbr></a>
-<li><a href=http://www.ietf.org/rfc/rfc2617.txt>RFC 2617: <abbr>HTTP</abbr> Basic Authentication</a>
-<li><a href=http://www.ietf.org/rfc/rfc1951.txt>RFC 1951: deflate compression</a>
-<li><a href=http://www.ietf.org/rfc/rfc1952.txt>RFC 1952: gzip compression</a>
+<li><a href="http://www.ietf.org/rfc/rfc2616.txt">RFC 2616: <abbr>HTTP</abbr></a>
+<li><a href="http://www.ietf.org/rfc/rfc2617.txt">RFC 2617: <abbr>HTTP</abbr> Basic Authentication</a>
+<li><a href="http://www.ietf.org/rfc/rfc1951.txt">RFC 1951: deflate compression</a>
+<li><a href="http://www.ietf.org/rfc/rfc1952.txt">RFC 1952: gzip compression</a>
 </ul>
 
-<p class=v><a rel=prev href=serializing.html title='back to &#8220;Serializing Python Objects&#8221;'><span class=u>&#x261C;</span></a> <a rel=next href=case-study-porting-chardet-to-python-3.html title='onward to &#8220;Case Study: Porting chardet to Python 3&#8221;'><span class=u>&#x261E;</span></a>
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=v><a rel=prev href="serializing.html" title='back to &#8220;Serializing Python Objects&#8221;'><span class=u>&#x261C;</span></a> <a rel=next href="case-study-porting-chardet-to-python-3.html" title='onward to &#8220;Case Study: Porting chardet to Python 3&#8221;'><span class=u>&#x261E;</span></a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

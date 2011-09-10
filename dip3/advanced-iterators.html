@@ -11,7 +11,7 @@ mark{display:inline}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=sa value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#advanced-iterators>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#advanced-iterators">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=advanced>&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>Advanced Iterators</h1>
 <blockquote class=q>
@@ -19,7 +19,7 @@ mark{display:inline}
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>Diving In</h2>
-<p class=f>Just as <a href=regular-expressions.html>regular expressions</a> put <a href=strings.html>strings</a> on steroids, the <code>itertools</code> module puts <a href=iterators.html>iterators</a> on steroids. But first, I want to show you a classic puzzle.
+<p class=f>Just as <a href="regular-expressions.html">regular expressions</a> put <a href="strings.html">strings</a> on steroids, the <code>itertools</code> module puts <a href="iterators.html">iterators</a> on steroids. But first, I want to show you a classic puzzle.
 
 <pre class=nd><code>HAWAII + IDAHO + IOWA + OHIO == STATES
 510199 + 98153 + 9301 + 3593 == 621246
@@ -40,7 +40,7 @@ E = 4</code></pre>
 
 <p>In this chapter, we&#8217;ll dive into an incredible Python program originally written by Raymond Hettinger. This program solves alphametic puzzles <em>in just 14 lines of code</em>.
 
-<p class=d>[<a href=examples/alphametics.py>download <code>alphametics.py</code></a>]
+<p class=d>[<a href="examples/alphametics.py">download <code>alphametics.py</code></a>]
 <pre class=pp><code>import re
 import itertools
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
 <a><samp class=p>>>> </samp><kbd class=pp>re.findall('[A-Z]+', 'SEND + MORE == MONEY')</kbd>     <span class=u>&#x2461;</span></a>
 <samp class=pp>['SEND', 'MORE', 'MONEY']</samp></pre>
 <ol>
-<li>The <code>re</code> module is Python&#8217;s implementation of <a href=regular-expressions.html>regular expressions</a>. It has a nifty function called <code>findall()</code> which takes a regular expression pattern and a string, and finds all occurrences of the pattern within the string. In this case, the pattern matches sequences of numbers. The <code>findall()</code> function returns a list of all the substrings that matched the pattern.
+<li>The <code>re</code> module is Python&#8217;s implementation of <a href="regular-expressions.html">regular expressions</a>. It has a nifty function called <code>findall()</code> which takes a regular expression pattern and a string, and finds all occurrences of the pattern within the string. In this case, the pattern matches sequences of numbers. The <code>findall()</code> function returns a list of all the substrings that matched the pattern.
 <li>Here the regular expression pattern matches sequences of letters. Again, the return value is a list, and each item in the list is a string that matched the regular expression pattern.
 </ol>
 
@@ -105,7 +105,7 @@ if __name__ == '__main__':
 <samp class=p>>>> </samp><kbd class=pp>re.findall(' s.*? s', "The sixth sick sheikh's sixth sheep's sick.")</kbd>
 <samp class=pp>[' sixth s', " sheikh's s", " sheep's s"]</samp></pre>
 
-<aside>This is the <a href=http://en.wikipedia.org/wiki/Tongue-twister>hardest tongue twister</a> in the English language.</aside>
+<aside>This is the <a href="http://en.wikipedia.org/wiki/Tongue-twister">hardest tongue twister</a> in the English language.</aside>
 
 <p>Surprised? The regular expression looks for a space, an <code>s</code>, and then the shortest possible series of any character (<code>.*?</code>), then a space, then another <code>s</code>. Well, looking at that input string, I see five matches:
 
@@ -125,7 +125,7 @@ if __name__ == '__main__':
 
 <h2 id=unique-items>Finding the unique items in a sequence</h2>
 
-<p><a href=native-datatypes.html#sets>Sets</a> make it trivial to find the unique items in a sequence.
+<p><a href="native-datatypes.html#sets">Sets</a> make it trivial to find the unique items in a sequence.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>a_list = ['The', 'sixth', 'sick', "sheik's", 'sixth', "sheep's", 'sick']</kbd>
@@ -189,7 +189,7 @@ AssertionError: Only for very large values of 2</samp></pre>
 
 <h2 id=generator-expressions>Generator expressions</h2>
 
-<p>A generator expression is like a <a href=generators.html>generator function</a> without the function.
+<p>A generator expression is like a <a href="generators.html">generator function</a> without the function.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>unique_characters = {'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}</kbd>
@@ -203,7 +203,7 @@ AssertionError: Only for very large values of 2</samp></pre>
 <a><samp class=p>>>> </samp><kbd class=pp>tuple(ord(c) for c in unique_characters)</kbd>   <span class=u>&#x2463;</span></a>
 <samp class=pp>(69, 68, 77, 79, 78, 83, 82, 89)</samp></pre>
 <ol>
-<li>A generator expression is like an anonymous function that yields values. The expression itself looks like a <a href=comprehensions.html#listcomprehension>list comprehension</a>, but it&#8217;s wrapped in parentheses instead of square brackets.
+<li>A generator expression is like an anonymous function that yields values. The expression itself looks like a <a href="comprehensions.html#listcomprehension">list comprehension</a>, but it&#8217;s wrapped in parentheses instead of square brackets.
 <li>The generator expression returns&hellip; an iterator.
 <li>Calling <code>next(<var>gen</var>)</code> returns the next value from the iterator.
 <li>If you like, you can iterate through all the possible values and return a tuple, list, or set, by passing the generator expression to <code>tuple()</code>, <code>list()</code>, or <code>set()</code>. In these cases, you don&#8217;t need an extra set of parentheses&nbsp;&mdash;&nbsp;just pass the &#8220;bare&#8221; expression <code>ord(c) for c in unique_characters</code> to the <code>tuple()</code> function, and Python figures out that it&#8217;s a generator expression.
@@ -213,7 +213,7 @@ AssertionError: Only for very large values of 2</samp></pre>
 <p><span class=u>&#x261E;</span>Using a generator expression instead of a list comprehension can save both <abbr>CPU</abbr> and <abbr>RAM</abbr>. If you&#8217;re building an list just to throw it away (<i>e.g.</i> passing it to <code>tuple()</code> or <code>set()</code>), use a generator expression instead!
 </blockquote>
 
-<p>Here&#8217;s another way to accomplish the same thing, using a <a href=generators.html>generator function</a>:
+<p>Here&#8217;s another way to accomplish the same thing, using a <a href="generators.html">generator function</a>:
 
 <pre class='nd pp'><code>def ord_map(a_string):
     for c in a_string:
@@ -227,7 +227,7 @@ gen = ord_map(unique_characters)</code></pre>
 
 <h2 id=permutations>Calculating Permutations&hellip; The Lazy Way!</h2>
 
-<p>First of all, what the heck are permutations? Permutations are a mathematical concept. (There are actually several definitions, depending on what kind of math you&#8217;re doing. Here I&#8217;m talking about combinatorics, but if that doesn&#8217;t mean anything to you, don&#8217;t worry about it. As always, <a href=http://en.wikipedia.org/wiki/Permutation>Wikipedia is your friend</a>.)
+<p>First of all, what the heck are permutations? Permutations are a mathematical concept. (There are actually several definitions, depending on what kind of math you&#8217;re doing. Here I&#8217;m talking about combinatorics, but if that doesn&#8217;t mean anything to you, don&#8217;t worry about it. As always, <a href="http://en.wikipedia.org/wiki/Permutation">Wikipedia is your friend</a>.)
 
 <p>The idea is that you take a list of things (could be numbers, could be letters, could be dancing bears) and find all the possible ways to split them up into smaller lists. All the smaller lists have the same size, which can be as small as 1 and as large as the total number of items. Oh, and nothing can be repeated. Mathematicians say things like &#8220;let&#8217;s find the permutations of 3 different items taken 2 at a time,&#8221; which means you have a sequence of 3 items and you want to find all the possible ordered pairs.
 
@@ -307,7 +307,7 @@ StopIteration</samp>
 <li>The <code>itertools.combinations()</code> function returns an iterator containing all the possible combinations of the given sequence of the given length. This is like the <code>itertools.permutations()</code> function, except combinations don&#8217;t include items that are duplicates of other items in a different order. So <code>itertools.permutations('ABC', 2)</code> will return both <code>('A', 'B')</code> and <code>('B', 'A')</code> (among others), but <code>itertools.combinations('ABC', 2)</code> will not return <code>('B', 'A')</code> because it is a duplicate of <code>('A', 'B')</code> in a different order.
 </ol>
 
-<p class=d>[<a href=examples/favorite-people.txt>download <code>favorite-people.txt</code></a>]
+<p class=d>[<a href="examples/favorite-people.txt">download <code>favorite-people.txt</code></a>]
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>names = list(open('examples/favorite-people.txt', encoding='utf-8'))</kbd>  <span class=u>&#x2460;</span></a>
 <samp class=p>>>> </samp><kbd class=pp>names</kbd>
@@ -408,7 +408,7 @@ Wesley</samp></pre>
  'N': '5', 'S': '1', 'R': '6', 'Y': '7'}</samp></pre>
 <ol>
 <li>Given a list of letters and a list of digits (each represented here as 1-character strings), the <code>zip</code> function will create a pairing of letters and digits, in order.
-<li>Why is that cool? Because that data structure happens to be exactly the right structure to pass to the <code>dict()</code> function to create a dictionary that uses letters as keys and their associated digits as values. (This isn&#8217;t the only way to do it, of course. You could use a <a href=comprehensions.html#dictionarycomprehension>dictionary comprehension</a> to create the dictionary directly.) Although the printed representation of the dictionary lists the pairs in a different order (dictionaries have no &#8220;order&#8221; per se), you can see that each letter is associated with the digit, based on the ordering of the original <var>characters</var> and <var>guess</var> sequences.
+<li>Why is that cool? Because that data structure happens to be exactly the right structure to pass to the <code>dict()</code> function to create a dictionary that uses letters as keys and their associated digits as values. (This isn&#8217;t the only way to do it, of course. You could use a <a href="comprehensions.html#dictionarycomprehension">dictionary comprehension</a> to create the dictionary directly.) Although the printed representation of the dictionary lists the pairs in a different order (dictionaries have no &#8220;order&#8221; per se), you can see that each letter is associated with the digit, based on the ordering of the original <var>characters</var> and <var>guess</var> sequences.
 </ol>
 
 <p id=guess>The alphametics solver uses this technique to create a dictionary that maps letters in the puzzle to digits in the solution, for each possible solution.
@@ -426,7 +426,7 @@ for guess in itertools.permutations(digits, len(characters)):
 
 <h2 id=string-translate>A New Kind Of String Manipulation</h2>
 
-<p>Python strings have many methods. You learned about some of those methods in <a href=strings.html>the Strings chapter</a>: <code>lower()</code>, <code>count()</code>, and <code>format()</code>. Now I want to introduce you to a powerful but little-known string manipulation technique: the <code>translate()</code> method.
+<p>Python strings have many methods. You learned about some of those methods in <a href="strings.html">the Strings chapter</a>: <code>lower()</code>, <code>count()</code>, and <code>format()</code>. Now I want to introduce you to a powerful but little-known string manipulation technique: the <code>translate()</code> method.
 
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>translation_table = {ord('A'): ord('O')}</kbd>  <span class=u>&#x2460;</span></a>
@@ -457,9 +457,9 @@ for guess in itertools.permutations(digits, len(characters)):
 <a><samp class=p>>>> </samp><kbd class=pp>'SEND + MORE == MONEY'.translate(translation_table)</kbd>  <span class=u>&#x2463;</span></a>
 <samp class=pp>'9567 + 1085 == 10652'</samp></pre>
 <ol>
-<li>Using a <a href=#generator-expressions>generator expression</a>, we quickly compute the byte values for each character in a string. <var>characters</var> is an example of the value of <var>sorted_characters</var> in the <code>alphametics.solve()</code> function.
-<li>Using another generator expression, we quickly compute the byte values for each digit in this string. The result, <var>guess</var>, is of the form <a href=#guess>returned by the <code>itertools.permutations()</code> function</a> in the <code>alphametics.solve()</code> function.
-<li>This translation table is generated by <a href=#dict-zip>zipping <var>characters</var> and <var>guess</var> together</a> and building a dictionary from the resulting sequence of pairs. This is exactly what the <code>alphametics.solve()</code> function does inside the <code>for</code> loop.
+<li>Using a <a href="#generator-expressions">generator expression</a>, we quickly compute the byte values for each character in a string. <var>characters</var> is an example of the value of <var>sorted_characters</var> in the <code>alphametics.solve()</code> function.
+<li>Using another generator expression, we quickly compute the byte values for each digit in this string. The result, <var>guess</var>, is of the form <a href="#guess">returned by the <code>itertools.permutations()</code> function</a> in the <code>alphametics.solve()</code> function.
+<li>This translation table is generated by <a href="#dict-zip">zipping <var>characters</var> and <var>guess</var> together</a> and building a dictionary from the resulting sequence of pairs. This is exactly what the <code>alphametics.solve()</code> function does inside the <code>for</code> loop.
 <li>Finally, we pass this translation table to the <code>translate()</code> method of the original puzzle string. This converts each letter in the string to the corresponding digit (based on the letters in <var>characters</var> and the digits in <var>guess</var>). The result is a valid Python expression, as a string.
 </ol>
 
@@ -532,7 +532,7 @@ for guess in itertools.permutations(digits, len(characters)):
 
 <p class=xxxl>eval() is EVIL
 
-<p>Well, the evil part is evaluating arbitrary expressions from untrusted sources. You should only use <code>eval()</code> on trusted input. Of course, the trick is figuring out what&#8217;s &#8220;trusted.&#8221; But here&#8217;s something I know for certain: you should <b>NOT</b> take this alphametics solver and put it on the internet as a fun little web service. Don&#8217;t make the mistake of thinking, &#8220;Gosh, the function does a lot of string manipulation before getting a string to evaluate; <em>I can&#8217;t imagine</em> how someone could exploit that.&#8221; Someone <b>WILL</b> figure out how to sneak nasty executable code past all that string manipulation (<a href=http://www.securityfocus.com/blogs/746>stranger things have happened</a>), and then you can kiss your server goodbye.
+<p>Well, the evil part is evaluating arbitrary expressions from untrusted sources. You should only use <code>eval()</code> on trusted input. Of course, the trick is figuring out what&#8217;s &#8220;trusted.&#8221; But here&#8217;s something I know for certain: you should <b>NOT</b> take this alphametics solver and put it on the internet as a fun little web service. Don&#8217;t make the mistake of thinking, &#8220;Gosh, the function does a lot of string manipulation before getting a string to evaluate; <em>I can&#8217;t imagine</em> how someone could exploit that.&#8221; Someone <b>WILL</b> figure out how to sneak nasty executable code past all that string manipulation (<a href="http://www.securityfocus.com/blogs/746">stranger things have happened</a>), and then you can kiss your server goodbye.
 
 <p>But surely there&#8217;s <em>some</em> way to evaluate expressions safely? To put <code>eval()</code> in a sandbox where it can&#8217;t access or harm the outside world? Well, yes and no.
 
@@ -612,13 +612,13 @@ NameError: name '__import__' is not defined</samp></pre>
 <p>To recap: this program solves alphametic puzzles by brute force, <i>i.e.</i> through an exhaustive search of all possible solutions. To do this, it&hellip;
 
 <ol>
-<li><a href=#re-findall>Finds all the letters in the puzzle</a> with the <code>re.findall()</code> function
-<li><a href=#unique-items>Find all the <em>unique</em> letters in the puzzle</a> with sets and the <code>set()</code> function
-<li><a href=#assert>Checks if there are more than 10 unique letters</a> (meaning the puzzle is definitely unsolvable) with an <code>assert</code> statement
-<li><a href=#generator-objects>Converts the letters to their ASCII equivalents</a> with a generator object
-<li><a href=#permutations>Calculates all the possible solutions</a> with the <code>itertools.permutations()</code> function
-<li><a href=#string-translate>Converts each possible solution to a Python expression</a> with the <code>translate()</code> string method
-<li><a href=#eval>Tests each possible solution by evaluating the Python expression</a> with the <code>eval()</code> function
+<li><a href="#re-findall">Finds all the letters in the puzzle</a> with the <code>re.findall()</code> function
+<li><a href="#unique-items">Find all the <em>unique</em> letters in the puzzle</a> with sets and the <code>set()</code> function
+<li><a href="#assert">Checks if there are more than 10 unique letters</a> (meaning the puzzle is definitely unsolvable) with an <code>assert</code> statement
+<li><a href="#generator-objects">Converts the letters to their ASCII equivalents</a> with a generator object
+<li><a href="#permutations">Calculates all the possible solutions</a> with the <code>itertools.permutations()</code> function
+<li><a href="#string-translate">Converts each possible solution to a Python expression</a> with the <code>translate()</code> string method
+<li><a href="#eval">Tests each possible solution by evaluating the Python expression</a> with the <code>eval()</code> function
 <li>Returns the first solution that evaluates to <code>True</code>
 </ol>
 
@@ -629,20 +629,20 @@ NameError: name '__import__' is not defined</samp></pre>
 <h2 id=furtherreading>Further Reading</h2>
 
 <ul>
-<li><a href=http://docs.python.org/3.1/library/itertools.html><code>itertools</code> module</a>
-<li><a href=http://www.doughellmann.com/PyMOTW/itertools/><code>itertools</code>&nbsp;&mdash;&nbsp;Iterator functions for efficient looping</a>
-<li><a href=http://blip.tv/file/1947373/>Watch Raymond Hettinger&#8217;s &#8220;Easy AI with Python&#8221; talk</a> at PyCon 2009
-<li><a href=http://code.activestate.com/recipes/576615/>Recipe 576615: Alphametics solver</a>, Raymond Hettinger&#8217;s original alphametics solver for Python 2
-<li><a href=http://code.activestate.com/recipes/users/178123/>More of Raymond Hettinger&#8217;s recipes</a> in the ActiveState Code repository
-<li><a href=http://en.wikipedia.org/wiki/Verbal_arithmetic>Alphametics on Wikipedia</a>
-<li><a href=http://www.tkcs-collins.com/truman/alphamet/index.shtml>Alphametics Index</a>, including <a href=http://www.tkcs-collins.com/truman/alphamet/alphamet.shtml>lots of puzzles</a> and <a href=http://www.tkcs-collins.com/truman/alphamet/alpha_gen.shtml>a generator to make your own</a>
+<li><a href="http://docs.python.org/3.1/library/itertools.html"><code>itertools</code> module</a>
+<li><a href="http://www.doughellmann.com/PyMOTW/itertools/"><code>itertools</code>&nbsp;&mdash;&nbsp;Iterator functions for efficient looping</a>
+<li><a href="http://blip.tv/file/1947373/">Watch Raymond Hettinger&#8217;s &#8220;Easy AI with Python&#8221; talk</a> at PyCon 2009
+<li><a href="http://code.activestate.com/recipes/576615/">Recipe 576615: Alphametics solver</a>, Raymond Hettinger&#8217;s original alphametics solver for Python 2
+<li><a href="http://code.activestate.com/recipes/users/178123/">More of Raymond Hettinger&#8217;s recipes</a> in the ActiveState Code repository
+<li><a href="http://en.wikipedia.org/wiki/Verbal_arithmetic">Alphametics on Wikipedia</a>
+<li><a href="http://www.tkcs-collins.com/truman/alphamet/index.shtml">Alphametics Index</a>, including <a href="http://www.tkcs-collins.com/truman/alphamet/alphamet.shtml">lots of puzzles</a> and <a href="http://www.tkcs-collins.com/truman/alphamet/alpha_gen.shtml">a generator to make your own</a>
 </ul>
 
 <p>Many thanks to Raymond Hettinger for agreeing to relicense his code so I could port it to Python 3 and use it as the basis for this chapter.
 
-<p class=v><a href=iterators.html rel=prev title='back to &#8220;Classes &amp; Iterators&#8221;'><span class=u>&#x261C;</span></a> <a href=unit-testing.html rel=next title='onward to &#8220;Unit Testing&#8221;'><span class=u>&#x261E;</span></a>
+<p class=v><a href="iterators.html" rel=prev title='back to &#8220;Classes &amp; Iterators&#8221;'><span class=u>&#x261C;</span></a> <a href="unit-testing.html" rel=next title='onward to &#8220;Unit Testing&#8221;'><span class=u>&#x261E;</span></a>
 
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

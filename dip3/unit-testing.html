@@ -10,18 +10,18 @@ body{counter-reset:h1 9}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=root value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#unit-testing>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#unit-testing">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=beginner>&#x2666;&#x2666;&#x2662;&#x2662;&#x2662;</span>
 <h1>Unit Testing</h1>
 <blockquote class=q>
-<p><span class=u>&#x275D;</span> Certitude is not the test of certainty. We have been cocksure of many things that were not so. <span class=u>&#x275E;</span><br>&mdash; <a href=http://en.wikiquote.org/wiki/Oliver_Wendell_Holmes,_Jr.>Oliver Wendell Holmes, Jr.</a>
+<p><span class=u>&#x275D;</span> Certitude is not the test of certainty. We have been cocksure of many things that were not so. <span class=u>&#x275E;</span><br>&mdash; <a href="http://en.wikiquote.org/wiki/Oliver_Wendell_Holmes,_Jr.">Oliver Wendell Holmes, Jr.</a>
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>(Not) Diving In</h2>
 <p class=f>Kids today. So spoiled by these fast computers and fancy &#8220;dynamic&#8221; languages. Write first, ship second, debug third (if ever). In my day, we had discipline. Discipline, I say! We had to write programs by <em>hand</em>, on <em>paper</em>, and feed them to the computer on <em>punchcards</em>. And we <em>liked it!</em>
 
-<p>In this chapter, you&#8217;re going to write and debug a set of utility functions to convert to and from Roman numerals. You saw the mechanics of constructing and validating Roman numerals in <a href=regular-expressions.html#romannumerals>&#8220;Case study: roman numerals&#8221;</a>. Now step back and consider what it would take to expand that into a two-way utility.
-<p><a href=regular-expressions.html#romannumerals>The rules for Roman numerals</a> lead to a number of interesting observations:
+<p>In this chapter, you&#8217;re going to write and debug a set of utility functions to convert to and from Roman numerals. You saw the mechanics of constructing and validating Roman numerals in <a href="regular-expressions.html#romannumerals">&#8220;Case study: roman numerals&#8221;</a>. Now step back and consider what it would take to expand that into a two-way utility.
+<p><a href="regular-expressions.html#romannumerals">The rules for Roman numerals</a> lead to a number of interesting observations:
 <ol>
 <li>There is only one correct way to represent a particular number as a Roman numeral.
 <li>The converse is also true: if a string of characters is a valid Roman numeral, it represents only one number (that is, it can only be interpreted one way).
@@ -56,7 +56,7 @@ body{counter-reset:h1 9}
 <li>The <code>to_roman()</code> function should return the Roman numeral representation for all integers <code>1</code> to <code>3999</code>.
 </ol>
 <p>It is not immediately obvious how this code does&hellip; well, <em>anything</em>. It defines a class which has no <code>__init__()</code> method. The class <em>does</em> have another method, but it is never called. The entire script has a <code>__main__</code> block, but it doesn&#8217;t reference the class or its method. But it does do something, I promise.
-<p class=d>[<a href=examples/romantest1.py>download <code>romantest1.py</code></a>]
+<p class=d>[<a href="examples/romantest1.py">download <code>romantest1.py</code></a>]
 <pre class=pp><code>import roman1
 import unittest
 
@@ -169,7 +169,7 @@ Traceback (most recent call last):
 <li>Overall, the test run failed because at least one test case did not pass. When a test case doesn&#8217;t pass, <code>unittest</code> distinguishes between failures and errors. A failure is a call to an <code>assertXYZ</code> method, like <code>assertEqual</code> or <code>assertRaises</code>, that fails because the asserted condition is not true or the expected exception was not raised. An error is any other sort of exception raised in the code you&#8217;re testing or the unit test case itself.
 </ol>
 <p><em>Now</em>, finally, you can write the <code>to_roman()</code> function.
-<p class=d>[<a href=examples/roman1.py>download <code>roman1.py</code></a>]
+<p class=d>[<a href="examples/roman1.py">download <code>roman1.py</code></a>]
 <pre class=pp><code>roman_numeral_map = (('M',  1000),
                      ('CM', 900),
                      ('D',  500),
@@ -247,7 +247,7 @@ OK</samp></pre>
 <p>The <code>to_roman()</code> function should raise an <code>OutOfRangeError</code> when given an integer greater than <code>3999</code>.
 </blockquote>
 <p>What would that test look like?
-<p class=d>[<a href=examples/romantest2.py>download <code>romantest2.py</code></a>]
+<p class=d>[<a href="examples/romantest2.py">download <code>romantest2.py</code></a>]
 <pre class=pp><code>import unittest, roman2
 <a>class ToRomanBadInput(unittest.TestCase):                                 <span class=u>&#x2460;</span></a>
 <a>    def test_too_large(self):                                             <span class=u>&#x2461;</span></a>
@@ -258,8 +258,8 @@ OK</samp></pre>
 <li>Like the previous test case, the test itself is a method of the class, with a name starting with <code>test</code>.
 <li>The <code>unittest.TestCase</code> class provides the <code>assertRaises</code> method, which takes the following arguments: the exception you&#8217;re expecting, the function you&#8217;re testing, and the arguments you&#8217;re passing to that function. (If the function you&#8217;re testing takes more than one argument, pass them all to <code>assertRaises</code>, in order, and it will pass them right along to the function you&#8217;re testing.)
 </ol>
-<p>Pay close attention to this last line of code. Instead of calling <code>to_roman()</code> directly and manually checking that it raises a particular exception (by wrapping it in <a href=your-first-python-program.html#exceptions>a <code>try...except</code> block</a>), the <code>assertRaises</code> method has encapsulated all of that for us. All you do is tell it what exception you&#8217;re expecting (<code>roman2.OutOfRangeError</code>), the function (<code>to_roman()</code>), and the function&#8217;s arguments (<code>4000</code>). The <code>assertRaises</code> method takes care of calling <code>to_roman()</code> and checking that it raises <code>roman2.OutOfRangeError</code>.
-<p>Also note that you&#8217;re passing the <code>to_roman()</code> function itself as an argument; you&#8217;re not calling it, and you&#8217;re not passing the name of it as a string. Have I mentioned recently how handy it is that <a href=your-first-python-program.html#everythingisanobject>everything in Python is an object</a>?
+<p>Pay close attention to this last line of code. Instead of calling <code>to_roman()</code> directly and manually checking that it raises a particular exception (by wrapping it in <a href="your-first-python-program.html#exceptions">a <code>try...except</code> block</a>), the <code>assertRaises</code> method has encapsulated all of that for us. All you do is tell it what exception you&#8217;re expecting (<code>roman2.OutOfRangeError</code>), the function (<code>to_roman()</code>), and the function&#8217;s arguments (<code>4000</code>). The <code>assertRaises</code> method takes care of calling <code>to_roman()</code> and checking that it raises <code>roman2.OutOfRangeError</code>.
+<p>Also note that you&#8217;re passing the <code>to_roman()</code> function itself as an argument; you&#8217;re not calling it, and you&#8217;re not passing the name of it as a string. Have I mentioned recently how handy it is that <a href="your-first-python-program.html#everythingisanobject">everything in Python is an object</a>?
 <p>So what happens when you run the test suite with this new test?
 <pre class='screen cmdline'>
 <samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest2.py -v</kbd>
@@ -316,7 +316,7 @@ FAILED (failures=1)</samp></pre>
 <li>Of course, the <code>to_roman()</code> function isn&#8217;t raising the <code>OutOfRangeError</code> exception you just defined, because you haven&#8217;t told it to do that yet. That&#8217;s excellent news! It means this is a valid test case&nbsp;&mdash;&nbsp;it fails before you write the code to make it pass.
 </ol>
 <p>Now you can write the code to make this test pass.
-<p class=d>[<a href=examples/roman2.py>download <code>roman2.py</code></a>]
+<p class=d>[<a href="examples/roman2.py">download <code>roman2.py</code></a>]
 <pre class=pp><code>def to_roman(n):
     '''convert integer to Roman numeral'''
     if n > 3999:
@@ -351,7 +351,7 @@ OK</samp></pre>
 
 <h2 id=romantest3>More Halting, More Fire</h2>
 
-<p>Along with testing numbers that are too large, you need to test numbers that are too small. As <a href=#divingin>we noted in our functional requirements</a>, Roman numerals cannot express 0 or negative numbers.
+<p>Along with testing numbers that are too large, you need to test numbers that are too small. As <a href="#divingin">we noted in our functional requirements</a>, Roman numerals cannot express 0 or negative numbers.
 
 <pre class='nd screen'>
 <samp class=p>>>> </samp><kbd class=pp>import roman2</kbd>
@@ -362,7 +362,7 @@ OK</samp></pre>
 
 <p>Well <em>that&#8217;s</em> not good. Let&#8217;s add tests for each of these conditions.
 
-<p class=d>[<a href=examples/romantest3.py>download <code>romantest3.py</code></a>]
+<p class=d>[<a href="examples/romantest3.py">download <code>romantest3.py</code></a>]
 <pre class=pp><code>class ToRomanBadInput(unittest.TestCase):
     def test_too_large(self):
         '''to_roman should fail with large input'''
@@ -417,7 +417,7 @@ FAILED (failures=2)</samp></pre>
 
 <p>Excellent. Both tests failed, as expected. Now let&#8217;s switch over to the code and see what we can do to make them pass.
 
-<p class=d>[<a href=examples/roman3.py>download <code>roman3.py</code></a>]
+<p class=d>[<a href="examples/roman3.py">download <code>roman3.py</code></a>]
 <pre class=pp><code>def to_roman(n):
     '''convert integer to Roman numeral'''
 <a>    if not (0 &lt; n &lt; 4000):                                              <span class=u>&#x2460;</span></a>
@@ -456,7 +456,7 @@ OK</samp></pre>
 
 <h2 id=romantest4>And One More Thing&hellip;</h2>
 
-<p>There was one more <a href=#divingin>functional requirement</a> for converting numbers to Roman numerals: dealing with non-integers.
+<p>There was one more <a href="#divingin">functional requirement</a> for converting numbers to Roman numerals: dealing with non-integers.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>import roman3</kbd>
@@ -559,11 +559,11 @@ OK</samp></pre>
 
 <h2 id=romantest5>A Pleasing Symmetry</h2>
 
-<p>Converting a string from a Roman numeral to an integer sounds more difficult than converting an integer to a Roman numeral. Certainly there is the issue of validation. It&#8217;s easy to check if an integer is greater than 0, but a bit harder to check whether a string is a valid Roman numeral. But we already constructed <a href=regular-expressions.html#romannumerals>a regular expression to check for Roman numerals</a>, so that part is done.
+<p>Converting a string from a Roman numeral to an integer sounds more difficult than converting an integer to a Roman numeral. Certainly there is the issue of validation. It&#8217;s easy to check if an integer is greater than 0, but a bit harder to check whether a string is a valid Roman numeral. But we already constructed <a href="regular-expressions.html#romannumerals">a regular expression to check for Roman numerals</a>, so that part is done.
 
 <p>That leaves the problem of converting the string itself. As we&#8217;ll see in a minute, thanks to the rich data structure we defined to map individual Roman numerals to integer values, the nitty-gritty of the <code>from_roman()</code> function is as straightforward as the <code>to_roman()</code> function.
 
-<p>But first, the tests. We&#8217;ll need a &#8220;known values&#8221; test to spot-check for accuracy. Our test suite already contains <a href=#romantest1>a mapping of known values</a>; let&#8217;s reuse that.
+<p>But first, the tests. We&#8217;ll need a &#8220;known values&#8221; test to spot-check for accuracy. Our test suite already contains <a href="#romantest1">a mapping of known values</a>; let&#8217;s reuse that.
 
 <pre class='nd pp'><code>    def test_from_roman_known_values(self):
         '''from_roman should give known result with known input'''
@@ -619,7 +619,7 @@ FAILED (errors=2)</samp></pre>
 def from_roman(s):
     '''convert Roman numeral to integer'''</code></pre>
 
-<p>(Hey, did you notice that? I defined a function with nothing but a <a href=your-first-python-program.html#docstrings>docstring</a>. That&#8217;s legal Python. In fact, some programmers swear by it. &#8220;Don&#8217;t stub; document!&#8221;)
+<p>(Hey, did you notice that? I defined a function with nothing but a <a href="your-first-python-program.html#docstrings">docstring</a>. That&#8217;s legal Python. In fact, some programmers swear by it. &#8220;Don&#8217;t stub; document!&#8221;)
 
 <p>Now the test cases will actually fail.
 
@@ -661,7 +661,7 @@ FAILED (failures=2)</samp></pre>
             index += len(numeral)
     return result</code></pre>
 <ol>
-<li>The pattern here is the same as the <a href=#romantest1><code>to_roman()</code></a> function. You iterate through your Roman numeral data structure (a tuple of tuples), but instead of matching the highest integer values as often as possible, you match the &#8220;highest&#8221; Roman numeral character strings as often as possible.
+<li>The pattern here is the same as the <a href="#romantest1"><code>to_roman()</code></a> function. You iterate through your Roman numeral data structure (a tuple of tuples), but instead of matching the highest integer values as often as possible, you match the &#8220;highest&#8221; Roman numeral character strings as often as possible.
 </ol>
 
 <p>If you're not clear how <code>from_roman()</code> works, add a <code>print</code> statement to the end of the <code>while</code> loop:
@@ -698,15 +698,15 @@ Ran 7 tests in 0.060s
 
 OK</samp></pre>
 
-<p>Two pieces of exciting news here. The first is that the <code>from_roman()</code> function works for good input, at least for all the <a href=#romantest1>known values</a>. The second is that the &#8220;round trip&#8221; test also passed. Combined with the known values tests, you can be reasonably sure that both the <code>to_roman()</code> and <code>from_roman()</code> functions work properly for all possible good values. (This is not guaranteed; it is theoretically possible that <code>to_roman()</code> has a bug that produces the wrong Roman numeral for some particular set of inputs, <em>and</em> that <code>from_roman()</code> has a reciprocal bug that produces the same wrong integer values for exactly that set of Roman numerals that <code>to_roman()</code> generated incorrectly. Depending on your application and your requirements, this possibility may bother you; if so, write more comprehensive test cases until it doesn't bother you.)
+<p>Two pieces of exciting news here. The first is that the <code>from_roman()</code> function works for good input, at least for all the <a href="#romantest1">known values</a>. The second is that the &#8220;round trip&#8221; test also passed. Combined with the known values tests, you can be reasonably sure that both the <code>to_roman()</code> and <code>from_roman()</code> functions work properly for all possible good values. (This is not guaranteed; it is theoretically possible that <code>to_roman()</code> has a bug that produces the wrong Roman numeral for some particular set of inputs, <em>and</em> that <code>from_roman()</code> has a reciprocal bug that produces the same wrong integer values for exactly that set of Roman numerals that <code>to_roman()</code> generated incorrectly. Depending on your application and your requirements, this possibility may bother you; if so, write more comprehensive test cases until it doesn't bother you.)
 
 <p class=a>&#x2042;
 
 <h2 id=romantest6>More Bad Input</h2>
 
-<p>Now that the <code>from_roman()</code> function works properly with good input, it's time to fit in the last piece of the puzzle: making it work properly with bad input. That means finding a way to look at a string and determine if it's a valid Roman numeral. This is inherently more difficult than <a href=#romantest3>validating numeric input</a> in the <code>to_roman()</code> function, but you have a powerful tool at your disposal: regular expressions. (If you&#8217;re not familiar with regular expressions, now would be a good time to read <a href=regular-expressions.html>the regular expressions chapter</a>.)
+<p>Now that the <code>from_roman()</code> function works properly with good input, it's time to fit in the last piece of the puzzle: making it work properly with bad input. That means finding a way to look at a string and determine if it's a valid Roman numeral. This is inherently more difficult than <a href="#romantest3">validating numeric input</a> in the <code>to_roman()</code> function, but you have a powerful tool at your disposal: regular expressions. (If you&#8217;re not familiar with regular expressions, now would be a good time to read <a href="regular-expressions.html">the regular expressions chapter</a>.)
 
-<p>As you saw in <a href=regular-expressions.html#romannumerals>Case Study: Roman Numerals</a>, there are several simple rules for constructing a Roman numeral, using the letters <code>M</code>, <code>D</code>, <code>C</code>, <code>L</code>, <code>X</code>, <code>V</code>, and <code>I</code>. Let's review the rules:
+<p>As you saw in <a href="regular-expressions.html#romannumerals">Case Study: Roman Numerals</a>, there are several simple rules for constructing a Roman numeral, using the letters <code>M</code>, <code>D</code>, <code>C</code>, <code>L</code>, <code>X</code>, <code>V</code>, and <code>I</code>. Let's review the rules:
 
 <ul>
 <li>Sometimes characters are additive. <code>I</code> is <code>1</code>, <code>II</code> is <code>2</code>, and <code>III</code> is <code>3</code>. <code>VI</code> is <code>6</code> (literally, &#8220;<code>5</code> and <code>1</code>&#8221;), <code>VII</code> is <code>7</code>, and <code>VIII</code> is <code>8</code>.
@@ -781,7 +781,7 @@ Ran 10 tests in 0.058s
 
 FAILED (failures=3)</samp></pre>
 
-<p>Good deal. Now, all we need to do is add the <a href=regular-expressions.html#romannumerals>regular expression to test for valid Roman numerals</a> into the <code>from_roman()</code> function.
+<p>Good deal. Now, all we need to do is add the <a href="regular-expressions.html#romannumerals">regular expression to test for valid Roman numerals</a> into the <code>from_roman()</code> function.
 
 <pre class='nd pp'><code>roman_numeral_pattern = re.compile('''
     ^                   # beginning of string
@@ -820,8 +820,8 @@ OK</samp></pre>
 
 <p>And the anticlimax award of the year goes to&hellip; the word &#8220;<code>OK</code>&#8221;, which is printed by the <code>unittest</code> module when all the tests pass.
 
-<p class=v><a href=advanced-iterators.html rel=prev title='back to &#8220;Advanced Iterators&#8221;'><span class=u>&#x261C;</span></a> <a href=refactoring.html rel=next title='onward to &#8220;Refactoring&#8221;'><span class=u>&#x261E;</span></a>
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=v><a href="advanced-iterators.html" rel=prev title='back to &#8220;Advanced Iterators&#8221;'><span class=u>&#x261C;</span></a> <a href="refactoring.html" rel=next title='onward to &#8220;Refactoring&#8221;'><span class=u>&#x261E;</span></a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

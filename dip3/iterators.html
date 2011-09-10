@@ -10,19 +10,19 @@ body{counter-reset:h1 7}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=sa value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#iterators>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#iterators">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=intermediate>&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Classes <i class=baa>&amp;</i> Iterators</h1>
 <blockquote class=q>
-<p><span class=u>&#x275D;</span> East is East, and West is West, and never the twain shall meet. <span class=u>&#x275E;</span><br>&mdash; <a href=http://en.wikiquote.org/wiki/Rudyard_Kipling>Rudyard Kipling</a>
+<p><span class=u>&#x275D;</span> East is East, and West is West, and never the twain shall meet. <span class=u>&#x275E;</span><br>&mdash; <a href="http://en.wikiquote.org/wiki/Rudyard_Kipling">Rudyard Kipling</a>
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>Diving In</h2>
-<p class=f>Iterators are the &#8220;secret sauce&#8221; of Python 3. They&#8217;re everywhere, underlying everything, always just out of sight. <a href=comprehensions.html>Comprehensions</a> are just a simple form of <i>iterators</i>. Generators are just a simple form of <i>iterators</i>. A function that <code>yield</code>s values is a nice, compact way of building an iterator without building an iterator. Let me show you what I mean by that.
+<p class=f>Iterators are the &#8220;secret sauce&#8221; of Python 3. They&#8217;re everywhere, underlying everything, always just out of sight. <a href="comprehensions.html">Comprehensions</a> are just a simple form of <i>iterators</i>. Generators are just a simple form of <i>iterators</i>. A function that <code>yield</code>s values is a nice, compact way of building an iterator without building an iterator. Let me show you what I mean by that.
 
-<p>Remember <a href=generators.html#a-fibonacci-generator>the Fibonacci generator</a>? Here it is as a built-from-scratch iterator:
+<p>Remember <a href="generators.html#a-fibonacci-generator">the Fibonacci generator</a>? Here it is as a built-from-scratch iterator:
 
-<p class=d>[<a href=examples/fibonacci2.py>download <code>fibonacci2.py</code></a>]
+<p class=d>[<a href="examples/fibonacci2.py">download <code>fibonacci2.py</code></a>]
 <pre class=pp><code>class Fib:
     '''iterator that yields numbers in the Fibonacci sequence'''
 
@@ -157,10 +157,10 @@ body{counter-reset:h1 7}
 <p><em>Now</em> you&#8217;re ready to learn how to build an iterator. An iterator is just a class that defines an <code>__iter__()</code> method.
 
 <aside class=ots>
-All three of these class methods, <code>__init__</code>, <code>__iter__</code>, and <code>__next__</code>, begin and end with a pair of underscore (<code>_</code>) characters. Why is that? There&#8217;s nothing magical about it, but it usually indicates that these are &#8220;<dfn>special methods</dfn>.&#8221; The only thing &#8220;special&#8221; about special methods is that they aren&#8217;t called directly; Python calls them when you use some other syntax on the class or an instance of the class. <a href=special-method-names.html>More about special methods</a>.
+All three of these class methods, <code>__init__</code>, <code>__iter__</code>, and <code>__next__</code>, begin and end with a pair of underscore (<code>_</code>) characters. Why is that? There&#8217;s nothing magical about it, but it usually indicates that these are &#8220;<dfn>special methods</dfn>.&#8221; The only thing &#8220;special&#8221; about special methods is that they aren&#8217;t called directly; Python calls them when you use some other syntax on the class or an instance of the class. <a href="special-method-names.html">More about special methods</a>.
 </aside>
 
-<p class=d>[<a href=examples/fibonacci2.py>download <code>fibonacci2.py</code></a>]
+<p class=d>[<a href="examples/fibonacci2.py">download <code>fibonacci2.py</code></a>]
 <pre class=pp><code><a>class Fib:                                        <span class=u>&#x2460;</span></a>
 <a>    def __init__(self, max):                      <span class=u>&#x2461;</span></a>
         self.max = max
@@ -193,7 +193,7 @@ All three of these class methods, <code>__init__</code>, <code>__iter__</code>, 
 <samp class=p>... </samp><kbd class=pp>    print(n, end=' ')</kbd>
 <samp class=pp>0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987</samp></pre>
 
-<p>Why, it&#8217;s exactly the same! Byte for byte identical to how you called <a href=generators.html#a-fibonacci-generator>Fibonacci-as-a-generator</a> (modulo one capital letter). But how?
+<p>Why, it&#8217;s exactly the same! Byte for byte identical to how you called <a href="generators.html#a-fibonacci-generator">Fibonacci-as-a-generator</a> (modulo one capital letter). But how?
 
 <p>There&#8217;s a bit of magic involved in <code>for</code> loops. Here&#8217;s what happens:
 
@@ -209,9 +209,9 @@ All three of these class methods, <code>__init__</code>, <code>__iter__</code>, 
 <h2 id=a-plural-rule-iterator>A Plural Rule Iterator</h2>
 
 <aside>iter(f) calls f.__iter__<br>next(f) calls f.__next__</aside>
-<p>Now it&#8217;s time for the finale. Let&#8217;s rewrite the <a href=generators.html>plural rules generator</a> as an iterator.
+<p>Now it&#8217;s time for the finale. Let&#8217;s rewrite the <a href="generators.html">plural rules generator</a> as an iterator.
 
-<p class=d>[<a href=examples/plural6.py>download <code>plural6.py</code></a>]
+<p class=d>[<a href="examples/plural6.py">download <code>plural6.py</code></a>]
 <pre class=pp><code>class LazyRules:
     rules_filename = 'plural6-rules.txt'
 
@@ -373,22 +373,22 @@ rules = LazyRules()</code></pre>
 
 <blockquote class=note>
 <p><span class=u>&#x261E;</span>Is this really nirvana? Well, yes and no. Here&#8217;s something to consider with the <code>LazyRules</code> example: the pattern file is opened (during <code>__init__()</code>), and it remains open until the final rule is reached. Python will eventually close the file when it exits, or after the last instantiation of the <code>LazyRules</code> class is destroyed, but still, that could be a <em>long</em> time. If this class is part of a long-running Python process, the Python interpreter may never exit, and the <code>LazyRules</code> object may never get destroyed.
-<p>There are ways around this. Instead of opening the file during <code>__init__()</code> and leaving it open while you read rules one line at a time, you could open the file, read all the rules, and immediately close the file. Or you could open the file, read one rule, save the file position with the <a href=files.html#read><code>tell()</code> method</a>, close the file, and later re-open it and use the <a href=files.html#read><code>seek()</code> method</a> to continue reading where you left off. Or you could not worry about it and just leave the file open, like this example code does. Programming is design, and design is all about trade-offs and constraints. Leaving a file open too long might be a problem; making your code more complicated might be a problem. Which one is the bigger problem depends on your development team, your application, and your runtime environment.
+<p>There are ways around this. Instead of opening the file during <code>__init__()</code> and leaving it open while you read rules one line at a time, you could open the file, read all the rules, and immediately close the file. Or you could open the file, read one rule, save the file position with the <a href="files.html#read"><code>tell()</code> method</a>, close the file, and later re-open it and use the <a href="files.html#read"><code>seek()</code> method</a> to continue reading where you left off. Or you could not worry about it and just leave the file open, like this example code does. Programming is design, and design is all about trade-offs and constraints. Leaving a file open too long might be a problem; making your code more complicated might be a problem. Which one is the bigger problem depends on your development team, your application, and your runtime environment.
 </blockquote>
 
 <p class=a>&#x2042;
 
 <h2 id=furtherreading>Further Reading</h2>
 <ul>
-<li><a href=http://docs.python.org/3.1/library/stdtypes.html#iterator-types>Iterator types</a>
-<li><a href=http://www.python.org/dev/peps/pep-0234/>PEP 234: Iterators</a>
-<li><a href=http://www.python.org/dev/peps/pep-0255/>PEP 255: Simple Generators</a>
-<li><a href=http://www.dabeaz.com/generators/>Generator Tricks for Systems Programmers</a>
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#iterator-types">Iterator types</a>
+<li><a href="http://www.python.org/dev/peps/pep-0234/">PEP 234: Iterators</a>
+<li><a href="http://www.python.org/dev/peps/pep-0255/">PEP 255: Simple Generators</a>
+<li><a href="http://www.dabeaz.com/generators/">Generator Tricks for Systems Programmers</a>
 </ul>
 
-<p class=v><a href=generators.html rel=prev title='back to &#8220;Closures &amp; Generators&#8221;'><span class=u>&#x261C;</span></a> <a href=advanced-iterators.html rel=next title='onward to &#8220;Advanced Iterators&#8221;'><span class=u>&#x261E;</span></a>
+<p class=v><a href="generators.html" rel=prev title='back to &#8220;Closures &amp; Generators&#8221;'><span class=u>&#x261C;</span></a> <a href="advanced-iterators.html" rel=next title='onward to &#8220;Advanced Iterators&#8221;'><span class=u>&#x261E;</span></a>
 
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

@@ -10,7 +10,7 @@ body{counter-reset:h1 4}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=sa value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#strings>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#strings">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=intermediate>&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Strings</h1>
 <blockquote class=q>
@@ -19,7 +19,7 @@ My alphabet starts where your alphabet ends! <span class=u>&#x275E;</span><br>&m
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=boring-stuff>Some Boring Stuff You Need To Understand Before You Can Dive In</h2>
-<p class=f>Few people think about it, but text is incredibly complicated. Start with the alphabet. The people of <a href=http://en.wikipedia.org/wiki/Bougainville_Province>Bougainville</a> have the smallest alphabet in the world; their <a href=http://en.wikipedia.org/wiki/Rotokas_alphabet>Rotokas alphabet</a> is composed of only 12 letters: A, E, G, I, K, O, P, R, S, T, U, and V. On the other end of the spectrum, languages like Chinese, Japanese, and Korean have thousands of characters. English, of course, has 26 letters&nbsp;&mdash;&nbsp;52 if you count uppercase and lowercase separately&nbsp;&mdash;&nbsp;plus a handful of <i class=baa>!@#$%&amp;</i> punctuation marks.
+<p class=f>Few people think about it, but text is incredibly complicated. Start with the alphabet. The people of <a href="http://en.wikipedia.org/wiki/Bougainville_Province">Bougainville</a> have the smallest alphabet in the world; their <a href="http://en.wikipedia.org/wiki/Rotokas_alphabet">Rotokas alphabet</a> is composed of only 12 letters: A, E, G, I, K, O, P, R, S, T, U, and V. On the other end of the spectrum, languages like Chinese, Japanese, and Korean have thousands of characters. English, of course, has 26 letters&nbsp;&mdash;&nbsp;52 if you count uppercase and lowercase separately&nbsp;&mdash;&nbsp;plus a handful of <i class=baa>!@#$%&amp;</i> punctuation marks.
 
 <p>When you talk about &#8220;text,&#8221; you&#8217;re probably thinking of &#8220;characters and symbols on my computer screen.&#8221; But computers don&#8217;t deal in characters and symbols; they deal in bits and bytes. Every piece of text you&#8217;ve ever seen on a computer screen is actually stored in a particular <i>character encoding</i>. Very roughly speaking, the character encoding provides a mapping between the stuff you see on your screen and the stuff your computer actually stores in memory and on disk. There are many different character encodings, some optimized for particular languages like Russian or Chinese or English, and others that can be used for multiple languages.
 
@@ -91,7 +91,7 @@ My alphabet starts where your alphabet ends! <span class=u>&#x275E;</span><br>&m
 <samp class=pp>'深入 Python 3'</samp></pre>
 <ol>
 <li>To create a string, enclose it in quotes. Python strings can be defined with either single quotes (<code>'</code>) or double quotes (<code>"</code>).<!--"-->
-<li>The built-in <code><dfn>len</dfn>()</code> function returns the length of the string, <i>i.e.</i> the number of characters. This is the same function you use to <a href=native-datatypes.html#extendinglists>find the length of a list, tuple, set, or dictionary</a>. A string is like a tuple of characters.
+<li>The built-in <code><dfn>len</dfn>()</code> function returns the length of the string, <i>i.e.</i> the number of characters. This is the same function you use to <a href="native-datatypes.html#extendinglists">find the length of a list, tuple, set, or dictionary</a>. A string is like a tuple of characters.
 <li>Just like getting individual items out of a list, you can get individual characters out of a string using index notation.
 <li>Just like lists, you can <dfn>concatenate</dfn> strings using the <code>+</code> operator.
 </ol>
@@ -101,9 +101,9 @@ My alphabet starts where your alphabet ends! <span class=u>&#x275E;</span><br>&m
 <h2 id=formatting-strings>Formatting Strings</h2>
 
 <aside>Strings can be defined with either single or double quotes.</aside>
-<p>Let&#8217;s take another look at <a href=your-first-python-program.html#divingin><code>humansize.py</code></a>:
+<p>Let&#8217;s take another look at <a href="your-first-python-program.html#divingin"><code>humansize.py</code></a>:
 
-<p class=d>[<a href=examples/humansize.py>download <code>humansize.py</code></a>]
+<p class=d>[<a href="examples/humansize.py">download <code>humansize.py</code></a>]
 <pre class=pp><code><a>SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],         <span class=u>&#x2460;</span></a>
             1024: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']}
 
@@ -189,7 +189,7 @@ def approximate_size(size, a_kilobyte_is_1024_bytes=True):
 <ul>
 <li>The <code>sys</code> module holds information about the currently running Python instance. Since you just imported it, you can pass the <code>sys</code> module itself as an argument to the <code>format()</code> method. So the replacement field <code>{0}</code> refers to the <code>sys</code> module.
 <li><code>sys.modules</code> is a dictionary of all the modules that have been imported in this Python instance. The keys are the module names as strings; the values are the module objects themselves. So the replacement field <code>{0.modules}</code> refers to the dictionary of imported modules.
-<li><code>sys.modules['humansize']</code> is the <code>humansize</code> module which you just imported. The replacement field <code>{0.modules[humansize]}</code> refers to the <code>humansize</code> module. Note the slight difference in syntax here. In real Python code, the keys of the <code>sys.modules</code> dictionary are strings; to refer to them, you need to put quotes around the module name (<i>e.g.</i> <code>'humansize'</code>). But within a replacement field, you skip the quotes around the dictionary key name (<i>e.g.</i> <code>humansize</code>). To quote <a href=http://www.python.org/dev/peps/pep-3101/>PEP 3101: Advanced String Formatting</a>, &#8220;The rules for parsing an item key are very simple. If it starts with a digit, then it is treated as a number, otherwise it is used as a string.&#8221;
+<li><code>sys.modules['humansize']</code> is the <code>humansize</code> module which you just imported. The replacement field <code>{0.modules[humansize]}</code> refers to the <code>humansize</code> module. Note the slight difference in syntax here. In real Python code, the keys of the <code>sys.modules</code> dictionary are strings; to refer to them, you need to put quotes around the module name (<i>e.g.</i> <code>'humansize'</code>). But within a replacement field, you skip the quotes around the dictionary key name (<i>e.g.</i> <code>humansize</code>). To quote <a href="http://www.python.org/dev/peps/pep-3101/">PEP 3101: Advanced String Formatting</a>, &#8220;The rules for parsing an item key are very simple. If it starts with a digit, then it is treated as a number, otherwise it is used as a string.&#8221;
 <li><code>sys.modules['humansize'].SUFFIXES</code> is the dictionary defined at the top of the <code>humansize</code> module. The replacement field <code>{0.modules[humansize].SUFFIXES}</code> refers to that dictionary.
 <li><code>sys.modules['humansize'].SUFFIXES[1000]</code> is a list of <abbr>SI</abbr> suffixes: <code>['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']</code>. So the replacement field <code>{0.modules[humansize].SUFFIXES[1000]}</code> refers to that list.
 <li><code>sys.modules['humansize'].SUFFIXES[1000][0]</code> is the first item of the list of <abbr>SI</abbr> suffixes: <code>'KB'</code>. Therefore, the complete replacement field <code>{0.modules[humansize].SUFFIXES[1000][0]}</code> is replaced by the two-character string <code>KB</code>.
@@ -214,7 +214,7 @@ def approximate_size(size, a_kilobyte_is_1024_bytes=True):
 <samp class=p>>>> </samp><kbd class=pp>'{0:.1f} {1}'.format(698.24, 'GB')</kbd>
 <samp class=pp>'698.2 GB'</samp></pre>
 
-<p>For all the gory details on format specifiers, consult the <a href=http://docs.python.org/3.1/library/string.html#format-specification-mini-language>Format Specification Mini-Language</a> in the official Python documentation.
+<p>For all the gory details on format specifiers, consult the <a href="http://docs.python.org/3.1/library/string.html#format-specification-mini-language">Format Specification Mini-Language</a> in the official Python documentation.
 
 <p class=a>&#x2042;
 
@@ -262,16 +262,16 @@ experience of years.</samp>
 
 <ol>
 <li>The <code><dfn>split</dfn>()</code> string method has one required argument, a delimiter. The method splits a string into a list of strings based on the delimiter. Here, the delimiter is an ampersand character, but it could be anything.
-<li>Now we have a list of strings, each with a key, followed by an equals sign, followed by a value. We can use a <a href=comprehensions.html#listcomprehension>list comprehension</a> to iterate over the entire list and split each string into two strings based on the first equals sign. The optional second argument to the <code>split()</code> method is the number of times you want to split. <code>1</code> means &#8220;only split once,&#8221; so the <code>split()</code> method will return a two-item list. (In theory, a value could contain an equals sign too. If you just used <code>'key=value=foo'.split('=')</code>, you would end up with a three-item list <code>['key', 'value', 'foo']</code>.)
+<li>Now we have a list of strings, each with a key, followed by an equals sign, followed by a value. We can use a <a href="comprehensions.html#listcomprehension">list comprehension</a> to iterate over the entire list and split each string into two strings based on the first equals sign. The optional second argument to the <code>split()</code> method is the number of times you want to split. <code>1</code> means &#8220;only split once,&#8221; so the <code>split()</code> method will return a two-item list. (In theory, a value could contain an equals sign too. If you just used <code>'key=value=foo'.split('=')</code>, you would end up with a three-item list <code>['key', 'value', 'foo']</code>.)
 <li>Finally, Python can turn that list-of-lists into a dictionary simply by passing it to the <code>dict()</code> function.
 </ol>
 
 <blockquote class=note>
-<p><span class=u>&#x261E;</span>The previous example looks a lot like parsing query parameters in a <abbr>URL</abbr>, but real-life <abbr>URL</abbr> parsing is actually more complicated than this. If you&#8217;re dealing with <abbr>URL</abbr> query parameters, you&#8217;re better off using the <a href=http://docs.python.org/3.1/library/urllib.parse.html#urllib.parse.parse_qs><code>urllib.parse.parse_qs()</code></a> function, which handles some non-obvious edge cases.
+<p><span class=u>&#x261E;</span>The previous example looks a lot like parsing query parameters in a <abbr>URL</abbr>, but real-life <abbr>URL</abbr> parsing is actually more complicated than this. If you&#8217;re dealing with <abbr>URL</abbr> query parameters, you&#8217;re better off using the <a href="http://docs.python.org/3.1/library/urllib.parse.html#urllib.parse.parse_qs"><code>urllib.parse.parse_qs()</code></a> function, which handles some non-obvious edge cases.
 </blockquote>
 
 <h3 id=slicingstrings>Slicing A String</h3>
-<p>Once you&#8217;ve defined a string, you can get any part of it as a new string. This is called <i>slicing</i> the string. Slicing strings works exactly the same as <a href=native-datatypes.html#slicinglists>slicing lists</a>, which makes sense, because strings are just sequences of characters.
+<p>Once you&#8217;ve defined a string, you can get any part of it as a new string. This is called <i>slicing</i> the string. Slicing strings works exactly the same as <a href="native-datatypes.html#slicinglists">slicing lists</a>, which makes sense, because strings are just sequences of characters.
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>a_string = 'My alphabet starts where your alphabet ends.'</kbd>
 <a><samp class=p>>>> </samp><kbd class=pp>a_string[3:11]</kbd>           <span class=u>&#x2460;</span></a>
@@ -324,7 +324,7 @@ TypeError: 'bytes' object does not support item assignment</samp></pre>
 <li>Just like lists and strings, you can use the <code>+</code> operator to concatenate <code>bytes</code> objects. The result is a new <code>bytes</code> object.
 <li>Concatenating a 5-byte <code>bytes</code> object and a 1-byte <code>bytes</code> object gives you a 6-byte <code>bytes</code> object.
 <li>Just like lists and strings, you can use index notation to get individual bytes in a <code>bytes</code> object. The items of a string are strings; the items of a <code>bytes</code> object are integers. Specifically, integers between 0&ndash;255.
-<li>A <code>bytes</code> object is immutable; you can not assign individual bytes. If you need to change individual bytes, you can either use <a href=#slicingstrings>string slicing</a> and concatenation operators (which work the same as strings), or you can convert the <code>bytes</code> object into a <code>bytearray</code> object.
+<li>A <code>bytes</code> object is immutable; you can not assign individual bytes. If you need to change individual bytes, you can either use <a href="#slicingstrings">string slicing</a> and concatenation operators (which work the same as strings), or you can convert the <code>bytes</code> object into a <code>bytearray</code> object.
 </ol>
 
 <pre class=screen>
@@ -393,8 +393,8 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 <ol>
 <li>This is a string. It has nine characters.
 <li>This is a <code>bytes</code> object. It has 13 bytes. It is the sequence of bytes you get when you take <var>a_string</var> and encode it in <abbr>UTF-8</abbr>.
-<li>This is a <code>bytes</code> object. It has 11 bytes. It is the sequence of bytes you get when you take <var>a_string</var> and encode it in <a href=http://en.wikipedia.org/wiki/GB_18030>GB18030</a>.
-<li>This is a <code>bytes</code> object. It has 11 bytes. It is an <em>entirely different sequence of bytes</em> that you get when you take <var>a_string</var> and encode it in <a href=http://en.wikipedia.org/wiki/Big5>Big5</a>.
+<li>This is a <code>bytes</code> object. It has 11 bytes. It is the sequence of bytes you get when you take <var>a_string</var> and encode it in <a href="http://en.wikipedia.org/wiki/GB_18030">GB18030</a>.
+<li>This is a <code>bytes</code> object. It has 11 bytes. It is an <em>entirely different sequence of bytes</em> that you get when you take <var>a_string</var> and encode it in <a href="http://en.wikipedia.org/wiki/Big5">Big5</a>.
 <li>This is a string. It has nine characters. It is the sequence of characters you get when you take <var>by</var> and decode it using the Big5 encoding algorithm. It is identical to the original string.
 </ol>
 
@@ -405,7 +405,7 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 <p>Python 3 assumes that your source code&nbsp;&mdash;&nbsp;<i>i.e.</i> each <code>.py</code> file&nbsp;&mdash;&nbsp;is encoded in <abbr>UTF-8</abbr>.
 
 <blockquote class='note compare python2'>
-<p><span class=u>&#x261E;</span>In Python 2, the <dfn>default</dfn> encoding for <code>.py</code> files was <abbr>ASCII</abbr>. In Python 3, <a href=http://www.python.org/dev/peps/pep-3120/>the default encoding is <abbr>UTF-8</abbr></a>.
+<p><span class=u>&#x261E;</span>In Python 2, the <dfn>default</dfn> encoding for <code>.py</code> files was <abbr>ASCII</abbr>. In Python 3, <a href="http://www.python.org/dev/peps/pep-3120/">the default encoding is <abbr>UTF-8</abbr></a>.
 </blockquote>
 
 <p>If you would like to use a different encoding within your Python code, you can put an encoding declaration on the first line of each file. This declaration defines a <code>.py</code> file to be windows-1252:
@@ -417,7 +417,7 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 <pre class='nd pp'><code>#!/usr/bin/python3
 # -*- coding: windows-1252 -*-</code></pre>
 
-<p>For more information, consult <a href=http://www.python.org/dev/peps/pep-0263/><abbr>PEP</abbr> 263: Defining Python Source Code Encodings</a>.
+<p>For more information, consult <a href="http://www.python.org/dev/peps/pep-0263/"><abbr>PEP</abbr> 263: Defining Python Source Code Encodings</a>.
 
 <p class=a>&#x2042;
 
@@ -426,39 +426,39 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 <p>On Unicode in Python:
 
 <ul>
-<li><a href=http://docs.python.org/3.1/howto/unicode.html>Python Unicode HOWTO</a>
-<li><a href=http://docs.python.org/3.0/whatsnew/3.0.html#text-vs-data-instead-of-unicode-vs-8-bit>What&#8217;s New In Python 3: Text vs. Data Instead Of Unicode vs. 8-bit</a>
-<li><a href=http://www.python.org/dev/peps/pep-0261/><abbr>PEP 261</abbr></a> explains how Python handles astral characters outside of the Basic Multilingual Plane (<i>i.e.</i> characters whose ordinal value is greater than 65535)
+<li><a href="http://docs.python.org/3.1/howto/unicode.html">Python Unicode HOWTO</a>
+<li><a href="http://docs.python.org/3.0/whatsnew/3.0.html#text-vs-data-instead-of-unicode-vs-8-bit">What&#8217;s New In Python 3: Text vs. Data Instead Of Unicode vs. 8-bit</a>
+<li><a href="http://www.python.org/dev/peps/pep-0261/"><abbr>PEP 261</abbr></a> explains how Python handles astral characters outside of the Basic Multilingual Plane (<i>i.e.</i> characters whose ordinal value is greater than 65535)
 </ul>
 
 <p>On Unicode in general:
 
 <ul>
-<li><a href=http://www.joelonsoftware.com/articles/Unicode.html>The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a>
-<li><a href=http://www.tbray.org/ongoing/When/200x/2003/04/06/Unicode>On the Goodness of Unicode</a>
-<li><a href=http://www.tbray.org/ongoing/When/200x/2003/04/13/Strings>On Character Strings</a>
-<li><a href=http://www.tbray.org/ongoing/When/200x/2003/04/26/UTF>Characters vs. Bytes</a>
+<li><a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a>
+<li><a href="http://www.tbray.org/ongoing/When/200x/2003/04/06/Unicode">On the Goodness of Unicode</a>
+<li><a href="http://www.tbray.org/ongoing/When/200x/2003/04/13/Strings">On Character Strings</a>
+<li><a href="http://www.tbray.org/ongoing/When/200x/2003/04/26/UTF">Characters vs. Bytes</a>
 </ul>
 
 <p>On character encoding in other formats:
 
 <ul>
-<li><a href=http://feedparser.org/docs/character-encoding.html>Character encoding in XML</a>
-<li><a href=http://blog.whatwg.org/the-road-to-html-5-character-encoding>Character encoding in HTML</a>
+<li><a href="http://feedparser.org/docs/character-encoding.html">Character encoding in XML</a>
+<li><a href="http://blog.whatwg.org/the-road-to-html-5-character-encoding">Character encoding in HTML</a>
 </ul>
 
 <p>On strings and string formatting:
 
 <ul>
-<li><a href=http://docs.python.org/3.1/library/string.html><code>string</code>&nbsp;&mdash;&nbsp;Common string operations</a>
-<li><a href=http://docs.python.org/3.1/library/string.html#formatstrings>Format String Syntax</a>
-<li><a href=http://docs.python.org/3.1/library/string.html#format-specification-mini-language>Format Specification Mini-Language</a>
-<li><a href=http://www.python.org/dev/peps/pep-3101/><abbr>PEP</abbr> 3101: Advanced String Formatting</a>
+<li><a href="http://docs.python.org/3.1/library/string.html"><code>string</code>&nbsp;&mdash;&nbsp;Common string operations</a>
+<li><a href="http://docs.python.org/3.1/library/string.html#formatstrings">Format String Syntax</a>
+<li><a href="http://docs.python.org/3.1/library/string.html#format-specification-mini-language">Format Specification Mini-Language</a>
+<li><a href="http://www.python.org/dev/peps/pep-3101/"><abbr>PEP</abbr> 3101: Advanced String Formatting</a>
 </ul>
 
-<p class=v><a href=comprehensions.html rel=prev title='back to &#8220;Comprehensions&#8221;'><span class=u>&#x261C;</span></a> <a href=regular-expressions.html rel=next title='onward to &#8220;Regular Expressions&#8221;'><span class=u>&#x261E;</span></a>
+<p class=v><a href="comprehensions.html" rel=prev title='back to &#8220;Comprehensions&#8221;'><span class=u>&#x261C;</span></a> <a href="regular-expressions.html" rel=next title='onward to &#8220;Regular Expressions&#8221;'><span class=u>&#x261E;</span></a>
 
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

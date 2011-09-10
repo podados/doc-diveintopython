@@ -11,19 +11,19 @@ mark{display:inline}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=root value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#xml>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#xml">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=advanced>&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>XML</h1>
 <blockquote class=q>
-<p><span class=u>&#x275D;</span> In the archonship of Aristaechmus, Draco enacted his ordinances. <span class=u>&#x275E;</span><br>&mdash; <a href='http://www.perseus.tufts.edu/cgi-bin/ptext?doc=Perseus:text:1999.01.0046;query=chapter%3D%235;layout=;loc=3.1'>Aristotle</a>
+<p><span class=u>&#x275D;</span> In the archonship of Aristaechmus, Draco enacted his ordinances. <span class=u>&#x275E;</span><br>&mdash; <a href="'http://www.perseus.tufts.edu/cgi-bin/ptext?doc=Perseus:text:1999.01.0046;query=chapter%3D%235;layout=;loc=3.1'">Aristotle</a>
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>Diving In</h2>
-<p class=f>Nearly all the chapters in this book revolve around a piece of sample code. But <abbr>XML</abbr> isn&#8217;t about code; it&#8217;s about data. One common use of <abbr>XML</abbr> is &#8220;syndication feeds&#8221; that list the latest articles on a blog, forum, or other frequently-updated website. Most popular blogging software can produce a feed and update it whenever new articles, discussion threads, or blog posts are published. You can follow a blog by &#8220;subscribing&#8221; to its feed, and you can follow multiple blogs with a dedicated &#8220;<a href=http://en.wikipedia.org/wiki/List_of_feed_aggregators>feed aggregator</a>&#8221; like <a href=http://www.google.com/reader/>Google Reader</a>.
+<p class=f>Nearly all the chapters in this book revolve around a piece of sample code. But <abbr>XML</abbr> isn&#8217;t about code; it&#8217;s about data. One common use of <abbr>XML</abbr> is &#8220;syndication feeds&#8221; that list the latest articles on a blog, forum, or other frequently-updated website. Most popular blogging software can produce a feed and update it whenever new articles, discussion threads, or blog posts are published. You can follow a blog by &#8220;subscribing&#8221; to its feed, and you can follow multiple blogs with a dedicated &#8220;<a href="http://en.wikipedia.org/wiki/List_of_feed_aggregators">feed aggregator</a>&#8221; like <a href="http://www.google.com/reader/">Google Reader</a>.
 
-<p>Here, then, is the <abbr>XML</abbr> data we&#8217;ll be working with in this chapter. It&#8217;s a feed&nbsp;&mdash;&nbsp;specifically, an <a href=http://atompub.org/rfc4287.html>Atom syndication feed</a>.
+<p>Here, then, is the <abbr>XML</abbr> data we&#8217;ll be working with in this chapter. It&#8217;s a feed&nbsp;&mdash;&nbsp;specifically, an <a href="http://atompub.org/rfc4287.html">Atom syndication feed</a>.
 
-<p class=d>[<a href=examples/feed.xml>download <code>feed.xml</code></a>]
+<p class=d>[<a href="examples/feed.xml">download <code>feed.xml</code></a>]
 <pre class=pp><code>&lt;?xml version='1.0' encoding='utf-8'?>
 &lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'>
   &lt;title>dive into mark&lt;/title>
@@ -167,7 +167,7 @@ mark{display:inline}
 
 <p>As far as an <abbr>XML</abbr> parser is concerned, the previous two <abbr>XML</abbr> documents are <em>identical</em>. Namespace + element name = <abbr>XML</abbr> identity. Prefixes only exist to refer to namespaces, so the actual prefix name (<code>atom:</code>) is irrelevant. The namespaces match, the element names match, the attributes (or lack of attributes) match, and each element&#8217;s text content matches, therefore the <abbr>XML</abbr> documents are the same.
 
-<p>Finally, <abbr>XML</abbr> documents can contain <a href=strings.html#one-ring-to-rule-them-all>character encoding information</a> on the first line, before the root element. (If you&#8217;re curious how a document can contain information which needs to be known before the document can be parsed, <a href=http://www.w3.org/TR/REC-xml/#sec-guessing-no-ext-info>Section F of the <abbr>XML</abbr> specification</a> details how to resolve this Catch-22.)
+<p>Finally, <abbr>XML</abbr> documents can contain <a href="strings.html#one-ring-to-rule-them-all">character encoding information</a> on the first line, before the root element. (If you&#8217;re curious how a document can contain information which needs to be known before the document can be parsed, <a href="http://www.w3.org/TR/REC-xml/#sec-guessing-no-ext-info">Section F of the <abbr>XML</abbr> specification</a> details how to resolve this Catch-22.)
 
 <pre class='nd pp'><code>&lt;?xml version='1.0' <mark>encoding='utf-8'</mark>?></code></pre>
 
@@ -177,7 +177,7 @@ mark{display:inline}
 
 <h2 id=xml-structure>The Structure Of An Atom Feed</h2>
 
-<p>Think of a weblog, or in fact any website with frequently updated content, like <a href=http://www.cnn.com/>CNN.com</a>. The site itself has a title (&#8220;CNN.com&#8221;), a subtitle (&#8220;Breaking News, U.S., World, Weather, Entertainment <i class=baa>&amp;</i> Video News&#8221;), a last-updated date (&#8220;updated 12:43 p.m. EDT, Sat May 16, 2009&#8221;), and a list of articles posted at different times. Each article also has a title, a first-published date (and maybe also a last-updated date, if they published a correction or fixed a typo), and a unique URL.
+<p>Think of a weblog, or in fact any website with frequently updated content, like <a href="http://www.cnn.com/">CNN.com</a>. The site itself has a title (&#8220;CNN.com&#8221;), a subtitle (&#8220;Breaking News, U.S., World, Weather, Entertainment <i class=baa>&amp;</i> Video News&#8221;), a last-updated date (&#8220;updated 12:43 p.m. EDT, Sat May 16, 2009&#8221;), and a list of articles posted at different times. Each article also has a title, a first-published date (and maybe also a last-updated date, if they published a correction or fixed a typo), and a unique URL.
 
 <p>The Atom syndication format is designed to capture all of this information in a standard format. My weblog and CNN.com are wildly different in design, scope, and audience, but they both have the same basic structure. CNN.com has a title; my blog has a title. CNN.com publishes articles; I publish articles.
 
@@ -201,12 +201,12 @@ mark{display:inline}
 <ol>
 <li>The title of this feed is <code>dive into mark</code>. 
 <li>The subtitle of this feed is <code>currently between addictions</code>.
-<li>Every feed needs a globally unique identifier. See <a href=http://www.ietf.org/rfc/rfc4151.txt>RFC 4151</a> for how to create one.
+<li>Every feed needs a globally unique identifier. See <a href="http://www.ietf.org/rfc/rfc4151.txt">RFC 4151</a> for how to create one.
 <li>This feed was last updated on March 27, 2009, at 21:56 GMT. This is usually equivalent to the last-modified date of the most recent article.
 <li>Now things start to get interesting. This <code>link</code> element has no text content, but it has three attributes: <code>rel</code>, <code>type</code>, and <code>href</code>. The <code>rel</code> value tells you what kind of link this is; <code>rel='alternate'</code> means that this is a link to an alternate representation of this feed. The <code>type='text/html'</code> attribute means that this is a link to an <abbr>HTML</abbr> page. And the link target is given in the <code>href</code> attribute.
 </ol>
 
-<p>Now we know that this is a feed for a site named &#8220;dive into mark&#8220; which is available at <a href=http://diveintomark.org/><code>http://diveintomark.org/</code></a> and was last updated on March 27, 2009.
+<p>Now we know that this is a feed for a site named &#8220;dive into mark&#8220; which is available at <a href="http://diveintomark.org/"><code>http://diveintomark.org/</code></a> and was last updated on March 27, 2009.
 
 <blockquote class=note>
 <p><span class=u>&#x261E;</span>Although the order of elements can be relevant in some <abbr>XML</abbr> documents, it is not relevant in an Atom feed.
@@ -248,9 +248,9 @@ mark{display:inline}
 
 <h2 id=xml-parse>Parsing XML</h2>
 
-<p>Python can parse <abbr>XML</abbr> documents in several ways. It has traditional <a href=http://en.wikipedia.org/wiki/XML#DOM><abbr>DOM</abbr></a> and <a href=http://en.wikipedia.org/wiki/Simple_API_for_XML><abbr>SAX</abbr></a> parsers, but I will focus on a different library called ElementTree.
+<p>Python can parse <abbr>XML</abbr> documents in several ways. It has traditional <a href="http://en.wikipedia.org/wiki/XML#DOM"><abbr>DOM</abbr></a> and <a href="http://en.wikipedia.org/wiki/Simple_API_for_XML"><abbr>SAX</abbr></a> parsers, but I will focus on a different library called ElementTree.
 
-<p class=d>[<a href=examples/feed.xml>download <code>feed.xml</code></a>]
+<p class=d>[<a href="examples/feed.xml">download <code>feed.xml</code></a>]
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>import xml.etree.ElementTree as etree</kbd>    <span class=u>&#x2460;</span></a>
 <a><samp class=p>>>> </samp><kbd class=pp>tree = etree.parse('examples/feed.xml')</kbd>  <span class=u>&#x2461;</span></a>
@@ -259,7 +259,7 @@ mark{display:inline}
 <samp>&lt;Element {http://www.w3.org/2005/Atom}feed at cd1eb0></samp></pre>
 <ol>
 <li>The ElementTree library is part of the Python standard library, in <code>xml.etree.ElementTree</code>.
-<li>The primary entry point for the ElementTree library is the <code>parse()</code> function, which can take a filename or a <a href=files.html#file-like-objects>file-like object</a>. This function parses the entire document at once. If memory is tight, there are ways to <a href=http://effbot.org/zone/element-iterparse.htm>parse an <abbr>XML</abbr> document incrementally instead</a>.
+<li>The primary entry point for the ElementTree library is the <code>parse()</code> function, which can take a filename or a <a href="files.html#file-like-objects">file-like object</a>. This function parses the entire document at once. If memory is tight, there are ways to <a href="http://effbot.org/zone/element-iterparse.htm">parse an <abbr>XML</abbr> document incrementally instead</a>.
 <li>The <code>parse()</code> function returns an object which represents the entire document. This is <em>not</em> the root element. To get a reference to the root element, call the <code>getroot()</code> method.
 <li>As expected, the root element is the <code>feed</code> element in the <code>http://www.w3.org/2005/Atom</code> namespace. The string representation of this object reinforces an important point: an <abbr>XML</abbr> element is a combination of its namespace and its tag name (also called the <i>local name</i>). Every element in this document is in the Atom namespace, so the root element is represented as <code>{http://www.w3.org/2005/Atom}feed</code>.
 </ol>
@@ -347,7 +347,7 @@ mark{display:inline}
 <ol>
 <li>The <code>findall()</code> method finds child elements that match a specific query. (More on the query format in a minute.)
 <li>Each element&nbsp;&mdash;&nbsp;including the root element, but also child elements&nbsp;&mdash;&nbsp;has a <code>findall()</code> method. It finds all matching elements among the element&#8217;s children. But why aren&#8217;t there any results? Although it may not be obvious, this particular query only searches the element&#8217;s children. Since the root <code>feed</code> element has no child named <code>feed</code>, this query returns an empty list.
-<li>This result may also surprise you. <a href=#divingin>There is an <code>author</code> element</a> in this document; in fact, there are three (one in each <code>entry</code>). But those <code>author</code> elements are not <em>direct children</em> of the root element; they are &#8220;grandchildren&#8221; (literally, a child element of a child element). If you want to look for <code>author</code> elements at any nesting level, you can do that, but the query format is slightly different.
+<li>This result may also surprise you. <a href="#divingin">There is an <code>author</code> element</a> in this document; in fact, there are three (one in each <code>entry</code>). But those <code>author</code> elements are not <em>direct children</em> of the root element; they are &#8220;grandchildren&#8221; (literally, a child element of a child element). If you want to look for <code>author</code> elements at any nesting level, you can do that, but the query format is slightly different.
 </ol>
 
 <pre class=screen>
@@ -442,13 +442,13 @@ StopIteration</samp></pre>
 </ol>
 -->
 
-<p>Overall, ElementTree&#8217;s <code>findall()</code> method is a very powerful feature, but the query language can be a bit surprising. It is officially described as &#8220;<a href=http://effbot.org/zone/element-xpath.htm>limited support for XPath expressions</a>.&#8221; <a href=http://www.w3.org/TR/xpath>XPath</a> is a W3C standard for querying <abbr>XML</abbr> documents. ElementTree&#8217;s query language is similar enough to XPath to do basic searching, but dissimilar enough that it may annoy you if you already know XPath. Now let&#8217;s look at a third-party <abbr>XML</abbr> library that extends the ElementTree <abbr>API</abbr> with full XPath support.
+<p>Overall, ElementTree&#8217;s <code>findall()</code> method is a very powerful feature, but the query language can be a bit surprising. It is officially described as &#8220;<a href="http://effbot.org/zone/element-xpath.htm">limited support for XPath expressions</a>.&#8221; <a href="http://www.w3.org/TR/xpath">XPath</a> is a W3C standard for querying <abbr>XML</abbr> documents. ElementTree&#8217;s query language is similar enough to XPath to do basic searching, but dissimilar enough that it may annoy you if you already know XPath. Now let&#8217;s look at a third-party <abbr>XML</abbr> library that extends the ElementTree <abbr>API</abbr> with full XPath support.
 
 <p class=a>&#x2042;
 
 <h2 id=xml-lxml>Going Further With lxml</h2>
 
-<p><a href=http://codespeak.net/lxml/><code>lxml</code></a> is an open source third-party library that builds on the popular <a href=http://www.xmlsoft.org/>libxml2 parser</a>. It provides a 100% compatible ElementTree <abbr>API</abbr>, then extends it with full XPath 1.0 support and a few other niceties. There are <a href=http://pypi.python.org/pypi/lxml/>installers available for Windows</a>; Linux users should always try to use distribution-specific tools like <code>yum</code> or <code>apt-get</code> to install precompiled binaries from their repositories. Otherwise you&#8217;ll need to <a href=http://codespeak.net/lxml/installation.html>install <code>lxml</code> manually</a>.
+<p><a href="http://codespeak.net/lxml/"><code>lxml</code></a> is an open source third-party library that builds on the popular <a href="http://www.xmlsoft.org/">libxml2 parser</a>. It provides a 100% compatible ElementTree <abbr>API</abbr>, then extends it with full XPath 1.0 support and a few other niceties. There are <a href="http://pypi.python.org/pypi/lxml/">installers available for Windows</a>; Linux users should always try to use distribution-specific tools like <code>yum</code> or <code>apt-get</code> to install precompiled binaries from their repositories. Otherwise you&#8217;ll need to <a href="http://codespeak.net/lxml/installation.html">install <code>lxml</code> manually</a>.
 
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>from lxml import etree</kbd>                   <span class=u>&#x2460;</span></a>
@@ -492,7 +492,7 @@ except ImportError:
 <li>In this example, I&#8217;m going to <code>import lxml.etree</code> (instead of, say, <code>from lxml import etree</code>), to emphasize that these features are specific to <code>lxml</code>.
 <li>This query finds all elements in the Atom namespace, anywhere in the document, that have an <code>href</code> attribute. The <code>//</code> at the beginning of the query means &#8220;elements anywhere (not just as children of the root element).&#8221; <code>{http://www.w3.org/2005/Atom}</code> means &#8220;only elements in the Atom namespace.&#8221; <code>*</code> means &#8220;elements with any local name.&#8221; And <code>[@href]</code> means &#8220;has an <code>href</code> attribute.&#8221;
 <li>The query finds all Atom elements with an <code>href</code> whose value is <code>http://diveintomark.org/</code>.
-<li>After doing some quick <a href=strings.html#formatting-strings>string formatting</a> (because otherwise these compound queries get ridiculously long), this query searches for Atom <code>author</code> elements that have an Atom <code>uri</code> element as a child. This only returns two <code>author</code> elements, the ones in the first and second <code>entry</code>. The <code>author</code> in the last <code>entry</code> contains only a <code>name</code>, not a <code>uri</code>.
+<li>After doing some quick <a href="strings.html#formatting-strings">string formatting</a> (because otherwise these compound queries get ridiculously long), this query searches for Atom <code>author</code> elements that have an Atom <code>uri</code> element as a child. This only returns two <code>author</code> elements, the ones in the first and second <code>entry</code>. The <code>author</code> in the last <code>entry</code> contains only a <code>name</code>, not a <code>uri</code>.
 </ol>
 
 <p>Not enough for you? <code>lxml</code> also integrates support for arbitrary XPath 1.0 expressions. I&#8217;m not going to go into depth about XPath syntax; that could be a whole book unto itself! But I will show you how it integrates into <code>lxml</code>.
@@ -543,7 +543,7 @@ except ImportError:
 
 <pre class='nd pp'><code>&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'/></code></pre>
 
-<p>The only practical difference is that the second serialization is several characters shorter. If we were to recast our entire sample feed with a <code>ns0:</code> prefix in every start and end tag, it would add 4 characters per start tag &times; 79 tags + 4 characters for the namespace declaration itself, for a total of 320 characters. Assuming <a href=strings.html#byte-arrays>UTF-8 encoding</a>, that&#8217;s 320 extra bytes. (After gzipping, the difference drops to 21 bytes, but still, 21 bytes is 21 bytes.) Maybe that doesn&#8217;t matter to you, but for something like an Atom feed, which may be downloaded several thousand times whenever it changes, saving a few bytes per request can quickly add up.
+<p>The only practical difference is that the second serialization is several characters shorter. If we were to recast our entire sample feed with a <code>ns0:</code> prefix in every start and end tag, it would add 4 characters per start tag &times; 79 tags + 4 characters for the namespace declaration itself, for a total of 320 characters. Assuming <a href="strings.html#byte-arrays">UTF-8 encoding</a>, that&#8217;s 320 extra bytes. (After gzipping, the difference drops to 21 bytes, but still, 21 bytes is 21 bytes.) Maybe that doesn&#8217;t matter to you, but for something like an Atom feed, which may be downloaded several thousand times whenever it changes, saving a few bytes per request can quickly add up.
 
 <p>The built-in ElementTree library does not offer this fine-grained control over serializing namespaced elements, but <code>lxml</code> does.
 
@@ -587,14 +587,14 @@ except ImportError:
 </ol>
 
 <blockquote class=note>
-<p><span class=u>&#x261E;</span>You might also want to check out <a href=http://github.com/galvez/xmlwitch/tree/master>xmlwitch</a>, another third-party library for generating <abbr>XML</abbr>. It makes extensive use of <a href=special-method-names.html#context-managers>the <code>with</code> statement</a> to make <abbr>XML</abbr> generation code more readable.
+<p><span class=u>&#x261E;</span>You might also want to check out <a href="http://github.com/galvez/xmlwitch/tree/master">xmlwitch</a>, another third-party library for generating <abbr>XML</abbr>. It makes extensive use of <a href="special-method-names.html#context-managers">the <code>with</code> statement</a> to make <abbr>XML</abbr> generation code more readable.
 </blockquote>
 
 <p class=a>&#x2042;
 
 <h2 id=xml-custom-parser>Parsing Broken XML</h2>
 
-<p>The <abbr>XML</abbr> specification mandates that all conforming <abbr>XML</abbr> parsers employ &#8220;draconian error handling.&#8221; That is, they must halt and catch fire as soon as they detect any sort of wellformedness error in the <abbr>XML</abbr> document. Wellformedness errors include mismatched start and end tags, undefined entities, illegal Unicode characters, and a number of other esoteric rules. This is in stark contrast to other common formats like <abbr>HTML</abbr>&nbsp;&mdash;&nbsp;your browser doesn&#8217;t stop rendering a web page if you forget to close an <abbr>HTML</abbr> tag or escape an ampersand in an attribute value. (It is a common misconception that <abbr>HTML</abbr> has no defined error handling. <a href=http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#parsing><abbr>HTML</abbr> error handling</a> is actually quite well-defined, but it&#8217;s significantly more complicated than &#8220;halt and catch fire on first error.&#8221;)
+<p>The <abbr>XML</abbr> specification mandates that all conforming <abbr>XML</abbr> parsers employ &#8220;draconian error handling.&#8221; That is, they must halt and catch fire as soon as they detect any sort of wellformedness error in the <abbr>XML</abbr> document. Wellformedness errors include mismatched start and end tags, undefined entities, illegal Unicode characters, and a number of other esoteric rules. This is in stark contrast to other common formats like <abbr>HTML</abbr>&nbsp;&mdash;&nbsp;your browser doesn&#8217;t stop rendering a web page if you forget to close an <abbr>HTML</abbr> tag or escape an ampersand in an attribute value. (It is a common misconception that <abbr>HTML</abbr> has no defined error handling. <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#parsing"><abbr>HTML</abbr> error handling</a> is actually quite well-defined, but it&#8217;s significantly more complicated than &#8220;halt and catch fire on first error.&#8221;)
 
 <p>Some people (myself included) believe that it was a mistake for the inventors of <abbr>XML</abbr> to mandate draconian error handling. Don&#8217;t get me wrong; I can certainly see the allure of simplifying the error handling rules. But in practice, the concept of &#8220;wellformedness&#8221; is trickier than it sounds, especially for <abbr>XML</abbr> documents (like Atom feeds) that are published on the web and served over <abbr>HTTP</abbr>. Despite the maturity of <abbr>XML</abbr>, which standardized on draconian error handling in 1997, surveys continually show a significant fraction of Atom feeds on the web are plagued with wellformedness errors.
 
@@ -644,7 +644,7 @@ lxml.etree.XMLSyntaxError: Entity 'hellip' not defined, line 3, column 28</samp>
 . [rest of serialization snipped for brevity]
 .</samp></pre>
 <ol>
-<li>To create a custom parser, instantiate the <code>lxml.etree.XMLParser</code> class. It can take <a href=http://codespeak.net/lxml/parsing.html#parser-options>a number of different named arguments</a>. The one we&#8217;re interested in here is the <var>recover</var> argument. When set to <code>True</code>, the <abbr>XML</abbr> parser will try its best to &#8220;recover&#8221; from wellformedness errors.
+<li>To create a custom parser, instantiate the <code>lxml.etree.XMLParser</code> class. It can take <a href="http://codespeak.net/lxml/parsing.html#parser-options">a number of different named arguments</a>. The one we&#8217;re interested in here is the <var>recover</var> argument. When set to <code>True</code>, the <abbr>XML</abbr> parser will try its best to &#8220;recover&#8221; from wellformedness errors.
 <li>To parse an <abbr>XML</abbr> document with your custom parser, pass the <var>parser</var> object as the second argument to the <code>parse()</code> function. Note that <code>lxml</code> does not raise an exception about the undefined <code>&amp;hellip;</code> entity.
 <li>The parser keeps a log of the wellformedness errors that it has encountered. (This is actually true regardless of whether it is set to recover from those errors or not.)
 <li>Since it didn&#8217;t know what to do with the undefined <code>&amp;hellip;</code> entity, the parser just silently dropped it. The text content of the <code>title</code> element becomes <code>'dive into '</code>.
@@ -658,19 +658,19 @@ lxml.etree.XMLSyntaxError: Entity 'hellip' not defined, line 3, column 28</samp>
 <h2 id=furtherreading>Further Reading</h2>
 
 <ul>
-<li><a href=http://en.wikipedia.org/wiki/XML><abbr>XML</abbr> on Wikipedia.org</a>
-<li><a href=http://docs.python.org/3.1/library/xml.etree.elementtree.html>The ElementTree <abbr>XML</abbr> API</a>
-<li><a href=http://effbot.org/zone/element.htm>Elements and Element Trees</a>
-<li><a href=http://effbot.org/zone/element-xpath.htm>XPath Support in ElementTree</a>
-<li><a href=http://effbot.org/zone/element-iterparse.htm>The ElementTree iterparse Function</a>
-<li><a href=http://codespeak.net/lxml/><code>lxml</code></a>
-<li><a href=http://codespeak.net/lxml/1.3/parsing.html>Parsing <abbr>XML</abbr> and <abbr>HTML</abbr> with <code>lxml</code></a>
-<li><a href=http://codespeak.net/lxml/1.3/xpathxslt.html>XPath and <abbr>XSLT</abbr> with <code>lxml</code></a>
-<li><a href=http://github.com/galvez/xmlwitch/tree/master>xmlwitch</a>
+<li><a href="http://en.wikipedia.org/wiki/XML"><abbr>XML</abbr> on Wikipedia.org</a>
+<li><a href="http://docs.python.org/3.1/library/xml.etree.elementtree.html">The ElementTree <abbr>XML</abbr> API</a>
+<li><a href="http://effbot.org/zone/element.htm">Elements and Element Trees</a>
+<li><a href="http://effbot.org/zone/element-xpath.htm">XPath Support in ElementTree</a>
+<li><a href="http://effbot.org/zone/element-iterparse.htm">The ElementTree iterparse Function</a>
+<li><a href="http://codespeak.net/lxml/"><code>lxml</code></a>
+<li><a href="http://codespeak.net/lxml/1.3/parsing.html">Parsing <abbr>XML</abbr> and <abbr>HTML</abbr> with <code>lxml</code></a>
+<li><a href="http://codespeak.net/lxml/1.3/xpathxslt.html">XPath and <abbr>XSLT</abbr> with <code>lxml</code></a>
+<li><a href="http://github.com/galvez/xmlwitch/tree/master">xmlwitch</a>
 </ul>
 
-<p class=v><a rel=prev href=files.html title='back to &#8220;Files&#8221;'><span class=u>&#x261C;</span></a> <a rel=next href=serializing.html title='onward to &#8220;Serializing Python Objects&#8221;'><span class=u>&#x261E;</span></a>
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=v><a rel=prev href="files.html" title='back to &#8220;Files&#8221;'><span class=u>&#x261C;</span></a> <a rel=next href="serializing.html" title='onward to &#8220;Serializing Python Objects&#8221;'><span class=u>&#x261E;</span></a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

@@ -10,7 +10,7 @@
 <meta content='initial-scale=1.0' name=viewport>
 <body id=appa>
 <form action=http://www.google.com/cse><div><input name=cx type=hidden value=014021643941856155761:l5eihuescdw><input name=ie type=hidden value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input name=sa type=submit value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#porting-code-to-python-3-with-2to3>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#porting-code-to-python-3-with-2to3">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=pro>&#x2666;&#x2666;&#x2666;&#x2666;&#x2666;</span>
 <h1>Porting Code to Python 3 with <code>2to3</code></h1>
 
@@ -22,11 +22,11 @@
 
 <h2 id=divingin>Diving In</h2>
 
-<p class=f>So much has changed between Python 2 and Python 3, there are vanishingly few programs that will run unmodified under both. But don&#8217;t despair! To help with this transition, Python 3 comes with a utility script called <code>2to3</code>, which takes your actual Python 2 source code as input and auto-converts as much as it can to Python 3. <a href=case-study-porting-chardet-to-python-3.html#running2to3>Case study: porting <code>chardet</code> to Python 3</a> describes how to run the <code>2to3</code> script, then shows some things it can&#8217;t fix automatically. This appendix documents what it <em>can</em> fix automatically.
+<p class=f>So much has changed between Python 2 and Python 3, there are vanishingly few programs that will run unmodified under both. But don&#8217;t despair! To help with this transition, Python 3 comes with a utility script called <code>2to3</code>, which takes your actual Python 2 source code as input and auto-converts as much as it can to Python 3. <a href="case-study-porting-chardet-to-python-3.html#running2to3">Case study: porting <code>chardet</code> to Python 3</a> describes how to run the <code>2to3</code> script, then shows some things it can&#8217;t fix automatically. This appendix documents what it <em>can</em> fix automatically.
 
 <h2 id=print><code>print</code> statement</h2>
 
-<p>In Python 2, <code><dfn>print</dfn></code> was a statement. Whatever you wanted to print simply followed the <code>print</code> keyword. In Python 3, <a href=your-first-python-program.html#divingin><code>print()</code> is a function</a>. Whatever you want to print, pass it to <code>print()</code> like any other function.
+<p>In Python 2, <code><dfn>print</dfn></code> was a statement. Whatever you wanted to print simply followed the <code>print</code> keyword. In Python 3, <a href="your-first-python-program.html#divingin"><code>print()</code> is a function</a>. Whatever you want to print, pass it to <code>print()</code> like any other function.
 
 <table>
 <tr><th>Notes
@@ -59,7 +59,7 @@
 
 <h2 id=unicodeliteral>Unicode string literals</h2>
 
-<p>Python 2 had two string types: <dfn>Unicode</dfn> strings and non-Unicode strings. Python 3 has one string type: <a href=strings.html#divingin>Unicode strings</a>.
+<p>Python 2 had two string types: <dfn>Unicode</dfn> strings and non-Unicode strings. Python 3 has one string type: <a href="strings.html#divingin">Unicode strings</a>.
 
 <table>
 <tr><th>Notes
@@ -80,7 +80,7 @@
 
 <h2 id=unicode><code>unicode()</code> global function</h2>
 
-<p>Python 2 had two global functions to coerce objects into strings: <code>unicode()</code> to coerce them into Unicode strings, and <code>str()</code> to coerce them into non-Unicode strings. Python 3 has only one string type, <a href=strings.html#divingin>Unicode strings</a>, so the <code>str()</code> function is all you need. (The <code>unicode()</code> function no longer exists.)
+<p>Python 2 had two global functions to coerce objects into strings: <code>unicode()</code> to coerce them into Unicode strings, and <code>str()</code> to coerce them into non-Unicode strings. Python 3 has only one string type, <a href="strings.html#divingin">Unicode strings</a>, so the <code>str()</code> function is all you need. (The <code>unicode()</code> function no longer exists.)
 
 <table>
 <tr><th>Notes
@@ -93,8 +93,8 @@
 
 <h2 id=long><code>long</code> data type</h2>
 
-<p>Python 2 had separate <code>int</code> and <code><dfn>long</dfn></code> types for non-floating-point numbers. An <code>int</code> could not be any larger than <a href=#renames><code>sys.maxint</code></a>, which varied by platform. Longs were defined by appending an <code>L</code> to the end of the number, and they could be, well, longer than ints. In Python 3, <a href=native-datatypes.html#numbers>there is only one integer type</a>, called <code>int</code>, which mostly behaves like the <code>long</code> type in Python 2. Since there are no longer two types, there is no need for special syntax to distinguish them.
-<p>Further reading: <a href=http://www.python.org/dev/peps/pep-0237/><abbr>PEP</abbr> 237: Unifying Long Integers and Integers</a>.
+<p>Python 2 had separate <code>int</code> and <code><dfn>long</dfn></code> types for non-floating-point numbers. An <code>int</code> could not be any larger than <a href="#renames"><code>sys.maxint</code></a>, which varied by platform. Longs were defined by appending an <code>L</code> to the end of the number, and they could be, well, longer than ints. In Python 3, <a href="native-datatypes.html#numbers">there is only one integer type</a>, called <code>int</code>, which mostly behaves like the <code>long</code> type in Python 2. Since there are no longer two types, there is no need for special syntax to distinguish them.
+<p>Further reading: <a href="http://www.python.org/dev/peps/pep-0237/"><abbr>PEP</abbr> 237: Unifying Long Integers and Integers</a>.
 
 <table>
 <tr><th>Notes
@@ -148,7 +148,7 @@
 
 <h2 id=has_key><code>has_key()</code> dictionary method</h2>
 
-<p>In Python 2, dictionaries had a <code><dfn>has_key</dfn>()</code> method to test whether the dictionary had a certain key. In Python 3, this method no longer exists. Instead, you need to use <a href=native-datatypes.html#mixed-value-dictionaries>the <code>in</code> operator</a>.
+<p>In Python 2, dictionaries had a <code><dfn>has_key</dfn>()</code> method to test whether the dictionary had a certain key. In Python 3, this method no longer exists. Instead, you need to use <a href="native-datatypes.html#mixed-value-dictionaries">the <code>in</code> operator</a>.
 
 <table>
 <tr><th>Notes
@@ -174,7 +174,7 @@
 <ol>
 <li>The simplest form.
 <li>The <code>in</code> operator takes precedence over the <code>or</code> operator, so there is no need for parentheses around <code>x in a_dictionary</code> or around <code>y in a_dictionary</code>.
-<li>On the other hand, you <em>do</em> need parentheses around <code>x or y</code> here, for the same reason&nbsp;&mdash;&nbsp;<code>in</code> takes precedence over <code>or</code>. (Note: this code is completely different from the previous line. Python interprets <code>x or y</code> first, which results in either <var>x</var> (if <var>x</var> is <a href=native-datatypes.html#booleans>true in a boolean context</a>) or <var>y</var>. Then it takes that singular value and checks whether it is a key in <var>a_dictionary</var>.)
+<li>On the other hand, you <em>do</em> need parentheses around <code>x or y</code> here, for the same reason&nbsp;&mdash;&nbsp;<code>in</code> takes precedence over <code>or</code>. (Note: this code is completely different from the previous line. Python interprets <code>x or y</code> first, which results in either <var>x</var> (if <var>x</var> is <a href="native-datatypes.html#booleans">true in a boolean context</a>) or <var>y</var>. Then it takes that singular value and checks whether it is a key in <var>a_dictionary</var>.)
 <li>The <code>+</code> operator takes precedence over the <code>in</code> operator, so this form technically doesn&#8217;t need parentheses around <code>x + y</code>, but <code>2to3</code> includes them anyway.
 <li>This form definitely needs parentheses around <code>y in a_dictionary</code>, since the <code>+</code> operator takes precedence over the <code>in</code> operator.
 </ol>
@@ -283,7 +283,7 @@ from urllib.error import HTTPError</code></pre>
 <li>The old <code>urllib</code> module in Python 2 had a variety of functions, including <code>urlopen()</code> for fetching data and <code>splittype()</code>, <code>splithost()</code>, and <code>splituser()</code> for splitting a <abbr>URL</abbr> into its constituent parts. These functions have been reorganized more logically within the new <code>urllib</code> package. <code>2to3</code> will also change all calls to these functions so they use the new naming scheme.
 <li>The old <code>urllib2</code> module in Python 2 has been folded into the <code>urllib</code> package in Python 3. All your <code>urllib2</code> favorites&nbsp;&mdash;&nbsp;the <code>build_opener()</code> method, <code>Request</code> objects, and <code>HTTPBasicAuthHandler</code> and friends&nbsp;&mdash;&nbsp;are still available.
 <li>The <code>urllib.parse</code> module in Python 3 contains all the parsing functions from the old <code>urlparse</code> module in Python 2.
-<li>The <code>urllib.robotparser</code> module parses <a href=http://www.robotstxt.org/><code>robots.txt</code> files</a>.
+<li>The <code>urllib.robotparser</code> module parses <a href="http://www.robotstxt.org/"><code>robots.txt</code> files</a>.
 <li>The <code>FancyURLopener</code> class, which handles <abbr>HTTP</abbr> redirects and other status codes, is still available in the new <code>urllib.request</code> module. The <code>urlencode()</code> function has moved to <code>urllib.parse</code>.
 <li>The <code>Request</code> object is still available in <code>urllib.request</code>, but constants like <code>HTTPError</code> have been moved to <code>urllib.error</code>.
 </ol>
@@ -431,7 +431,7 @@ except ImportError:
 
 <h2 id=next><code>next()</code> iterator method</h2>
 
-<p>In Python 2, iterators had a <code><dfn>next</dfn>()</code> method which returned the next item in the sequence. That&#8217;s still true in Python 3, but there is now also <a href=generators.html#generators>a global <code>next()</code> function</a> that takes an iterator as an argument.
+<p>In Python 2, iterators had a <code><dfn>next</dfn>()</code> method which returned the next item in the sequence. That&#8217;s still true in Python 3, but there is now also <a href="generators.html#generators">a global <code>next()</code> function</a> that takes an iterator as an argument.
 
 <table>
 <tr><th>Notes
@@ -507,7 +507,7 @@ for an_iterator in a_sequence_of_iterators:
 
 <h2 id=map><code>map()</code> global function</h2>
 
-<p>In much the same way as <a href=#filter><code>filter()</code></a>, the <code><dfn>map</dfn>()</code> function now returns an iterator. (In Python 2, it returned a list.)
+<p>In much the same way as <a href="#filter"><code>filter()</code></a>, the <code><dfn>map</dfn>()</code> function now returns an iterator. (In Python 2, it returned a list.)
 
 <table>
 <tr><th>Notes
@@ -596,7 +596,7 @@ reduce(a, b, c)</code></pre>
 
 <h2 id=exec><code>exec</code> statement</h2>
 
-<p>Just as <a href=#print>the <code>print</code> statement</a> became a function in Python 3, so too has the <code><dfn>exec</dfn></code> statement. The <code>exec()</code> function takes a string which contains arbitrary Python code and executes it as if it were just another statement or expression. <code>exec()</code> is like <a href=advanced-iterators.html#eval><code>eval()</code></a>, but even more powerful and evil. The <code>eval()</code> function can only evaluate a single expression, but <code>exec()</code> can execute multiple statements, imports, function declarations&nbsp;&mdash;&nbsp;essentially an entire Python program in a string.
+<p>Just as <a href="#print">the <code>print</code> statement</a> became a function in Python 3, so too has the <code><dfn>exec</dfn></code> statement. The <code>exec()</code> function takes a string which contains arbitrary Python code and executes it as if it were just another statement or expression. <code>exec()</code> is like <a href="advanced-iterators.html#eval"><code>eval()</code></a>, but even more powerful and evil. The <code>eval()</code> function can only evaluate a single expression, but <code>exec()</code> can execute multiple statements, imports, function declarations&nbsp;&mdash;&nbsp;essentially an entire Python program in a string.
 
 <table>
 <tr><th>Notes
@@ -621,7 +621,7 @@ reduce(a, b, c)</code></pre>
 
 <h2 id=execfile><code>execfile</code> statement</h2>
 
-<p>Like the old <a href=#exec><code>exec</code> statement</a>, the old <code>execfile</code> statement will execute strings as if they were Python code. Where <code>exec</code> took a string, <code>execfile</code> took a filename. In Python 3, the <code>execfile</code> statement has been eliminated. If you really need to take a file of Python code and execute it (but you&#8217;re not willing to simply import it), you can accomplish the same thing by opening the file, reading its contents, calling the global <code>compile()</code> function to force the Python interpreter to compile the code, and then call the new <code>exec()</code> function.
+<p>Like the old <a href="#exec"><code>exec</code> statement</a>, the old <code>execfile</code> statement will execute strings as if they were Python code. Where <code>exec</code> took a string, <code>execfile</code> took a filename. In Python 3, the <code>execfile</code> statement has been eliminated. If you really need to take a file of Python code and execute it (but you&#8217;re not willing to simply import it), you can accomplish the same thing by opening the file, reading its contents, calling the global <code>compile()</code> function to force the Python interpreter to compile the code, and then call the new <code>exec()</code> function.
 
 <table>
 <tr><th>Notes
@@ -655,7 +655,7 @@ reduce(a, b, c)</code></pre>
 
 <h2 id=except><code>try...except</code> statement</h2>
 
-<p>The syntax for <a href=your-first-python-program.html#exceptions>catching <dfn>exceptions</dfn></a> has changed slightly between Python 2 and Python 3.
+<p>The syntax for <a href="your-first-python-program.html#exceptions">catching <dfn>exceptions</dfn></a> has changed slightly between Python 2 and Python 3.
 
 <table>
 <tr><th>Notes
@@ -706,7 +706,7 @@ except:
 
 <h2 id=raise><code>raise</code> statement</h2>
 
-<p>The syntax for <a href=your-first-python-program.html#exceptions>raising your own exceptions</a> has changed slightly between Python 2 and Python 3.
+<p>The syntax for <a href="your-first-python-program.html#exceptions">raising your own exceptions</a> has changed slightly between Python 2 and Python 3.
 
 <table>
 <tr><th>Notes
@@ -788,7 +788,7 @@ except:
 <li>If your Python 2 code used <code>range()</code>, the <code>2to3</code> script does not know whether you needed a list, or whether an iterator would do. It errs on the side of caution and coerces the return value into a list by calling the <code>list()</code> function.
 <li>If the <code>xrange()</code> function was inside a list comprehension, the <code>2to3</code> script is clever enough <em>not</em> to wrap the <code>range()</code> function with a call to <code>list()</code>. The list comprehension will work just fine with the iterator that the <code>range()</code> function returns.
 <li>Similarly, a <code>for</code> loop will work just fine with an iterator, so there is no need to change anything here.
-<li>The <code>sum()</code> function will also work with an iterator, so <code>2to3</code> makes no changes here either. Like <a href=#dict>dictionary methods that return views instead of lists</a>, this applies to <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>list()</code>, <code>tuple()</code>, <code>set()</code>, <code>sorted()</code>, <code>any()</code>, and <code>all()</code>.
+<li>The <code>sum()</code> function will also work with an iterator, so <code>2to3</code> makes no changes here either. Like <a href="#dict">dictionary methods that return views instead of lists</a>, this applies to <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>list()</code>, <code>tuple()</code>, <code>set()</code>, <code>sorted()</code>, <code>any()</code>, and <code>all()</code>.
 </ol>
 
 <h2 id=raw_input><code>raw_input()</code> and <code>input()</code> global functions</h2>
@@ -972,7 +972,7 @@ except:
 
 <h2 id=renames><code>sys.maxint</code></h2>
 
-<p>Due to the <a href=#long>integration of the <code>long</code> and <code>int</code> types</a>, the <code>sys.maxint</code> constant is no longer accurate. Because the value may still be useful in determining platform-specific capabilities, it has been retained but renamed as <code>sys.maxsize</code>.
+<p>Due to the <a href="#long">integration of the <code>long</code> and <code>int</code> types</a>, the <code>sys.maxint</code> constant is no longer accurate. Because the value may still be useful in determining platform-specific capabilities, it has been retained but renamed as <code>sys.maxsize</code>.
 
 <table>
 <tr><th>Notes
@@ -1140,7 +1140,7 @@ except:
 
 <h2 id=itertools><code>itertools</code> module</h2>
 
-<p>Python 2.3 introduced the <code>itertools</code> module, which defined variants of the global <code>zip()</code>, <code>map()</code>, and <code>filter()</code> functions that returned iterators instead of lists. In Python 3, those global functions return iterators, so those functions in the <code>itertools</code> module have been eliminated. (There are still <a href=advanced-iterators.html#more-itertools>lots of useful functions in the <code>itertools</code> module</a>, just not these.)
+<p>Python 2.3 introduced the <code>itertools</code> module, which defined variants of the global <code>zip()</code>, <code>map()</code>, and <code>filter()</code> functions that returned iterators instead of lists. In Python 3, those global functions return iterators, so those functions in the <code>itertools</code> module have been eliminated. (There are still <a href="advanced-iterators.html#more-itertools">lots of useful functions in the <code>itertools</code> module</a>, just not these.)
 
 <table>
 <tr><th>Notes
@@ -1201,7 +1201,7 @@ except:
 
 <h2 id=getcwdu><code>os.getcwdu()</code> function</h2>
 
-<p>Python 2 had a function named <code>os.getcwd()</code>, which returned the current working directory as a (non-Unicode) string. Because modern file systems can handle directory names in any character encoding, Python 2.3 introduced <code>os.getcwdu()</code>. The <code>os.getcwdu()</code> function returned the current working directory as a Unicode string. In Python 3, there is <a href=strings.html#divingin>only one string type (Unicode)</a>, so <code>os.getcwd()</code> is all you need.
+<p>Python 2 had a function named <code>os.getcwd()</code>, which returned the current working directory as a (non-Unicode) string. Because modern file systems can handle directory names in any character encoding, Python 2.3 introduced <code>os.getcwdu()</code>. The <code>os.getcwdu()</code> function returned the current working directory as a Unicode string. In Python 3, there is <a href="strings.html#divingin">only one string type (Unicode)</a>, so <code>os.getcwd()</code> is all you need.
 
 <table>
 <tr><th>Notes
@@ -1244,11 +1244,11 @@ except:
 
 <h2 id=nitpick>Matters of style</h2>
 
-<p>The rest of the &#8220;fixes&#8221; listed here aren&#8217;t really fixes per se. That is, the things they change are matters of style, not substance. They work just as well in Python 3 as they do in Python 2, but the developers of Python have a vested interest in making Python code as uniform as possible. To that end, there is an <a href=http://www.python.org/dev/peps/pep-0008/>official Python style guide</a> which outlines&nbsp;&mdash;&nbsp;in excruciating detail&nbsp;&mdash;&nbsp;all sorts of nitpicky details that you almost certainly don&#8217;t care about. And given that <code>2to3</code> provides such a great infrastructure for converting Python code from one thing to another, the authors took it upon themselves to add a few optional features to improve the readability of your Python programs.
+<p>The rest of the &#8220;fixes&#8221; listed here aren&#8217;t really fixes per se. That is, the things they change are matters of style, not substance. They work just as well in Python 3 as they do in Python 2, but the developers of Python have a vested interest in making Python code as uniform as possible. To that end, there is an <a href="http://www.python.org/dev/peps/pep-0008/">official Python style guide</a> which outlines&nbsp;&mdash;&nbsp;in excruciating detail&nbsp;&mdash;&nbsp;all sorts of nitpicky details that you almost certainly don&#8217;t care about. And given that <code>2to3</code> provides such a great infrastructure for converting Python code from one thing to another, the authors took it upon themselves to add a few optional features to improve the readability of your Python programs.
 
 <h3 id=set_literal><code>set()</code> literals (explicit)</h3>
 
-<p>In Python 2, the only way to define a literal set in your code was to call <code>set(a_sequence)</code>. This still works in Python 3, but a clearer way of doing it is to use the new set literal notation: curly braces. This works for everything except empty sets, because dictionaries also use curly braces, so <a href=native-datatypes.html#emptyset><code>{}</code> is an empty dictionary, not an empty set</a>.
+<p>In Python 2, the only way to define a literal set in your code was to call <code>set(a_sequence)</code>. This still works in Python 3, but a clearer way of doing it is to use the new set literal notation: curly braces. This works for everything except empty sets, because dictionaries also use curly braces, so <a href="native-datatypes.html#emptyset"><code>{}</code> is an empty dictionary, not an empty set</a>.
 
 <blockquote class=note>
 <p><span class=u>&#x261E;</span>The <code>2to3</code> script will not fix <code>set()</code> literals by default. To enable this fix, specify <kbd>-f set_literal</kbd> on the command line when you call <code>2to3</code>.
@@ -1341,8 +1341,8 @@ do_stuff(a_list)</code></pre>
 do_stuff(a_list)</code></pre>
 </table>
 
-<p class=v><a href=packaging.html rel=prev title='back to &#8220;Packaging Python Libraries&#8221;'><span class=u>&#x261C;</span></a> <a href=special-method-names.html rel=next title='onward to &#8220;Special Method Names&#8221;'><span class=u>&#x261E;</span></a>
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=v><a href="packaging.html" rel=prev title='back to &#8220;Packaging Python Libraries&#8221;'><span class=u>&#x261C;</span></a> <a href="special-method-names.html" rel=next title='onward to &#8220;Special Method Names&#8221;'><span class=u>&#x261E;</span></a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

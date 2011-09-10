@@ -10,7 +10,7 @@ body{counter-reset:h1 2}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=root value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#native-datatypes>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#native-datatypes">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=beginner>&#x2666;&#x2666;&#x2662;&#x2662;&#x2662;</span>
 <h1>Native Datatypes</h1>
 <blockquote class=q>
@@ -18,11 +18,11 @@ body{counter-reset:h1 2}
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>Diving In</h2>
-<p class=f>Datatypes. Set aside <a href=your-first-python-program.html>your first Python program</a> for just a minute, and let&#8217;s talk about datatypes. In Python, <a href=your-first-python-program.html#declaringfunctions>every value has a datatype</a>, but you don&#8217;t need to declare the datatype of variables. How does that work? Based on each variable&#8217;s original assignment, Python figures out what type it is and keeps tracks of that internally.
+<p class=f>Datatypes. Set aside <a href="your-first-python-program.html">your first Python program</a> for just a minute, and let&#8217;s talk about datatypes. In Python, <a href="your-first-python-program.html#declaringfunctions">every value has a datatype</a>, but you don&#8217;t need to declare the datatype of variables. How does that work? Based on each variable&#8217;s original assignment, Python figures out what type it is and keeps tracks of that internally.
 <p>Python has many native datatypes. Here are the important ones:
 <ol>
 <li><b>Booleans</b> are either <code>True</code> or <code>False</code>.
-<li><b>Numbers</b> can be integers (<code>1</code> and <code>2</code>), floats (<code>1.1</code> and <code>1.2</code>), fractions (<code>1/2</code> and <code>2/3</code>), or even <a href=http://en.wikipedia.org/wiki/Complex_number>complex numbers</a>.
+<li><b>Numbers</b> can be integers (<code>1</code> and <code>2</code>), floats (<code>1.1</code> and <code>1.2</code>), fractions (<code>1/2</code> and <code>2/3</code>), or even <a href="http://en.wikipedia.org/wiki/Complex_number">complex numbers</a>.
 <li><b>Strings</b> are sequences of Unicode characters, <i>e.g.</i> an <abbr>HTML</abbr> document.
 <li><b>Bytes</b> and <b>byte arrays</b>, <i>e.g.</i> a <abbr>JPEG</abbr> image file.
 <li><b>Lists</b> are ordered sequences of values.
@@ -30,14 +30,14 @@ body{counter-reset:h1 2}
 <li><b>Sets</b> are unordered bags of values.
 <li><b>Dictionaries</b> are unordered bags of key-value pairs.
 </ol>
-<p>Of course, there are more types than these. <a href=your-first-python-program.html#everythingisanobject>Everything is an object</a> in Python, so there are types like <i>module</i>, <i>function</i>, <i>class</i>, <i>method</i>, <i>file</i>, and even <i>compiled code</i>. You&#8217;ve already seen some of these: <a href=your-first-python-program.html#runningscripts>modules have names</a>, <a href=your-first-python-program.html#docstrings>functions have <code>docstrings</code></a>, <i class=baa>&amp;</i>c. You&#8217;ll learn about classes in <a href=iterators.html>Classes <i class=baa>&amp;</i> Iterators</a>, and about files in <a href=files.html>Files</a>.
+<p>Of course, there are more types than these. <a href="your-first-python-program.html#everythingisanobject">Everything is an object</a> in Python, so there are types like <i>module</i>, <i>function</i>, <i>class</i>, <i>method</i>, <i>file</i>, and even <i>compiled code</i>. You&#8217;ve already seen some of these: <a href="your-first-python-program.html#runningscripts">modules have names</a>, <a href="your-first-python-program.html#docstrings">functions have <code>docstrings</code></a>, <i class=baa>&amp;</i>c. You&#8217;ll learn about classes in <a href="iterators.html">Classes <i class=baa>&amp;</i> Iterators</a>, and about files in <a href="files.html">Files</a>.
 <p>Strings and bytes are important enough&nbsp;&mdash;&nbsp;and complicated enough&nbsp;&mdash;&nbsp;that they get their own chapter. Let&#8217;s look at the others first.
 <p class=a>&#x2042;
 
 <h2 id=booleans>Booleans</h2>
 <aside>You can use virtually any expression in a boolean context.</aside>
 <p>Booleans are either true or false. Python has two constants, cleverly named <code><dfn>True</dfn></code> and <code><dfn>False</dfn></code>, which can be used to assign <dfn>boolean</dfn> values directly. Expressions can also evaluate to a boolean value. In certain places (like <code>if</code> statements), Python expects an expression to evaluate to a boolean value. These places are called <i>boolean contexts</i>. You can use virtually any expression in a boolean context, and Python will try to determine its truth value. Different datatypes have different rules about which values are true or false in a boolean context. (This will make more sense once you see some concrete examples later in this chapter.)
-<p>For example, take this snippet from <a href=your-first-python-program.html#divingin><code>humansize.py</code></a>:
+<p>For example, take this snippet from <a href="your-first-python-program.html#divingin"><code>humansize.py</code></a>:
 <pre class='nd pp'><code>if size &lt; 0:
     raise ValueError('number must be non-negative')</code></pre>
 <p><var>size</var> is an integer, 0 is an integer, and <code>&lt;</code> is a numerical operator. The result of the expression <code>size &lt; 0</code> is always a boolean. You can test this yourself in the Python interactive shell:
@@ -110,7 +110,7 @@ ZeroDivisionError: int division or modulo by zero</samp></pre>
 <li>Integers can be arbitrarily large.
 </ol>
 <blockquote class='note compare python2'>
-<p><span class=u>&#x261E;</span>Python 2 had separate types for <code>int</code> and <code>long</code>. The <code>int</code> datatype was limited by <code>sys.maxint</code>, which varied by platform but was usually <code>2<sup>32</sup>-1</code>. Python 3 has just one integer type, which behaves mostly like the old <code>long</code> type from Python 2. See <a href=http://www.python.org/dev/peps/pep-0237><abbr>PEP</abbr> 237</a> for details.
+<p><span class=u>&#x261E;</span>Python 2 had separate types for <code>int</code> and <code>long</code>. The <code>int</code> datatype was limited by <code>sys.maxint</code>, which varied by platform but was usually <code>2<sup>32</sup>-1</code>. Python 3 has just one integer type, which behaves mostly like the old <code>long</code> type from Python 2. See <a href="http://www.python.org/dev/peps/pep-0237"><abbr>PEP</abbr> 237</a> for details.
 </blockquote>
 <h3 id=common-numerical-operations>Common Numerical Operations</h3>
 <p>You can do all kinds of things with numbers.
@@ -137,7 +137,7 @@ ZeroDivisionError: int division or modulo by zero</samp></pre>
 <li>The <code>%</code> operator gives the remainder after performing integer division. <code>11</code> divided by <code>2</code> is <code>5</code> with a remainder of <code>1</code>, so the result here is <code>1</code>.
 </ol>
 <blockquote class='note compare python2'>
-<p><span class=u>&#x261E;</span>In Python 2, the <code>/</code> operator usually meant integer division, but you could make it behave like floating point division by including a special directive in your code. In Python 3, the <code>/</code> operator always means floating point division. See <a href=http://www.python.org/dev/peps/pep-0238/><abbr>PEP</abbr> 238</a> for details.
+<p><span class=u>&#x261E;</span>In Python 2, the <code>/</code> operator usually meant integer division, but you could make it behave like floating point division by including a special directive in your code. In Python 3, the <code>/</code> operator always means floating point division. See <a href="http://www.python.org/dev/peps/pep-0238/"><abbr>PEP</abbr> 238</a> for details.
 </blockquote>
 <h3 id=fractions>Fractions</h3>
 <p>Python isn&#8217;t limited to integers and floating point numbers. It can also do all the fancy math you learned in high school and promptly forgot about.
@@ -180,7 +180,7 @@ ZeroDivisionError: Fraction(0, 0)</samp></pre>
 </ol>
 <h3 id=numbers-in-a-boolean-context>Numbers In A Boolean Context</h3>
 <aside>Zero values are false, and non-zero values are true.</aside>
-<p>You can use numbers <a href=#booleans>in a boolean context</a>, such as an <code>if</code> statement. Zero values are false, and non-zero values are true.
+<p>You can use numbers <a href="#booleans">in a boolean context</a>, such as an <code>if</code> statement. Zero values are false, and non-zero values are true.
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>def is_it_true(anything):</kbd>             <span class=u>&#x2460;</span></a>
 <samp class=p>... </samp><kbd class=pp>  if anything:</kbd>
@@ -343,7 +343,7 @@ ValueError: list.index(x): x not in list</samp></pre>
 <li>As you might <em>not</em> expect, if the value is not found in the list, the <code>index()</code> method will raise an exception.
 </ol>
 
-<p>Wait, what? That&#8217;s right: the <code>index()</code> method raises an exception if it doesn&#8217;t find the value in the list. This is notably different from most languages, which will return some invalid index (like <code>-1</code>). While this may seem annoying at first, I think you will come to appreciate it. It means your program will crash at the source of the problem instead of failing strangely and silently later. Remember, <a href=#creatinglists><code>-1</code> is a valid list index</a>. If the <code>index()</code> method returned <code>-1</code>, that could lead to some not-so-fun debugging sessions!
+<p>Wait, what? That&#8217;s right: the <code>index()</code> method raises an exception if it doesn&#8217;t find the value in the list. This is notably different from most languages, which will return some invalid index (like <code>-1</code>). While this may seem annoying at first, I think you will come to appreciate it. It means your program will crash at the source of the problem instead of failing strangely and silently later. Remember, <a href="#creatinglists"><code>-1</code> is a valid list index</a>. If the <code>index()</code> method returned <code>-1</code>, that could lead to some not-so-fun debugging sessions!
 
 <h3 id=removingfromlists>Removing Items From A List</h3>
 
@@ -385,7 +385,7 @@ ValueError: list.remove(x): x not in list</samp></pre>
 
 <h3 id=popgoestheweasel>Removing Items From A List: Bonus Round</h3>
 
-<p>Another interesting list method is <code>pop()</code>. The <code>pop()</code> method is yet another way to <a href=#removingfromlists>remove items from a list</a>, but with a twist.
+<p>Another interesting list method is <code>pop()</code>. The <code>pop()</code> method is yet another way to <a href="#removingfromlists">remove items from a list</a>, but with a twist.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>a_list = ['a', 'b', 'new', 'mpilgrim']</kbd>
@@ -417,7 +417,7 @@ IndexError: pop from empty list</samp></pre>
 
 <h3 id=lists-in-a-boolean-context>Lists In A Boolean Context</h3>
 <aside>Empty lists are false; all other lists are true.</aside>
-<p>You can also use a list in <a href=#booleans>a boolean context</a>, such as an <code>if</code> statement.
+<p>You can also use a list in <a href="#booleans">a boolean context</a>, such as an <code>if</code> statement.
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>def is_it_true(anything):</kbd>
 <samp class=p>... </samp><kbd class=pp>  if anything:</kbd>
@@ -499,7 +499,7 @@ AttributeError: 'tuple' object has no attribute 'remove'</samp>
 
 <h3 id=tuples-in-a-boolean-context>Tuples In A Boolean Context</h3>
 
-<p>You can use tuples in <a href=#booleans>a boolean context</a>, such as an <code>if</code> statement.
+<p>You can use tuples in <a href="#booleans">a boolean context</a>, such as an <code>if</code> statement.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>def is_it_true(anything):</kbd>
@@ -553,11 +553,11 @@ AttributeError: 'tuple' object has no attribute 'remove'</samp>
 <samp class=p>>>> </samp><kbd class=pp>SUNDAY</kbd>
 <samp class=pp>6</samp></pre>
 <ol>
-<li>The built-in <code>range()</code> function constructs a sequence of integers. (Technically, the <code>range()</code> function returns an <a href=iterators.html>iterator</a>, not a list or a tuple, but you&#8217;ll learn about that distinction later.) <var>MONDAY</var>, <var>TUESDAY</var>, <var>WEDNESDAY</var>, <var>THURSDAY</var>, <var>FRIDAY</var>, <var>SATURDAY</var>, and <var>SUNDAY</var> are the variables you&#8217;re defining. (This example came from the <code>calendar</code> module, a fun little module that prints calendars, like the <abbr>UNIX</abbr> program <code>cal</code>. The <code>calendar</code> module defines integer constants for days of the week.)
+<li>The built-in <code>range()</code> function constructs a sequence of integers. (Technically, the <code>range()</code> function returns an <a href="iterators.html">iterator</a>, not a list or a tuple, but you&#8217;ll learn about that distinction later.) <var>MONDAY</var>, <var>TUESDAY</var>, <var>WEDNESDAY</var>, <var>THURSDAY</var>, <var>FRIDAY</var>, <var>SATURDAY</var>, and <var>SUNDAY</var> are the variables you&#8217;re defining. (This example came from the <code>calendar</code> module, a fun little module that prints calendars, like the <abbr>UNIX</abbr> program <code>cal</code>. The <code>calendar</code> module defines integer constants for days of the week.)
 <li>Now each variable has its value: <var>MONDAY</var> is 0, <var>TUESDAY</var> is <code>1</code>, and so forth.
 </ol>
 
-<p>You can also use multi-variable assignment to build functions that return multiple values, simply by returning a tuple of all the values. The caller can treat it as a single tuple, or it can assign the values to individual variables. Many standard Python libraries do this, including the <code>os</code> module, which you'll learn about in <a href=comprehensions.html#os>the next chapter</a>.
+<p>You can also use multi-variable assignment to build functions that return multiple values, simply by returning a tuple of all the values. The caller can treat it as a single tuple, or it can assign the values to individual variables. Many standard Python libraries do this, including the <code>os</code> module, which you'll learn about in <a href="comprehensions.html#os">the next chapter</a>.
 
 <p class=a>&#x2042;
 
@@ -580,11 +580,11 @@ AttributeError: 'tuple' object has no attribute 'remove'</samp>
 <samp class=pp>{1, 2}</samp></pre>
 <ol>
 <li>To create a set with one value, put the value in curly brackets (<code>{}</code>).
-<li>Sets are actually implemented as <a href=iterators.html#defining-classes>classes</a>, but don&#8217;t worry about that for now.
+<li>Sets are actually implemented as <a href="iterators.html#defining-classes">classes</a>, but don&#8217;t worry about that for now.
 <li>To create a set with multiple values, separate the values with commas and wrap it all up with curly brackets.
 </ol>
 
-<p>You can also create a set out of a <a href=#lists>list</a>.
+<p>You can also create a set out of a <a href="#lists">list</a>.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>a_list = ['a', 'b', 'mpilgrim', True, False, 42]</kbd>
@@ -787,7 +787,7 @@ KeyError: 'pop from an empty set'</samp></pre>
 
 <h3 id=sets-in-a-boolean-context>Sets In A Boolean Context</h3>
 
-<p>You can use sets in <a href=#booleans>a boolean context</a>, such as an <code>if</code> statement.
+<p>You can use sets in <a href="#booleans">a boolean context</a>, such as an <code>if</code> statement.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>def is_it_true(anything):</kbd>
@@ -817,7 +817,7 @@ KeyError: 'pop from an empty set'</samp></pre>
 <p><span class=u>&#x261E;</span>A dictionary in Python is like a hash in Perl 5. In Perl 5, variables that store hashes always start with a <code>%</code> character. In Python, variables can be named anything, and Python keeps track of the datatype internally.
 </blockquote>
 <h3 id=creating-dictionaries>Creating A Dictionary</h3>
-<p>Creating a dictionary is easy. The syntax is similar to <a href=#sets>sets</a>, but instead of values, you have key-value pairs. Once you have a dictionary, you can look up values by their key.
+<p>Creating a dictionary is easy. The syntax is similar to <a href="#sets">sets</a>, but instead of values, you have key-value pairs. Once you have a dictionary, you can look up values by their key.
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>a_dict = {'server': 'db.diveintopython3.org', 'database': 'mysql'}</kbd>  <span class=u>&#x2460;</span></a>
 <samp class=p>>>> </samp><kbd class=pp>a_dict</kbd>
@@ -862,7 +862,7 @@ KeyError: 'db.diveintopython3.org'</samp></pre>
 </ol>
 <h3 id=mixed-value-dictionaries>Mixed-Value Dictionaries</h3>
 <p>Dictionaries aren&#8217;t just for strings. Dictionary values can be any datatype, including integers, booleans, arbitrary objects, or even other dictionaries. And within a single dictionary, the values don&#8217;t all need to be the same type; you can mix and match as needed. Dictionary keys are more restricted, but they can be strings, integers, and a few other types. You can also mix and match key datatypes within a dictionary.
-<p>In fact, you&#8217;ve already seen a dictionary with non-string keys and values, in <a href=your-first-python-program.html#divingin>your first Python program</a>.
+<p>In fact, you&#8217;ve already seen a dictionary with non-string keys and values, in <a href="your-first-python-program.html#divingin">your first Python program</a>.
 <pre class='nd pp'><code>SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
             1024: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']}</code></pre>
 <p>Let's tear that apart in the interactive shell.
@@ -880,7 +880,7 @@ KeyError: 'db.diveintopython3.org'</samp></pre>
 <a><samp class=p>>>> </samp><kbd class=pp>SUFFIXES[1000][3]</kbd>  <span class=u>&#x2464;</span></a>
 <samp class=pp>'TB'</samp></pre>
 <ol>
-<li>Like <a href=#lists>lists</a> and <a href=#sets>sets</a>, the <code>len()</code> function gives you the number of keys in a dictionary.
+<li>Like <a href="#lists">lists</a> and <a href="#sets">sets</a>, the <code>len()</code> function gives you the number of keys in a dictionary.
 <li>And like lists and sets, you can use the <code>in</code> operator to test whether a specific key is defined in a dictionary.
 <li><code>1000</code> <em>is</em> a key in the <code>SUFFIXES</code> dictionary; its value is a list of eight items (eight strings, to be precise).
 <li>Similarly, <code>1024</code> is a key in the <code>SUFFIXES</code> dictionary; its value is also a list of eight items.
@@ -888,7 +888,7 @@ KeyError: 'db.diveintopython3.org'</samp></pre>
 </ol>
 <h3 id=dictionaries-in-a-boolean-context>Dictionaries In A Boolean Context</h3>
 <aside>Empty dictionaries are false; all other dictionaries are true.</aside>
-<p>You can also use a dictionary in <a href=#booleans>a boolean context</a>, such as an <code>if</code> statement.
+<p>You can also use a dictionary in <a href="#booleans">a boolean context</a>, such as an <code>if</code> statement.
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>def is_it_true(anything):</kbd>
 <samp class=p>... </samp><kbd class=pp>  if anything:</kbd>
@@ -928,7 +928,7 @@ KeyError: 'db.diveintopython3.org'</samp></pre>
 <samp class=pp>True</samp>
 </pre>
 <h3 id=none-in-a-boolean-context><code>None</code> In A Boolean Context</h3>
-<p>In <a href=#booleans>a boolean context</a>, <code>None</code> is false and <code>not None</code> is true.
+<p>In <a href="#booleans">a boolean context</a>, <code>None</code> is false and <code>not None</code> is true.
 <pre class='nd screen'>
 <samp class=p>>>> </samp><kbd class=pp>def is_it_true(anything):</kbd>
 <samp class=p>... </samp><kbd class=pp>  if anything:</kbd>
@@ -944,18 +944,18 @@ KeyError: 'db.diveintopython3.org'</samp></pre>
 
 <h2 id=furtherreading>Further Reading</h2>
 <ul>
-<li><a href=http://docs.python.org/3.1/library/stdtypes.html#boolean-operations-and-or-not>Boolean operations</a>
-<li><a href=http://docs.python.org/3.1/library/stdtypes.html#numeric-types-int-float-long-complex>Numeric types</a>
-<li><a href=http://docs.python.org/3.1/library/stdtypes.html#sequence-types-str-unicode-list-tuple-buffer-xrange>Sequence types</a>
-<li><a href=http://docs.python.org/3.1/library/stdtypes.html#set-types-set-frozenset>Set types</a>
-<li><a href=http://docs.python.org/3.1/library/stdtypes.html#mapping-types-dict>Mapping types</a>
-<li><a href=http://docs.python.org/3.1/library/fractions.html><code>fractions</code> module</a>
-<li><a href=http://docs.python.org/3.1/library/math.html><code>math</code> module</a>
-<li><a href=http://www.python.org/dev/peps/pep-0237/><abbr>PEP</abbr> 237: Unifying Long Integers and Integers</a>
-<li><a href=http://www.python.org/dev/peps/pep-0238/><abbr>PEP</abbr> 238: Changing the Division Operator</a>
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#boolean-operations-and-or-not">Boolean operations</a>
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#numeric-types-int-float-long-complex">Numeric types</a>
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#sequence-types-str-unicode-list-tuple-buffer-xrange">Sequence types</a>
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#set-types-set-frozenset">Set types</a>
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#mapping-types-dict">Mapping types</a>
+<li><a href="http://docs.python.org/3.1/library/fractions.html"><code>fractions</code> module</a>
+<li><a href="http://docs.python.org/3.1/library/math.html"><code>math</code> module</a>
+<li><a href="http://www.python.org/dev/peps/pep-0237/"><abbr>PEP</abbr> 237: Unifying Long Integers and Integers</a>
+<li><a href="http://www.python.org/dev/peps/pep-0238/"><abbr>PEP</abbr> 238: Changing the Division Operator</a>
 </ul>
-<p class=v><a href=your-first-python-program.html rel=prev title='back to &#8220;Your First Python Program&#8221;'><span class=u>&#x261C;</span></a> <a href=comprehensions.html rel=next title='onward to &#8220;Comprehensions&#8221;'><span class=u>&#x261E;</span></a>
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=v><a href="your-first-python-program.html" rel=prev title='back to &#8220;Your First Python Program&#8221;'><span class=u>&#x261C;</span></a> <a href="comprehensions.html" rel=next title='onward to &#8220;Comprehensions&#8221;'><span class=u>&#x261E;</span></a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

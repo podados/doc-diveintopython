@@ -10,11 +10,11 @@ body{counter-reset:h1 13}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=root value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#serializing>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#serializing">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=advanced>&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>Serializing Python Objects</h1>
 <blockquote class=q>
-<p><span class=u>&#x275D;</span> Every Saturday since we&#8217;ve lived in this apartment, I have awakened at 6:15, poured myself a bowl of cereal, added<br>a quarter-cup of 2% milk, sat on <strong>this</strong> end of <strong>this</strong> couch, turned on BBC America, and watched Doctor Who. <span class=u>&#x275E;</span><br>&mdash; Sheldon, <a href='http://en.wikiquote.org/wiki/The_Big_Bang_Theory#The_Dumpling_Paradox_.5B1.07.5D'>The Big Bang Theory</a>
+<p><span class=u>&#x275D;</span> Every Saturday since we&#8217;ve lived in this apartment, I have awakened at 6:15, poured myself a bowl of cereal, added<br>a quarter-cup of 2% milk, sat on <strong>this</strong> end of <strong>this</strong> couch, turned on BBC America, and watched Doctor Who. <span class=u>&#x275E;</span><br>&mdash; Sheldon, <a href="'http://en.wikiquote.org/wiki/The_Big_Bang_Theory#The_Dumpling_Paradox_.5B1.07.5D'">The Big Bang Theory</a>
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>Diving In</h2>
@@ -25,13 +25,13 @@ body{counter-reset:h1 13}
 <p>What can the <code>pickle</code> module store?
 
 <ul>
-<li>All the <a href=native-datatypes.html>native datatypes</a> that Python supports: booleans, integers, floating point numbers, complex numbers, strings, <code>bytes</code> objects, byte arrays, and <code>None</code>.
+<li>All the <a href="native-datatypes.html">native datatypes</a> that Python supports: booleans, integers, floating point numbers, complex numbers, strings, <code>bytes</code> objects, byte arrays, and <code>None</code>.
 <li>Lists, tuples, dictionaries, and sets containing any combination of native datatypes.
-<li>Lists, tuples, dictionaries, and sets containing any combination of lists, tuples, dictionaries, and sets containing any combination of native datatypes (and so on, to <a title='sys.getrecursionlimit()' href=http://docs.python.org/3.1/library/sys.html#sys.getrecursionlimit>the maximum nesting level that Python supports</a>).
+<li>Lists, tuples, dictionaries, and sets containing any combination of lists, tuples, dictionaries, and sets containing any combination of native datatypes (and so on, to <a title='sys.getrecursionlimit()' href="http://docs.python.org/3.1/library/sys.html#sys.getrecursionlimit">the maximum nesting level that Python supports</a>).
 <li>Functions, classes, and instances of classes (with caveats).
 </ul>
 
-<p>If this isn&#8217;t enough for you, the <code>pickle</code> module is also extensible. If you&#8217;re interested in extensibility, check out the links in the <a href=#furtherreading>Further Reading</a> section at the end of the chapter.
+<p>If this isn&#8217;t enough for you, the <code>pickle</code> module is also extensible. If you&#8217;re interested in extensibility, check out the links in the <a href="#furtherreading">Further Reading</a> section at the end of the chapter.
 
 <h3 id=administrivia>A Quick Note About The Examples in This Chapter</h3>
 
@@ -71,8 +71,8 @@ body{counter-reset:h1 13}
 <samp class=pp>time.struct_time(tm_year=2009, tm_mon=3, tm_mday=27, tm_hour=22, tm_min=20, tm_sec=42, tm_wday=4, tm_yday=86, tm_isdst=-1)</samp></pre>
 <ol>
 <li>Follow along in Python Shell #1.
-<li>The idea here is to build a Python dictionary that could represent something useful, like an <a href=xml.html#xml-structure>entry in an Atom feed</a>. But I also want to ensure that it contains several different types of data, to show off the <code>pickle</code> module. Don&#8217;t read too much into these values.
-<li>The <code>time</code> module contains a data structure (<code>struct_time</code>) to represent a point in time (accurate to one millisecond) and functions to manipulate time structs. The <code>strptime()</code> function takes a formatted string an converts it to a <code>struct_time</code>. This string is in the default format, but you can control that with format codes. See the <a href=http://docs.python.org/3.1/library/time.html><code>time</code> module</a> for more details.
+<li>The idea here is to build a Python dictionary that could represent something useful, like an <a href="xml.html#xml-structure">entry in an Atom feed</a>. But I also want to ensure that it contains several different types of data, to show off the <code>pickle</code> module. Don&#8217;t read too much into these values.
+<li>The <code>time</code> module contains a data structure (<code>struct_time</code>) to represent a point in time (accurate to one millisecond) and functions to manipulate time structs. The <code>strptime()</code> function takes a formatted string an converts it to a <code>struct_time</code>. This string is in the default format, but you can control that with format codes. See the <a href="http://docs.python.org/3.1/library/time.html"><code>time</code> module</a> for more details.
 </ol>
 
 <p>That&#8217;s a handsome-looking Python dictionary. Let&#8217;s save it to a file.
@@ -86,7 +86,7 @@ body{counter-reset:h1 13}
 <samp class=p>... </samp></pre>
 <ol>
 <li>This is still in Python Shell #1.
-<li>Use the <code>open()</code> function to open a file. Set the file mode to <code>'wb'</code> to open the file for writing <a href=files.html#binary>in binary mode</a>. Wrap it in a <a href=files.html#with><code>with</code> statement</a> to ensure the file is closed automatically when you&#8217;re done with it.
+<li>Use the <code>open()</code> function to open a file. Set the file mode to <code>'wb'</code> to open the file for writing <a href="files.html#binary">in binary mode</a>. Wrap it in a <a href="files.html#with"><code>with</code> statement</a> to ensure the file is closed automatically when you&#8217;re done with it.
 <li>The <code>dump()</code> function in the <code>pickle</code> module takes a serializable Python data structure, serializes it into a binary, Python-specific format using the latest version of the pickle protocol, and saves it to an open file.
 </ol>
 
@@ -99,7 +99,7 @@ body{counter-reset:h1 13}
 <li>Not every Python data structure can be serialized by the <code>pickle</code> module. The pickle protocol has changed several times as new data types have been added to the Python language, but there are still limitations.
 <li>As a result of these changes, there is no guarantee of compatibility between different versions of Python itself. Newer versions of Python support the older serialization formats, but older versions of Python do not support newer formats (since they don&#8217;t support the newer data types).
 <li>Unless you specify otherwise, the functions in the <code>pickle</code> module will use the latest version of the pickle protocol. This ensures that you have maximum flexibility in the types of data you can serialize, but it also means that the resulting file will not be readable by older versions of Python that do not support the latest version of the pickle protocol.
-<li>The latest version of the pickle protocol is a binary format. Be sure to open your pickle files <a href=files.html#binary>in binary mode</a>, or the data will get corrupted during writing.
+<li>The latest version of the pickle protocol is a binary format. Be sure to open your pickle files <a href="files.html#binary">in binary mode</a>, or the data will get corrupted during writing.
 </ul>
 
 <p class=a>&#x2042;
@@ -132,7 +132,7 @@ NameError: name 'entry' is not defined</samp>
 <li>This is Python Shell #2.
 <li>There is no <var>entry</var> variable defined here. You defined an <var>entry</var> variable in Python Shell #1, but that&#8217;s a completely different environment with its own state.
 <li>Open the <code>entry.pickle</code> file you created in Python Shell #1. The <code>pickle</code> module uses a binary data format, so you should always open pickle files in binary mode.
-<li>The <code>pickle.load()</code> function takes a <a href=files.html#file-objects>stream object</a>, reads the serialized data from the stream, creates a new Python object, recreates the serialized data in the new Python object, and returns the new Python object.
+<li>The <code>pickle.load()</code> function takes a <a href="files.html#file-objects">stream object</a>, reads the serialized data from the stream, creates a new Python object, recreates the serialized data in the new Python object, and returns the new Python object.
 <li>Now the <var>entry</var> variable is a dictionary with familiar-looking keys and values.
 </ol>
 
@@ -187,7 +187,7 @@ NameError: name 'entry' is not defined</samp>
 
 <h2 id=protocol-versions>Bytes and Strings Rear Their Ugly Heads Again</h2>
 
-<p>The pickle protocol has been around for many years, and it has matured as Python itself has matured. There are now <a href=http://docs.python.org/3.1/library/pickle.html#data-stream-format>four different versions</a> of the pickle protocol.
+<p>The pickle protocol has been around for many years, and it has matured as Python itself has matured. There are now <a href="http://docs.python.org/3.1/library/pickle.html#data-stream-format">four different versions</a> of the pickle protocol.
 
 <ul>
 <li>Python 1.x had two pickle protocols, a text-based format (&#8220;version 0&#8221;) and a binary format (&#8220;version 1&#8221;).
@@ -195,7 +195,7 @@ NameError: name 'entry' is not defined</samp>
 <li>Python 3.0 introduced another pickle protocol (&#8220;version 3&#8221;) with explicit support for <code>bytes</code> objects and byte arrays. It is a binary format.
 </ul>
 
-<p>Oh look, <a href=strings.html#byte-arrays>the difference between bytes and strings</a> rears its ugly head again. (If you&#8217;re surprised, you haven&#8217;t been paying attention.) What this means in practice is that, while Python 3 can read data pickled with protocol version 2, Python 2 can not read data pickled with protocol version 3.
+<p>Oh look, <a href="strings.html#byte-arrays">the difference between bytes and strings</a> rears its ugly head again. (If you&#8217;re surprised, you haven&#8217;t been paying attention.) What this means in practice is that, while Python 3 can read data pickled with protocol version 2, Python 2 can not read data pickled with protocol version 3.
 
 <p class=a>&#x2042;
 
@@ -282,7 +282,7 @@ struct_time
 
 <p>The most interesting piece of information in that disassembly is on the last line, because it includes the version of the pickle protocol with which this file was saved. There is no explicit version marker in the pickle protocol. To determine which protocol version was used to store a pickle file, you need to look at the markers (&#8220;opcodes&#8221;) within the pickled data and use hard-coded knowledge of which opcodes were introduced with each version of the pickle protocol. The <code>pickletools.dis()</code> function does exactly that, and it prints the result in the last line of the disassembly output. Here is a function that returns just the version number, without printing anything:
 
-<p class=d>[<a href=examples/pickleversion.py>download <code>pickleversion.py</code></a>]
+<p class=d>[<a href="examples/pickleversion.py">download <code>pickleversion.py</code></a>]
 <pre class=pp><code>import pickletools
 
 def protocol_version(file_object):
@@ -304,19 +304,19 @@ def protocol_version(file_object):
 
 <h2 id=json>Serializing Python Objects to be Read by Other Languages</h2>
 
-<p>The data format used by the <code>pickle</code> module is Python-specific. It makes no attempt to be compatible with other programming languages. If cross-language compatibility is one of your requirements, you need to look at other serialization formats. One such format is <a href=http://json.org/><abbr>JSON</abbr></a>. &#8220;<abbr>JSON</abbr>&#8221; stands for &#8220;JavaScript Object Notation,&#8221; but don&#8217;t let the name fool you&nbsp;&mdash;&nbsp;<abbr>JSON</abbr> is explicitly designed to be usable across multiple programming languages.
+<p>The data format used by the <code>pickle</code> module is Python-specific. It makes no attempt to be compatible with other programming languages. If cross-language compatibility is one of your requirements, you need to look at other serialization formats. One such format is <a href="http://json.org/"><abbr>JSON</abbr></a>. &#8220;<abbr>JSON</abbr>&#8221; stands for &#8220;JavaScript Object Notation,&#8221; but don&#8217;t let the name fool you&nbsp;&mdash;&nbsp;<abbr>JSON</abbr> is explicitly designed to be usable across multiple programming languages.
 
-<p>Python 3 includes a <code>json</code> module in the standard library. Like the <code>pickle</code> module, the <code>json</code> module has functions for serializing data structures, storing the serialized data on disk, loading serialized data from disk, and unserializing the data back into a new Python object. But there are some important differences, too. First of all, the <abbr>JSON</abbr> data format is text-based, not binary. <a href=http://www.ietf.org/rfc/rfc4627.txt>RFC 4627</a> defines the <abbr>JSON</abbr> format and how different types of data must be encoded as text. For example, a boolean value is stored as either the five-character string <code>'false'</code> or the four-character string <code>'true'</code>. All <abbr>JSON</abbr> values are case-sensitive.
+<p>Python 3 includes a <code>json</code> module in the standard library. Like the <code>pickle</code> module, the <code>json</code> module has functions for serializing data structures, storing the serialized data on disk, loading serialized data from disk, and unserializing the data back into a new Python object. But there are some important differences, too. First of all, the <abbr>JSON</abbr> data format is text-based, not binary. <a href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a> defines the <abbr>JSON</abbr> format and how different types of data must be encoded as text. For example, a boolean value is stored as either the five-character string <code>'false'</code> or the four-character string <code>'true'</code>. All <abbr>JSON</abbr> values are case-sensitive.
 
 <p>Second, as with any text-based format, there is the issue of whitespace. <abbr>JSON</abbr> allows arbitrary amounts of whitespace (spaces, tabs, carriage returns, and line feeds) between values. This whitespace is &#8220;insignificant,&#8221; which means that <abbr>JSON</abbr> encoders can add as much or as little whitespace as they like, and <abbr>JSON</abbr> decoders are required to ignore the whitespace between values. This allows you to &#8220;pretty-print&#8221; your <abbr>JSON</abbr> data, nicely nesting values within values at different indentation levels so you can read it in a standard browser or text editor. Python&#8217;s <code>json</code> module has options for pretty-printing during encoding.
 
-<p>Third, there&#8217;s the perennial problem of character encoding. <abbr>JSON</abbr> encodes values as plain text, but as you know, <a href=strings.html>there ain&#8217;t no such thing as &#8220;plain text.&#8221;</a> <abbr>JSON</abbr> must be stored in a Unicode encoding (UTF-32, UTF-16, or the default, <abbr>UTF-8</abbr>), and <a href=http://www.ietf.org/rfc/rfc4627.txt>section 3 of RFC 4627</a> defines how to tell which encoding is being used.
+<p>Third, there&#8217;s the perennial problem of character encoding. <abbr>JSON</abbr> encodes values as plain text, but as you know, <a href="strings.html">there ain&#8217;t no such thing as &#8220;plain text.&#8221;</a> <abbr>JSON</abbr> must be stored in a Unicode encoding (UTF-32, UTF-16, or the default, <abbr>UTF-8</abbr>), and <a href="http://www.ietf.org/rfc/rfc4627.txt">section 3 of RFC 4627</a> defines how to tell which encoding is being used.
 
 <p class=a>&#x2042;
 
 <h2 id=json-dump>Saving Data to a <abbr>JSON</abbr> File</h2>
 
-<p><abbr>JSON</abbr> looks remarkably like a data structure you might define manually in JavaScript. This is no accident; you can actually use the JavaScript <code>eval()</code> function to &#8220;decode&#8221; <abbr>JSON</abbr>-serialized data. (The usual <a href=advanced-iterators.html#eval>caveats about untrusted input</a> apply, but the point is that <abbr>JSON</abbr> <em>is</em> valid JavaScript.) As such, <abbr>JSON</abbr> may already look familiar to you.
+<p><abbr>JSON</abbr> looks remarkably like a data structure you might define manually in JavaScript. This is no accident; you can actually use the JavaScript <code>eval()</code> function to &#8220;decode&#8221; <abbr>JSON</abbr>-serialized data. (The usual <a href="advanced-iterators.html#eval">caveats about untrusted input</a> apply, but the point is that <abbr>JSON</abbr> <em>is</em> valid JavaScript.) As such, <abbr>JSON</abbr> may already look familiar to you.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>shell</kbd>
@@ -343,7 +343,7 @@ def protocol_version(file_object):
 <samp>{"published": true, "tags": ["diveintopython", "docbook", "html"], "comments_link": null,
 "id": 256, "title": "Dive into history, 2009 edition"}</samp></pre>
 
-<p>That&#8217;s certainly <a href=#debugging>more readable than a pickle file</a>. But <abbr>JSON</abbr> can contain arbitrary whitespace between values, and the <code>json</code> module provides an easy way to take advantage of this to create even more readable <abbr>JSON</abbr> files.
+<p>That&#8217;s certainly <a href="#debugging">more readable than a pickle file</a>. But <abbr>JSON</abbr> can contain arbitrary whitespace between values, and the <code>json</code> module provides an easy way to take advantage of this to create even more readable <abbr>JSON</abbr> files.
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>shell</kbd>
@@ -382,28 +382,28 @@ def protocol_version(file_object):
 <th>Python 3
 <tr><th>
 <td>object
-<td><a href=native-datatypes.html#dictionaries>dictionary</a>
+<td><a href="native-datatypes.html#dictionaries">dictionary</a>
 <tr><th>
 <td>array
-<td><a href=native-datatypes.html#lists>list</a>
+<td><a href="native-datatypes.html#lists">list</a>
 <tr><th>
 <td>string
-<td><a href=strings.html#divingin>string</a>
+<td><a href="strings.html#divingin">string</a>
 <tr><th>
 <td>integer
-<td><a href=native-datatypes.html#numbers>integer</a>
+<td><a href="native-datatypes.html#numbers">integer</a>
 <tr><th>
 <td>real number
-<td><a href=native-datatypes.html#numbers>float</a>
+<td><a href="native-datatypes.html#numbers">float</a>
 <tr><th>*
 <td><code>true</code>
-<td><a href=native-datatypes.html#booleans><code>True</code></a>
+<td><a href="native-datatypes.html#booleans"><code>True</code></a>
 <tr><th>*
 <td><code>false</code>
-<td><a href=native-datatypes.html#booleans><code>False</code></a>
+<td><a href="native-datatypes.html#booleans"><code>False</code></a>
 <tr><th>*
 <td><code>null</code>
-<td><code><a href=native-datatypes.html#none>None</a></code>
+<td><code><a href="native-datatypes.html#none">None</a></code>
 <tfoot><tr><td colspan=3>* All <abbr>JSON</abbr> values are case-sensitive.
 </table>
 
@@ -451,7 +451,7 @@ def protocol_version(file_object):
 
 <p>Here&#8217;s what happened: the <code>json.dump()</code> function tried to serialize the <code>bytes</code> object <code>b'\xDE\xD5\xB4\xF8'</code>, but it failed, because <abbr>JSON</abbr> has no support for <code>bytes</code> objects. However, if storing bytes is important to you, you can define your own &#8220;mini-serialization format.&#8221;
 
-<p class=d>[<a href=examples/customserializer.py>download <code>customserializer.py</code></a>]
+<p class=d>[<a href="examples/customserializer.py">download <code>customserializer.py</code></a>]
 <pre class=pp><code>
 <a>def to_json(python_object):                                             <span class=u>&#x2460;</span></a>
 <a>    if isinstance(python_object, bytes):                                <span class=u>&#x2461;</span></a>
@@ -491,7 +491,7 @@ TypeError: time.struct_time(tm_year=2009, tm_mon=3, tm_mday=27, tm_hour=22, tm_m
 <ol>
 <li>The <code>customserializer</code> module is where you just defined the <code>to_json()</code> function in the previous example.
 <li>Text mode, <abbr>UTF-8</abbr> encoding, yadda yadda. (You&#8217;ll forget! I forget sometimes! And everything will work right up until the moment that it fails, and then it will fail most spectacularly.)
-<li>This is the important bit: to hook your custom conversion function into the <code>json.dump()</code> function, pass your function into the <code>json.dump()</code> function in the <var>default</var> parameter. (Hooray, <a href=your-first-python-program.html#everythingisanobject>everything in Python is an object</a>!)
+<li>This is the important bit: to hook your custom conversion function into the <code>json.dump()</code> function, pass your function into the <code>json.dump()</code> function in the <var>default</var> parameter. (Hooray, <a href="your-first-python-program.html#everythingisanobject">everything in Python is an object</a>!)
 <li>OK, so it didn&#8217;t actually work. But take a look at the exception. The <code>json.dump()</code> function is no longer complaining about being unable to serialize the <code>bytes</code> object. Now it&#8217;s complaining about a completely different object: the <code>time.struct_time</code> object.
 </ol>
 
@@ -627,35 +627,35 @@ NameError: name 'entry' is not defined</samp>
 <h2 id=furtherreading>Further Reading</h2>
 
 <blockquote class=note>
-<p><span class=u>&#x261E;</span>Many articles about the <code>pickle</code> module make references to <code>cPickle</code>. In Python 2, there were two implementations of the <code>pickle</code> module, one written in pure Python and another written in C (but still callable from Python). In Python 3, <a href=porting-code-to-python-3-with-2to3.html#othermodules>these two modules have been consolidated</a>, so you should always just <code>import pickle</code>. You may find these articles useful, but you should ignore the now-obsolete information about <code>cPickle</code>.
+<p><span class=u>&#x261E;</span>Many articles about the <code>pickle</code> module make references to <code>cPickle</code>. In Python 2, there were two implementations of the <code>pickle</code> module, one written in pure Python and another written in C (but still callable from Python). In Python 3, <a href="porting-code-to-python-3-with-2to3.html#othermodules">these two modules have been consolidated</a>, so you should always just <code>import pickle</code>. You may find these articles useful, but you should ignore the now-obsolete information about <code>cPickle</code>.
 </blockquote>
 
 <p>On pickling with the <code>pickle</code> module:
 
 <ul>
-<li><a href=http://docs.python.org/3.1/library/pickle.html><code>pickle</code> module</a>
-<li><a href=http://www.doughellmann.com/PyMOTW/pickle/><code>pickle</code> and <code>cPickle</code>&nbsp;&mdash;&nbsp;Python object serialization</a>
-<li><a href=http://wiki.python.org/moin/UsingPickle>Using <code>pickle</code></a>
-<li><a href=http://www.ibm.com/developerworks/library/l-pypers.html>Python persistence management</a>
+<li><a href="http://docs.python.org/3.1/library/pickle.html"><code>pickle</code> module</a>
+<li><a href="http://www.doughellmann.com/PyMOTW/pickle/"><code>pickle</code> and <code>cPickle</code>&nbsp;&mdash;&nbsp;Python object serialization</a>
+<li><a href="http://wiki.python.org/moin/UsingPickle">Using <code>pickle</code></a>
+<li><a href="http://www.ibm.com/developerworks/library/l-pypers.html">Python persistence management</a>
 </ul>
 
 <p>On <abbr>JSON</abbr> and the <code>json</code> module:
 
 <ul>
-<li><a href=http://www.doughellmann.com/PyMOTW/json/><code>json</code>&nbsp;&mdash;&nbsp;JavaScript Object Notation Serializer</a>
-<li><a href=http://blog.quaternio.net/2009/07/16/json-encoding-and-decoding-with-custom-objects-in-python/>JSON encoding and ecoding with custom objects in Python</a>
+<li><a href="http://www.doughellmann.com/PyMOTW/json/"><code>json</code>&nbsp;&mdash;&nbsp;JavaScript Object Notation Serializer</a>
+<li><a href="http://blog.quaternio.net/2009/07/16/json-encoding-and-decoding-with-custom-objects-in-python/">JSON encoding and ecoding with custom objects in Python</a>
 </ul>
 
 <p>On pickle extensibility:
 
 <ul>
-<li><a href=http://docs.python.org/3.1/library/pickle.html#pickling-class-instances>Pickling class instances</a>
-<li><a href=http://docs.python.org/3.1/library/pickle.html#persistence-of-external-objects>Persistence of external objects</a>
-<li><a href=http://docs.python.org/3.1/library/pickle.html#handling-stateful-objects>Handling stateful objects</a>
+<li><a href="http://docs.python.org/3.1/library/pickle.html#pickling-class-instances">Pickling class instances</a>
+<li><a href="http://docs.python.org/3.1/library/pickle.html#persistence-of-external-objects">Persistence of external objects</a>
+<li><a href="http://docs.python.org/3.1/library/pickle.html#handling-stateful-objects">Handling stateful objects</a>
 </ul>
 
-<p class=v><a rel=prev href=xml.html title='back to &#8220;XML&#8221;'><span class=u>&#x261C;</span></a> <a rel=next href=http-web-services.html title='onward to &#8220;HTTP Web Services&#8221;'><span class=u>&#x261E;</span></a>
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=v><a rel=prev href="xml.html" title='back to &#8220;XML&#8221;'><span class=u>&#x261C;</span></a> <a rel=next href="http-web-services.html" title='onward to &#8220;HTTP Web Services&#8221;'><span class=u>&#x261E;</span></a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

@@ -10,11 +10,11 @@ body{counter-reset:h1 5}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type=submit name=root value=Search></div></form>
-<p>You are here: <a href=index.html>Home</a> <span class=u>&#8227;</span> <a href=table-of-contents.html#regular-expressions>Dive Into Python 3</a> <span class=u>&#8227;</span>
+<p>You are here: <a href="index.html">Home</a> <span class=u>&#8227;</span> <a href="table-of-contents.html#regular-expressions">Dive Into Python 3</a> <span class=u>&#8227;</span>
 <p id=level>Difficulty level: <span class=u title=intermediate>&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Regular Expressions</h1>
 <blockquote class=q>
-<p><span class=u>&#x275D;</span> Some people, when confronted with a problem, think &#8220;I know, I&#8217;ll use regular expressions.&#8221;  Now they have two problems. <span class=u>&#x275E;</span><br>&mdash; <a href=http://www.jwz.org/hacks/marginal.html>Jamie Zawinski</a>
+<p><span class=u>&#x275D;</span> Some people, when confronted with a problem, think &#8220;I know, I&#8217;ll use regular expressions.&#8221;  Now they have two problems. <span class=u>&#x275E;</span><br>&mdash; <a href="http://www.jwz.org/hacks/marginal.html">Jamie Zawinski</a>
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>Diving In</h2>
@@ -22,7 +22,7 @@ body{counter-reset:h1 5}
 <p>If your goal can be accomplished with string methods, you should use them. They&#8217;re fast and simple and easy to read, and there&#8217;s a lot to be said for fast, simple, readable code. But if you find yourself using a lot of different string functions with <code>if</code> statements to handle special cases, or if you&#8217;re chaining calls to <code>split()</code> and <code>join()</code> to slice-and-dice your strings, you may need to move up to regular expressions.
 <p>Regular expressions are a powerful and (mostly) standardized way of searching, replacing, and parsing text with complex patterns of characters. Although the regular expression syntax is tight and unlike normal code, the result can end up being <em>more</em> readable than a hand-rolled solution that uses a long chain of string functions. There are even ways of embedding comments within regular expressions, so you can include fine-grained documentation within them.
 <blockquote class='note compare perl5'>
-<p><span class=u>&#x261E;</span>If you&#8217;ve used regular expressions in other languages (like Perl, JavaScript, or PHP), Python&#8217;s syntax will be very familiar. Read the summary of the <a href=http://docs.python.org/dev/library/re.html#module-contents><code>re</code> module</a> to get an overview of the available functions and their arguments.
+<p><span class=u>&#x261E;</span>If you&#8217;ve used regular expressions in other languages (like Perl, JavaScript, or PHP), Python&#8217;s syntax will be very familiar. Read the summary of the <a href="http://docs.python.org/dev/library/re.html#module-contents"><code>re</code> module</a> to get an overview of the available functions and their arguments.
 </blockquote>
 <p class=a>&#x2042;
 
@@ -307,10 +307,10 @@ body{counter-reset:h1 5}
   File "&lt;stdin>", line 1, in &lt;module>
 AttributeError: 'NoneType' object has no attribute 'groups'</samp></pre>
 <ol>
-<li>Always read regular expressions from left to right. This one matches the beginning of the string, and then <code>(\d{3})</code>. What&#8217;s <code>\d{3}</code>?  Well, <code>\d</code> means &#8220;any numeric digit&#8221; (0 through <code>9</code>). The <code>{3}</code> means &#8220;match exactly three numeric digits&#8221;; it&#8217;s a variation on the <a href=#nmsyntax><code>{n,m} syntax</code></a> you saw earlier. Putting it all in parentheses means &#8220;match exactly three numeric digits, <em>and then remember them as a group that I can ask for later</em>&#8221;. Then match a literal hyphen. Then match another group of exactly three digits. Then another literal hyphen. Then another group of exactly four digits. Then match the end of the string.
+<li>Always read regular expressions from left to right. This one matches the beginning of the string, and then <code>(\d{3})</code>. What&#8217;s <code>\d{3}</code>?  Well, <code>\d</code> means &#8220;any numeric digit&#8221; (0 through <code>9</code>). The <code>{3}</code> means &#8220;match exactly three numeric digits&#8221;; it&#8217;s a variation on the <a href="#nmsyntax"><code>{n,m} syntax</code></a> you saw earlier. Putting it all in parentheses means &#8220;match exactly three numeric digits, <em>and then remember them as a group that I can ask for later</em>&#8221;. Then match a literal hyphen. Then match another group of exactly three digits. Then another literal hyphen. Then another group of exactly four digits. Then match the end of the string.
 <li>To get access to the groups that the regular expression parser remembered along the way, use the <code>groups()</code> method on the object that the <code>search()</code> method returns. It will return a tuple of however many groups were defined in the regular expression. In this case, you defined three groups, one with three digits, one with three digits, and one with four digits.
 <li>This regular expression is not the final answer, because it doesn&#8217;t handle a phone number with an extension on the end. For that, you&#8217;ll need to expand the regular expression.
-<li>And this is why you should never &#8220;chain&#8221; the <code>search()</code> and <code>groups()</code> methods in production code. If the <code>search()</code> method returns no matches, it returns <a href=native-datatypes.html#none><code>None</code></a>, not a regular expression match object. Calling <code>None.groups()</code> raises a perfectly obvious exception: <code>None</code> doesn&#8217;t have a <code>groups()</code> method. (Of course, it&#8217;s slightly less obvious when you get this exception from deep within your code. Yes, I speak from experience here.)
+<li>And this is why you should never &#8220;chain&#8221; the <code>search()</code> and <code>groups()</code> methods in production code. If the <code>search()</code> method returns no matches, it returns <a href="native-datatypes.html#none"><code>None</code></a>, not a regular expression match object. Calling <code>None.groups()</code> raises a perfectly obvious exception: <code>None</code> doesn&#8217;t have a <code>groups()</code> method. (Of course, it&#8217;s slightly less obvious when you get this exception from deep within your code. Yes, I speak from experience here.)
 </ol>
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>phonePattern = re.compile(r'^(\d{3})-(\d{3})-(\d{4})-(\d+)$')</kbd>  <span class=u>&#x2460;</span></a>
@@ -433,8 +433,8 @@ AttributeError: 'NoneType' object has no attribute 'groups'</samp></pre>
 <li><code>(x)</code> in general is a <em>remembered group</em>. You can get the value of what matched by using the <code>groups()</code> method of the object returned by <code>re.search</code>.
 </ul>
 <p>Regular expressions are extremely powerful, but they are not the correct solution for every problem. You should learn enough about them to know when they are appropriate, when they will solve your problems, and when they will cause more problems than they solve.
-<p class=v><a href=strings.html rel=prev title='back to &#8220;Strings&#8221;'><span class=u>&#x261C;</span></a> <a href=generators.html rel=next title='onward to &#8220;Closures &amp; Generators&#8221;'><span class=u>&#x261E;</span></a>
-<p class=c>&copy; 2001&ndash;11 <a href=about.html>Mark Pilgrim</a>
+<p class=v><a href="strings.html" rel=prev title='back to &#8220;Strings&#8221;'><span class=u>&#x261C;</span></a> <a href="generators.html" rel=next title='onward to &#8220;Closures &amp; Generators&#8221;'><span class=u>&#x261E;</span></a>
+<p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>
