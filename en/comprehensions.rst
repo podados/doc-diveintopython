@@ -1,8 +1,8 @@
 
-Difficulty level: ♦♦♢♢♢
-
 Comprehensions
 ==============
+
+Difficulty level: ♦♦♢♢♢
 
 ❝ Our imagination is stretched to the utmost, not, as in
 fiction, to imagine things which are not really there, but just to

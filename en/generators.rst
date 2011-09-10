@@ -1,8 +1,8 @@
 
-Difficulty level: ♦♦♦♢♢
-
 Closures & Generators
 =====================
+
+Difficulty level: ♦♦♦♢♢
 
 ❝ My spelling is Wobbly. Its good spelling but it Wobbles, and
 the letters get in the wrong places. ❞

@@ -1,8 +1,8 @@
 
-Difficulty level: ♦♦♦♦♢
-
 HTTP Web Services
 =================
+
+Difficulty level: ♦♦♦♦♢
 
 ❝ A ruffled mind makes a restless pillow. ❞
 Charlotte Bront
@@ -1236,8 +1236,7 @@ Permanent redirects are just as simple.
 
 
 #. Once again, this URL doesnt really exist. Ive set up my server to
-   issue a permanent redirect to
-   `http://diveintopython3.org/examples/feed.xml`.
+   issue a permanent redirect to `http://diveintopython3.org/examples/feed.xml`.
 #. And here it is: status code `301`. But again, notice what *didnt*
    happen: there was no request to the redirect URL . Why not? Because
    its already cached locally.
@@ -1308,10 +1307,11 @@ include a parameter called `status`, which contains the text of your
 status update. And the request needs to be authenticated.
 Authenticated? Sure. To update your status on Identi.ca, you need to
 prove who you are. Identi.ca is not a wiki; only you can update your
-own status. Identi.ca uses ` HTTP Basic Authentication`_ ( a.k.a. `RFC
+own status. Identi.ca uses `HTTP Basic Authentication`_ ( a.k.a. `RFC
 2617`_) over SSL to provide secure but easy-to-use authentication.
 `httplib2` supports both SSL and HTTP Basic Authentication, so this
 part is easy.
+
 A `POST` request is different from a `GET` request, because it
 includes a payload . The payload is the data you want to send to the
 server. The one piece of data that this API method *requires* is
@@ -1330,10 +1330,10 @@ serialization format that takes a set of key-value pairs ( i.e. a
 
 
 #. Python comes with a utility function to URL -encode a dictionary:
-`urllib.parse.urlencode()`.
+   `urllib.parse.urlencode()`.
 #. This is the sort of dictionary that the Identi.ca API is looking
-for. It contains one key, `status`, whose value is the text of a
-single status update.
+   for. It contains one key, `status`, whose value is the text of a
+   single status update.
 #. This is what the URL -encoded string looks like. This is the
    payload that will be sent on the wire to the Identi.ca API server in
    your HTTP `POST` request.
@@ -1358,16 +1358,16 @@ single status update.
 
 
 #. This is how `httplib2` handles authentication. Store your username
-and password with the `add_credentials()` method. When `httplib2`
-tries to issue the request, the server will respond with a `401
-Unauthorized` status code, and it will list which authentication
-methods it supports (in the `WWW-Authenticate` header). `httplib2`
-will automatically construct an `Authorization` header and re-request
-the URL .
+   and password with the `add_credentials()` method. When `httplib2`
+   tries to issue the request, the server will respond with a `401
+   Unauthorized` status code, and it will list which authentication
+   methods it supports (in the `WWW-Authenticate` header). `httplib2`
+   will automatically construct an `Authorization` header and re-request
+   the URL .
 #. The second parameter is the type of HTTP request, in this case
-`POST`.
+   `POST`.
 #. The third parameter is the payload to send to the server. Were
-sending the URL -encoded dictionary with a status message.
+   sending the URL -encoded dictionary with a status message.
 #. Finally, we need to tell the server that the payload is URL
    -encoded data.
 
@@ -1406,13 +1406,13 @@ This is what goes over the wire:
 
 
 #. After the first request, the server responds with a `401
-Unauthorized` status code. `httplib2` will never send authentication
-headers unless the server explicitly asks for them. This is how the
-server asks for them.
+   Unauthorized` status code. `httplib2` will never send authentication
+   headers unless the server explicitly asks for them. This is how the
+   server asks for them.
 #. `httplib2` immediately turns around and requests the same URL a
-second time.
+   second time.
 #. This time, it includes the username and password that you added
-with the `add_credentials()` method.
+   with the `add_credentials()` method.
 #. It worked!
 
 
@@ -1470,9 +1470,9 @@ containing information about the newly created resource.
 
 
 #. Remember, the data returned by `httplib2` is always `bytes`_, not a
-string. To convert it to a string, you need to decode it using the
-proper character encoding. Identi.cas API always returns results in
-UTF-8 , so that part is easy.
+   string. To convert it to a string, you need to decode it using the
+   proper character encoding. Identi.cas API always returns results in
+   UTF-8 , so that part is easy.
 #. Theres the text of the status message we just published.
 #. Theres the unique identifier for the new status message. Identi.ca
    uses this to construct a URL for viewing the message on the web.
@@ -1506,10 +1506,10 @@ API s can go beyond `GET` and `POST`, and `httplib2` is ready.
 
 #. The server returned XML , right? You know `how to parse XML `_.
 #. The `findtext()` method finds the first instance of the given
-expression and extracts its text content. In this case, were just
-looking for an `<id>` element.
+   expression and extracts its text content. In this case, were just
+   looking for an `<id>` element.
 #. Based on the text content of the `<id>` element, we can construct a
-URL to delete the status message we just published.
+   URL to delete the status message we just published.
 #. To delete a message, you simply issue an HTTP `DELETE` request to
    that URL .
 
@@ -1556,24 +1556,24 @@ Further Reading
 
 `httplib2`:
 
-+ ` `httplib2` project page`_
-+ `More `httplib2` code examples`_
-+ `Doing HTTP Caching Right: Introducing `httplib2``_
-+ ` `httplib2`: HTTP Persistence and Authentication`_
++ `httplib2 project page`_
++ `More httplib2 code examples`_
++ `Doing HTTP Caching Right: Introducing httplib2`_
++ `httplib2 - HTTP Persistence and Authentication`_
 
 
 HTTP caching:
 
-+ ` HTTP Caching Tutorial`_ by Mark Nottingham
++ `HTTP Caching Tutorial`_ by Mark Nottingham
 + `How to control caching with HTTP headers`_ on Google Doctype
 
 
 RFC s:
 
-+ `RFC 2616: HTTP `_
-+ `RFC 2617: HTTP Basic Authentication`_
-+ `RFC 1951: deflate compression`_
-+ `RFC 1952: gzip compression`_
++ `RFC 2616 HTTP`_
++ `RFC 2617 HTTP Basic Authentication`_
++ `RFC 1951 deflate compression`_
++ `RFC 1952 gzip compression`_
 
 
 `☜`_ `☞`_
@@ -1583,42 +1583,39 @@ RFC s:
 .. _Identi.ca: http://identi.ca/
 .. _bytes: strings.html#byte-arrays
 .. _an Atom feed: xml.html
-.. _ Caching Tutorial: http://www.mnot.net/cache_docs/
-.. _RFC 1952: gzip compression: http://www.ietf.org/rfc/rfc1952.txt
+.. _HTTP Caching Tutorial: http://www.mnot.net/cache_docs/
 .. _JSON: serializing.html#json
 .. _Flickr Services: http://www.flickr.com/services/api/
 .. _several compression algorithms: http://www.iana.org/assignments/http-parameters
-.. _ Basic Authentication: http://www.ietf.org/rfc/rfc2617.txt
-.. _ project page: http://code.google.com/p/httplib2/
-.. _ headers: http://code.google.com/p/doctype/wiki/ArticleHttpCaching
+.. _HTTP: http://www.ietf.org/rfc/rfc2616.txt
+.. _RFC 1952 gzip compression: http://www.ietf.org/rfc/rfc1952.txt
+.. _RFC 2617 HTTP Basic Authentication: http://www.ietf.org/rfc/rfc2617.txt
+.. _RFC 1951 deflate compression: http://www.ietf.org/rfc/rfc1951.txt
+.. _RFC 3023: http://www.ietf.org/rfc/rfc3023.txt
+.. _RFC 2616 HTTP: http://www.w3.org/Protocols/rfc2616/rfc2616.html
+.. _httplib2 project page: http://code.google.com/p/httplib2/
+.. _How to control caching with HTTP headers: http://code.google.com/p/doctype/wiki/ArticleHttpCaching
 .. _determine the character encoding: http://feedparser.org/docs/character-encoding.html
-.. _RFC 1951: deflate compression: http://www.ietf.org/rfc/rfc1951.txt
 .. _Blogger: http://www.blogger.com/
 .. _plain text: strings.html#boring-stuff
 .. _Flickr: http://www.flickr.com/
-.. _ Basic Authentication: http://en.wikipedia.org/wiki/Basic_access_authentication
-.. _ documentation: http://laconi.ca/trac/wiki/TwitterCompatibleAPI
-.. _x261C;: serializing.html
+.. _HTTP Basic Authentication: http://en.wikipedia.org/wiki/Basic_access_authentication
+.. _Identi.cas API documentation: http://laconi.ca/trac/wiki/TwitterCompatibleAPI
 .. _dictionary: native-datatypes.html#dictionaries
 .. _Atom Publishing Protocol: http://www.ietf.org/rfc/rfc5023.txt
 .. _Mark Pilgrim: about.html
-.. _t change: http://www.w3.org/Provider/Style/URI
+.. _Cool URIs don't change: http://www.w3.org/Provider/Style/URI
 .. _XML: xml.html#xml-parse
 .. _Dive Into Python 3: table-of-contents.html#http-web-services
-.. _ 2616: http://www.w3.org/Protocols/rfc2616/rfc2616.html
-.. _ Persistence and Authentication: http://www.xml.com/pub/a/2006/03/29/httplib2-http-persistence-and-authentication.html
+.. _httplib2 - Persistence and Authentication: http://www.xml.com/pub/a/2006/03/29/httplib2-http-persistence-and-authentication.html
 .. _urllib.request: http://docs.python.org/3.1/library/urllib.request.html
-.. _RFC 3023: http://www.ietf.org/rfc/rfc3023.txt
 .. _API: http://apiwiki.twitter.com/
-.. _x261E;: case-study-porting-chardet-to-python-3.html
-.. _ code examples: http://code.google.com/p/httplib2/wiki/ExamplesPython3
+.. _More httplib2 code examples: http://code.google.com/p/httplib2/wiki/ExamplesPython3
 .. _re still trying to figure them all out: 'http://www.google.com/search?q=barth+content-type+processing+model'
 .. _and many more: 'http://www.programmableweb.com/apis/directory/1?sort=mashups'
 .. _Patches welcome: http://code.google.com/p/httplib2/source/checkout
-.. _Home: index.html
 .. _never a dull moment: http://isc.sans.org/
 .. _Apache bug 39727: https://issues.apache.org/bugzilla/show_bug.cgi?id=39727
-.. _HTTP: http://www.ietf.org/rfc/rfc2616.txt
 .. _byzantine rules for content-sniffing: http://www.adambarth.com/papers/2009/barth-caballero-song.pdf
 .. _httplib2: http://www.xml.com/pub/a/2006/02/01/doing-http-caching-right-introducing-httplib2.html
 .. _diveintomark.org: http://diveintomark.org/

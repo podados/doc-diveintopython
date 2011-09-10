@@ -1,8 +1,8 @@
 
-Difficulty level: ♦♦♦♢♢
-
 Files
 =====
+
+Difficulty level: ♦♦♦♢♢
 
 ❝ A nine mile walk is no joke, especially in the rain. ❞
 Harry Kemelman, The Nine Mile Walk

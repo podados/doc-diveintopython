@@ -1,9 +1,9 @@
 
-Difficulty level: ♦♦♦♦♦
-
 
 Case Study: Porting `chardet` to Python 3
 =========================================
+
+Difficulty level: ♦♦♦♦♦
 
 ❝ Words, words. They're all we have to go on. ❞
 `Rosencrantz and Guildenstern are Dead`_
