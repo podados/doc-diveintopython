@@ -1,14 +1,11 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
-Difficulty level: ♦♦♦♦♢
-
-
 Packaging Python Libraries
 ==========================
 
-❝ Youll find the shame is like the pain; you only feel it once.
-❞
-Marquise de Merteuil, ` Dangerous Liaisons `_
+Difficulty level: ♦♦♦♦♢
+
+❝ Youll find the shame is like the pain; you only feel it once. ❞
+Marquise de Merteuil, `Dangerous Liaisons`_
 
 
 Diving In
@@ -22,18 +19,20 @@ framework called Distutils. Distutils is many things: a build tool
 format (for search engines), and more. It integrates with the `Python
 Package Index`_ (PyPI), a central repository for open source Python
 libraries.
+
 All of these facets of Distutils center around the setup script ,
 traditionally called `setup.py`. In fact, youve already seen several
 Distutils setup scripts in this book. You used Distutils to install
 `httplib2` in `HTTP Web Services`_ and again to install `chardet` in
 `Case Study: Porting `chardet` to Python 3`_.
+
 In this chapter, youll learn how the setup scripts for `chardet` and
 `httplib2` work, and youll step through the process of releasing your
 own Python software.
 
 ::
 
-     `# chardet's setup.py
+    # chardet's setup.py
     from distutils.core import setup
     setup(
         name = "chardet",
@@ -75,18 +74,19 @@ own Python software.
     
     This version requires Python 3 or later; a Python 2 version is available separately.
     """
-    )`
+    )
 
 
 ☞ `chardet` and `httplib2` are open source, but theres no
 requirement that you release your own Python libraries under any
 particular license. The process described in this chapter will work
 for any Python software, regardless of license.
+
 ⁂
 
 
-Things Distutils Cant Do For You
---------------------------------
+Things Distutils Can't Do For You
+---------------------------------
 
 Releasing your first Python package is a daunting process. (Releasing
 your second one is a little easier.) Distutils tries to automate as
@@ -97,14 +97,14 @@ yourself.
   politics and peril. If you wish to release your software as open
   source, I humbly offer five pieces of advice:
 
-    #. Dont write your own license.
-    #. Dont write your own license.
-    #. Dont write your own license.
-    #. It doesnt need to be GPL , but `it needs to be GPL -compatible`_.
-    #. Dont write your own license.
+    #. Don't write your own license.
+    #. Don't write your own license.
+    #. Don't write your own license.
+    #. It doesnt need to be GPL , but `it needs to be GPL-compatible`_.
+    #. Don't write your own license.
 
 + **Classify your software** using the PyPI classification system. Ill
-explain what this means later in this chapter.
+  explain what this means later in this chapter.
 + **Write a read me file**. Dont skimp on this. At a minimum, it
   should give your users an overview of what your software does and how
   to install it.
@@ -137,17 +137,17 @@ and directories in order. The `httplib2` directory looks like this:
 
 
 #. Make a root directory to hold everything. Give it the same name as
-your Python module.
+   your Python module.
 #. To accomodate Windows users, your read me file should include a
-`.txt` extension, and it should use Windows-style carriage returns.
-Just because *you* use a fancy text editor that runs from the command
-line and includes its own macro language, that doesnt mean you need to
-make life difficult for your users. (Your users use Notepad. Sad but
-true.) Even if youre on Linux or Mac OS X, your fancy text editor
-undoubtedly has an option to save files with Windows-style carriage
-returns.
+   `.txt` extension, and it should use Windows-style carriage returns.
+   Just because *you* use a fancy text editor that runs from the command
+   line and includes its own macro language, that doesnt mean you need to
+   make life difficult for your users. (Your users use Notepad. Sad but
+   true.) Even if youre on Linux or Mac OS X, your fancy text editor
+   undoubtedly has an option to save files with Windows-style carriage
+   returns.
 #. Your Distutils setup script should be named `setup.py` unless you
-have a good reason not to. You do not have a good reason not to.
+   have a good reason not to. You do not have a good reason not to.
 #. If your Python software is a single `.py` file, you should put it
    in the root directory along with your read me file and your setup
    script. But `httplib2` is not a single `.py` file; its `a multi-file
@@ -169,7 +169,6 @@ called `COPYING.txt` which contains the complete text of the LGPL .
 
 ::
 
-     `
     chardet/
     |
     +--COPYING.txt
@@ -193,7 +192,6 @@ called `COPYING.txt` which contains the complete text of the LGPL .
        +--big5freq.py
        |
        +--...
-    `
 
 
 ⁂
@@ -211,7 +209,7 @@ The first line of every Distutils setup script is always the same:
 
 ::
 
-     `from distutils.core import setup`
+     from distutils.core import setup
 
 
 This imports the `setup()` function, which is the main entry point
@@ -240,20 +238,20 @@ in your setup script:
 
 + **description**, a one-line summary of the project.
 + **long_description**, a multi-line string in `reStructuredText
-format`_. `PyPI`_ converts this to HTML and displays it on your
-package page.
+  format`_. `PyPI`_ converts this to HTML and displays it on your
+  package page.
 + **classifiers**, a list of specially-formatted strings described in
   the next section.
 
 
-☞Setup script metadata is defined in ` PEP 314`_.
+☞Setup script metadata is defined in `PEP 314`_.
 Now lets look at the `chardet` setup script. It has all of these
 required and recommended parameters, plus one I havent mentioned yet:
 `packages`.
 
 ::
 
-     `from distutils.core import setup
+    from distutils.core import setup
     setup(
         name = 'chardet',
         packages = ['chardet'],
@@ -261,7 +259,7 @@ required and recommended parameters, plus one I havent mentioned yet:
         description = 'Universal encoding detector',
         author='Mark Pilgrim',
         ...
-    )`
+    )
 
 
 The `packages` parameter highlights an unfortunate vocabulary overlap
@@ -294,17 +292,17 @@ without any classifiers at all. Dont do that. You should *always*
 include at least these classifiers:
 
 + **Programming Language**. In particular, you should include both
-`"Programming Language :: Python"` and `"Programming Language ::
-Python :: 3"`. If you do not include these, your package will not show
-up in `this list of Python 3-compatible libraries`_, which linked from
-the sidebar of every single page of `pypi.python.org`.
+  `"Programming Language :: Python"` and `"Programming Language ::
+  Python :: 3"`. If you do not include these, your package will not show
+  up in `this list of Python 3-compatible libraries`_, which linked from
+  the sidebar of every single page of `pypi.python.org`.
 + **License**. This is *the absolute first thing I look for* when Im
-evaluating third-party libraries. Dont make me hunt for this vital
-information. Dont include more than one license classifier unless your
-software is explicitly available under multiple licenses. (And dont
-release software under multiple licenses unless youre forced to do so.
-And dont force other people to do so. Licensing is enough of a
-headache; dont make it worse.)
+  evaluating third-party libraries. Dont make me hunt for this vital
+  information. Dont include more than one license classifier unless your
+  software is explicitly available under multiple licenses. (And dont
+  release software under multiple licenses unless youre forced to do so.
+  And dont force other people to do so. Licensing is enough of a
+  headache; dont make it worse.)
 + **Operating System**. If your software only runs on Windows (or Mac
   OS X, or Linux), I want to know sooner rather than later. If your
   software runs anywhere without any platform-specific code, use the
@@ -316,13 +314,13 @@ headache; dont make it worse.)
 I also recommend that you include the following classifiers:
 
 + **Development Status**. Is your software beta quality? Alpha
-quality? Pre-alpha? Pick one. Be honest.
+  quality? Pre-alpha? Pick one. Be honest.
 + **Intended Audience**. Who would download your software? The most
-common choices are `Developers`, `End Users/Desktop`,
-`Science/Research`, and `System Administrators`.
+  common choices are `Developers`, `End Users/Desktop`,
+  `Science/Research`, and `System Administrators`.
 + **Framework**. If your software is a plugin for a larger Python
-framework like `Django`_ or `Zope`_, include the appropriate
-`Framework` classifier. If not, omit it.
+  framework like `Django`_ or `Zope`_, include the appropriate
+  `Framework` classifier. If not, omit it.
 + **Topic**. There are `a large number of topics to choose from`_;
   choose all that apply.
 
@@ -340,7 +338,7 @@ is not listed.)
 
 ::
 
-     `Programming Language :: Python
+    Programming Language :: Python
     License :: OSI Approved :: BSD License
     Operating System :: OS Independent
     Development Status :: 5 - Production/Stable
@@ -350,18 +348,18 @@ is not listed.)
     Topic :: Internet :: WWW/HTTP
     Topic :: Internet :: WWW/HTTP :: Dynamic Content
     Topic :: Internet :: WWW/HTTP :: WSGI
-    Topic :: Software Development :: Libraries :: Python Modules`
+    Topic :: Software Development :: Libraries :: Python Modules
 
 
 Here are the classifiers for ` `chardet``_, the character encoding
-detection library covered in `Case Study: Porting `chardet` to Python
+detection library covered in `Case Study: Porting chardet to Python
 3`_. `chardet` is beta quality, cross-platform, Python 3-compatible,
 LGPL -licensed, and intended for developers to integrate into their
 own products.
 
 ::
 
-     `Programming Language :: Python
+    Programming Language :: Python
     Programming Language :: Python :: 3
     License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
     Operating System :: OS Independent
@@ -369,16 +367,16 @@ own products.
     Environment :: Other Environment
     Intended Audience :: Developers
     Topic :: Text Processing :: Linguistic
-    Topic :: Software Development :: Libraries :: Python Modules`
+    Topic :: Software Development :: Libraries :: Python Modules
 
 
-And here are the classifiers for ` `httplib2``_, the library featured
+And here are the classifiers for `httplib2`_, the library featured
 in the ` HTTP Web Services`_ chapter. `httplib2` is beta quality,
 cross-platform, MIT -licensed, and intended for Python developers.
 
 ::
 
-     `Programming Language :: Python
+    Programming Language :: Python
     Programming Language :: Python :: 3
     License :: OSI Approved :: MIT License
     Operating System :: OS Independent
@@ -386,7 +384,7 @@ cross-platform, MIT -licensed, and intended for Python developers.
     Environment :: Web Environment
     Intended Audience :: Developers
     Topic :: Internet :: WWW/HTTP
-    Topic :: Software Development :: Libraries :: Python Modules`
+    Topic :: Software Development :: Libraries :: Python Modules
 
 
 
@@ -400,7 +398,7 @@ package:
 + `README.txt`
 + `setup.py`
 + The `.py` files needed by the multi-file modules listed in the
-`packages` parameter
+  `packages` parameter
 + The individual `.py` files listed in the `py_modules` parameter
 
 
@@ -410,6 +408,7 @@ file and the entire `docs/` directory that contains images and HTML
 files. To tell Distutils to include these additional files and
 directories when it builds the `chardet` release package, you need a
 manifest file .
+
 A manifest file is a text file called `MANIFEST.in`. Place it in the
 projects root directory, next to `README.txt` and `setup.py`. Manifest
 files are *not* Python scripts; they are text files that contain a
@@ -419,13 +418,13 @@ This is the entire manifest file for the `chardet` project:
 
 ::
 
-     `include COPYING.txt                                ①
-    recursive-include docs *.html *.css *.png *.gif    ②`
+    include COPYING.txt                                ①
+    recursive-include docs *.html *.css *.png *.gif    ②
 
 
 
 #. The first line is self-explanatory: include the `COPYING.txt` file
-from the projects root directory.
+   from the projects root directory.
 #. The second line is a bit more complicated. The `recursive-include`
    command takes a directory name and one or more filenames. The
    filenames arent limited to specific files; they can include wildcards.
@@ -446,6 +445,7 @@ files in the release package, just the HTML and the images.)
 ☞Manifest files have their own unique format. See `Specifying
 the files to distribute`_ and `the manifest template commands`_ for
 details.
+
 To reiterate: you only need to create a manifest file if you want to
 include files that Distutils doesnt include by default. If you do need
 a manifest file, it should only include the files and directories that
@@ -556,8 +556,8 @@ Several things to note here:
 
 + Distutils noticed the manifest file ( `MANIFEST.in`).
 + Distutils successfully parsed the manifest file and added the
-additional files we wanted `COPYING.txt` and the HTML and image files
-in the `docs/` directory.
+  additional files we wanted `COPYING.txt` and the HTML and image files
+  in the `docs/` directory.
 + If you look in your project directory, youll see that Distutils
   created a `dist/` directory. Within the `dist/` directory the `.zip`
   file that you can distribute.
@@ -656,6 +656,7 @@ In my opinion, this probably isnt worth your time. If you want your
 software distributed for Linux, your time would be better spent
 working with community members who specialize in packaging software
 for major Linux distributions.
+
 For example, my `chardet` library is `in the Debian GNU/Linux
 repositories`_ (and therefore `in the Ubuntu repositories`_ as well).
 I had nothing to do with this; the packages just showed up there one
@@ -667,6 +668,7 @@ versions, depending on the system-wide settings theyve chosen to
 manage their own computers.
 The Linux packages that Distutils builds offer none of these
 advantages. Your time is better spent elsewhere.
+
 ⁂
 
 
@@ -723,16 +725,16 @@ can do this all in one step.
 
 
 #. When you release your project for the first time, Distutils will
-add your software to the Python Package Index and give it its own URL
-. Every time after that, it will simply update the project metadata
-with any changes you may have made in your `setup.py` parameters.
-Next, it builds a source distribution ( `sdist`) and a Windows
-installer ( `bdist_wininst`), then uploads them to PyPI ( `upload`).
+   add your software to the Python Package Index and give it its own URL
+   . Every time after that, it will simply update the project metadata
+   with any changes you may have made in your `setup.py` parameters.
+   Next, it builds a source distribution ( `sdist`) and a Windows
+   installer ( `bdist_wininst`), then uploads them to PyPI ( `upload`).
 #. Type 1 or just press ENTER to select use your existing login.
 #. Enter the username and password you selected on the `the PyPI user
-registration page`_. Distuils will not echo your password; it will not
-even echo asterisks in place of characters. Just type your password
-and press ENTER .
+   registration page`_. Distuils will not echo your password; it will not
+   even echo asterisks in place of characters. Just type your password
+   and press ENTER .
 #. Distutils registers your package with the Python Package Index
 #. builds your source distribution
 #. builds your Windows installer
@@ -743,7 +745,7 @@ and press ENTER .
 
 
 Congratulations, you now have your own page on the Python Package
-Index! The address is `http://pypi.python.org/pypi/ NAME `, where NAME
+Index! The address is `http://pypi.python.org/pypi/NAME`, where NAME
 is the string you passed in the name parameter in your `setup.py`
 file.
 If you want to release a new version, just update your `setup.py` with
@@ -775,11 +777,11 @@ These frameworks focus on installation:
 
 These focus on testing and deployment:
 
-+ ` `virtualenv``_
-+ ` `zc.buildout``_
++ `virtualenv`_
++ `zc.buildout`_
 + `Paver`_
 + `Fabric`_
-+ ` `py2exe``_
++ `py2exe`_
 
 
 ⁂
@@ -792,10 +794,10 @@ On Distutils:
 
 + `Distributing Python Modules with Distutils`_
 + `Core Distutils functionality`_ lists all the possible arguments to
-the `setup()` function
+  the `setup()` function
 + `Distutils Cookbook`_
-+ ` PEP 370: Per user `site-packages` directory`_
-+ ` PEP 370 and environment stew`_
++ `PEP 370: Per user site-packages directory`_
++ `PEP 370 and environment stew`_
 
 
 On other packaging frameworks:
@@ -808,7 +810,6 @@ On other packaging frameworks:
 + `Nobody expects Python packaging!`_
 
 
-`☜`_ `☞`_
 200111 `Mark Pilgrim`_
 
 .. _httplib2: http://pypi.python.org/pypi/httplib2
@@ -821,9 +822,9 @@ On other packaging frameworks:
 .. _named arguments: your-first-python-program.html#optional-arguments
 .. _Distribute: http://bitbucket.org/tarek/distribute/
 .. _Core Distutils functionality: http://docs.python.org/3.1/distutils/apiref.html#module-distutils.core
-.. _-compatible: http://www.dwheeler.com/essays/gpl-compatible.html
+.. _it needs to be GPL-compatible: http://www.dwheeler.com/essays/gpl-compatible.html
 .. _the manifest template commands: http://docs.python.org/3.1/distutils/commandref.html#sdist-cmd
-.. _ 314: http://www.python.org/dev/peps/pep-0314/
+.. _PEP 314: http://www.python.org/dev/peps/pep-0314/
 .. _Django: http://pypi.python.org/pypi/Django/
 .. _Setuptools: http://pypi.python.org/pypi/setuptools
 .. _browse packages by classifier: 'http://pypi.python.org/pypi?:action=browse'
@@ -839,14 +840,12 @@ On other packaging frameworks:
 .. _Nobody expects Python packaging!: http://jacobian.org/writing/nobody-expects-python-packaging/
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
 .. _build installable packages for Linux users: http://docs.python.org/3.1/distutils/builtdist.html#creating-rpm-packages
-.. _x261C;: case-study-porting-chardet-to-python-3.html
 .. _Fabric: http://fabfile.org/
 .. _PyPI: http://pypi.python.org/
 .. _Distributing Python Modules with Distutils: http://docs.python.org/3.1/distutils/
 .. _Django: http://www.djangoproject.com/
 .. _a multi-file module: case-study-porting-chardet-to-python-3.html#multifile-modules
 .. _Python packaging: a few observations: http://cournape.wordpress.com/2009/04/01/python-packaging-a-few-observations-cabal-for-a-solution/
-.. _Home: index.html
 .. _their own policies for packaging Python libraries: http://www.debian.org/doc/packaging-manuals/python-policy/
 .. _create a graphical Windows installer for you: http://docs.python.org/3.1/distutils/builtdist.html#creating-windows-installers
 .. _The Python packaging ecosystem: http://groups.google.com/group/django-developers/msg/5407cdb400157259
@@ -860,6 +859,5 @@ On other packaging frameworks:
 .. _the PyPI user registration page: http://pypi.python.org/pypi?:action=register_form
 .. _Mark Pilgrim: about.html
 .. _environment stew: http://jessenoller.com/2009/07/19/pep-370-per-user-site-packages-and-environment-stew/
-.. _x261E;: porting-code-to-python-3-with-2to3.html
 
 

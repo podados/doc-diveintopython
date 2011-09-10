@@ -1,10 +1,8 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
-Difficulty level: ♦♦♦♢♢
-
-
 Classes & Iterators
 ===================
+
+Difficulty level: ♦♦♦♢♢
 
 ❝ East is East, and West is West, and never the twain shall
 meet. ❞
@@ -17,16 +15,15 @@ Diving In
 Iterators are the secret sauce of Python 3. Theyre everywhere,
 underlying everything, always just out of sight. `Comprehensions`_ are
 just a simple form of iterators . Generators are just a simple form of
-iterators . A function that `yield`s values is a nice, compact way of
+iterators . A function that `yields` values is a nice, compact way of
 building an iterator without building an iterator. Let me show you
-what I mean by that.
-Remember `the Fibonacci generator`_? Here it is as a built-from-
-scratch iterator:
+what I mean by that. Remember `the Fibonacci generator`_? Here it is
+as a built-from- scratch iterator:
 [`download `fibonacci2.py``_]
 
 ::
 
-     `class Fib:
+    class Fib:
         '''iterator that yields numbers in the Fibonacci sequence'''
     
         def __init__(self, max):
@@ -42,17 +39,18 @@ scratch iterator:
             if fib > self.max:
                 raise StopIteration
             self.a, self.b = self.b, self.a + self.b
-            return fib`
+            return fib
 
 
 Lets take that one line at a time.
 
 ::
 
-     `class Fib:`
+    class Fib:
 
 
 `class`? Whats a class?
+
 ⁂
 
 
@@ -61,23 +59,22 @@ Defining Classes
 
 Python is fully object-oriented: you can define your own classes,
 inherit from your own or built-in classes, and instantiate the classes
-youve defined.
-Defining a class in Python is simple. As with functions, there is no
-separate interface definition. Just define the class and start coding.
-A Python class starts with the reserved word `class`, followed by the
-class name. Technically, thats all thats required, since a class
-doesnt need to inherit from any other class.
+youve defined. Defining a class in Python is simple. As with functions,
+there is no separate interface definition. Just define the class and
+start coding.  A Python class starts with the reserved word `class`,
+followed by the class name. Technically, thats all thats required,
+since a class doesnt need to inherit from any other class.
 
 ::
 
-     `class PapayaWhip:  ①
-        pass           ②`
+    class PapayaWhip:  ①
+        pass           ②
 
 
 
 #. The name of this class is `PapayaWhip`, and it doesnt inherit from
-any other class. Class names are usually capitalized,
-`EachWordLikeThis`, but this is only a convention, not a requirement.
+   any other class. Class names are usually capitalized,
+   `EachWordLikeThis`, but this is only a convention, not a requirement.
 #. You probably guessed this, but everything in a class is indented,
    just like the code within a function, `if` statement, `for` loop, or
    any other block of code. The first line not indented is outside the
@@ -91,6 +88,7 @@ along, nothing to see here. Its a statement that does nothing, and its
 a good placeholder when youre stubbing out functions or classes.
 ☞The `pass` statement in Python is like a empty set of curly
 braces ( `{}`) in Java or C.
+
 Many classes are inherited from other classes, but this one is not.
 Many classes define methods, but this one does not. There is nothing
 that a Python class absolutely must have, other than a name. In
@@ -108,15 +106,15 @@ This example shows the initialization of the `Fib` class using the
 
 ::
 
-     `class Fib:
+    class Fib:
         '''iterator that yields numbers in the Fibonacci sequence'''  ①
     
-        def __init__(self, max):                                      ②`
+        def __init__(self, max):                                      ②
 
 
 
-#. Classes can (and should) have `docstring`s too, just like modules
-and functions.
+#. Classes can (and should) have docstrings too, just like modules
+   and functions.
 #. The `__init__()` method is called immediately after an instance of
    the class is created. It would be temptingbut technically incorrectto
    call this the constructor of the class. Its tempting, because it looks
@@ -140,6 +138,7 @@ instance whose method was called is also the newly created object.
 Although you need to specify self explicitly when defining the method,
 you do *not* specify it when calling the method; Python will add it
 for you automatically.
+
 ⁂
 
 
@@ -166,16 +165,16 @@ be the newly created object.
 
 
 #. You are creating an instance of the `Fib` class (defined in the
-`fibonacci2` module) and assigning the newly created instance to the
-variable fib . You are passing one parameter, `100`, which will end up
-as the max argument in `Fib`s `__init__()` method.
+   `fibonacci2` module) and assigning the newly created instance to the
+   variable fib . You are passing one parameter, `100`, which will end up
+   as the max argument in `Fib`s `__init__()` method.
 #. fib is now an instance of the `Fib` class.
 #. Every class instance has a built-in attribute, `__class__`, which
-is the objects class. Java programmers may be familiar with the
-`Class` class, which contains methods like `getName()` and
-`getSuperclass()` to get metadata information about an object. In
-Python, this kind of metadata is available through attributes, but the
-idea is the same.
+   is the objects class. Java programmers may be familiar with the
+   `Class` class, which contains methods like `getName()` and
+   `getSuperclass()` to get metadata information about an object. In
+   Python, this kind of metadata is available through attributes, but the
+   idea is the same.
 #. You can access the instances `docstring` just as with a function or
    a module. All instances of a class share the same `docstring`.
 
@@ -183,6 +182,7 @@ idea is the same.
 ☞In Python, simply call a class as if it were a function to
 create a new instance of the class. There is no explicit `new`
 operator like there is in C++ or Java.
+
 ⁂
 
 
@@ -193,9 +193,9 @@ On to the next line:
 
 ::
 
-     `class Fib:
+    class Fib:
         def __init__(self, max):
-            self.max = max        ①`
+            self.max = max        ①
 
 
 
@@ -208,7 +208,7 @@ On to the next line:
 
 ::
 
-     `class Fib:
+    class Fib:
         def __init__(self, max):
             self.max = max        ①
         .
@@ -216,7 +216,7 @@ On to the next line:
         .
         def __next__(self):
             fib = self.a
-            if fib > self.max:    ②`
+            if fib > self.max:    ②
 
 
 
@@ -259,7 +259,7 @@ methods`_.
 
 ::
 
-     `class Fib:                                        ①
+    class Fib:                                        ①
         def __init__(self, max):                      ②
             self.max = max
     
@@ -273,35 +273,34 @@ methods`_.
             if fib > self.max:
                 raise StopIteration                   ⑤
             self.a, self.b = self.b, self.a + self.b
-            return fib                                ⑥`
-
+            return fib                                ⑥
 
 
 #. To build an iterator from scratch, `Fib` needs to be a class, not a
-function.
+   function.
 #. Calling `Fib(max)` is really creating an instance of this class and
-calling its `__init__()` method with max . The `__init__()` method
-saves the maximum value as an instance variable so other methods can
-refer to it later.
+   calling its `__init__()` method with max . The `__init__()` method
+   saves the maximum value as an instance variable so other methods can
+   refer to it later.
 #. The `__iter__()` method is called whenever someone calls
-`iter(fib)`. (As youll see in a minute, a `for` loop will call this
-automatically, but you can also call it yourself manually.) After
-performing beginning-of-iteration initialization (in this case,
-resetting `self.a` and `self.b`, our two counters), the `__iter__()`
-method can return any object that implements a `__next__()` method. In
-this case (and in most cases), `__iter__()` simply returns self ,
-since this class implements its own `__next__()` method.
+   `iter(fib)`. (As youll see in a minute, a `for` loop will call this
+   automatically, but you can also call it yourself manually.) After
+   performing beginning-of-iteration initialization (in this case,
+   resetting `self.a` and `self.b`, our two counters), the `__iter__()`
+   method can return any object that implements a `__next__()` method. In
+   this case (and in most cases), `__iter__()` simply returns self ,
+   since this class implements its own `__next__()` method.
 #. The `__next__()` method is called whenever someone calls `next()`
-on an iterator of an instance of a class. That will make more sense in
-a minute.
+   on an iterator of an instance of a class. That will make more sense in
+   a minute.
 #. When the `__next__()` method raises a `StopIteration` exception,
-this signals to the caller that the iteration is exhausted. Unlike
-most exceptions, this is not an error; its a normal condition that
-just means that the iterator has no more values to generate. If the
-caller is a `for` loop, it will notice this `StopIteration` exception
-and gracefully exit the loop. (In other words, it will swallow the
-exception.) This little bit of magic is actually the key to using
-iterators in `for` loops.
+   this signals to the caller that the iteration is exhausted. Unlike
+   most exceptions, this is not an error; its a normal condition that
+   just means that the iterator has no more values to generate. If the
+   caller is a `for` loop, it will notice this `StopIteration` exception
+   and gracefully exit the loop. (In other words, it will swallow the
+   exception.) This little bit of magic is actually the key to using
+   iterators in `for` loops.
 #. To spit out the next value, an iterators `__next__()` method simply
    `return`s the value. Do not use `yield` here; thats a bit of syntactic
    sugar that only applies when youre using generators. Here youre
@@ -325,16 +324,16 @@ Why, its exactly the same! Byte for byte identical to how you called
 Theres a bit of magic involved in `for` loops. Heres what happens:
 
 + The `for` loop calls `Fib(1000)`, as shown. This returns an instance
-of the `Fib` class. Call this fib_inst .
+  of the `Fib` class. Call this fib_inst .
 + Secretly, and quite cleverly, the `for` loop calls `iter(fib_inst)`,
-which returns an iterator object. Call this fib_iter . In this case,
-fib_iter == fib_inst , because the `__iter__()` method returns self ,
-but the `for` loop doesnt know (or care) about that.
+  which returns an iterator object. Call this fib_iter . In this case,
+  fib_iter == fib_inst , because the `__iter__()` method returns self ,
+  but the `for` loop doesnt know (or care) about that.
 + To loop through the iterator, the `for` loop calls `next(fib_iter)`,
-which calls the `__next__()` method on the `fib_iter` object, which
-does the next-Fibonacci-number calculations and returns a value. The
-`for` loop takes this value and assigns it to n , then executes the
-body of the `for` loop for that value of n .
+  which calls the `__next__()` method on the `fib_iter` object, which
+  does the next-Fibonacci-number calculations and returns a value. The
+  `for` loop takes this value and assigns it to n , then executes the
+  body of the `for` loop for that value of n .
 + How does the `for` loop know when to stop? Im glad you asked! When
   `next(fib_iter)` raises a `StopIteration` exception, the `for` loop
   will swallow the exception and gracefully exit. (Any other exception
@@ -355,7 +354,7 @@ generator`_ as an iterator.
 
 ::
 
-     `class LazyRules:
+    class LazyRules:
         rules_filename = 'plural6-rules.txt'
     
         def __init__(self):
@@ -385,7 +384,7 @@ generator`_ as an iterator.
             self.cache.append(funcs)
             return funcs
     
-    rules = LazyRules()`
+    rules = LazyRules()
 
 
 So this is a class that implements `__iter__()` and `__next__()`, so
@@ -395,17 +394,16 @@ Lets take the class one bite at a time.
 
 ::
 
-     `class LazyRules:
+    class LazyRules:
         rules_filename = 'plural6-rules.txt'
     
         def __init__(self):
             self.pattern_file = open(self.rules_filename, encoding='utf-8')  ①
-            self.cache = []                                                  ②`
-
+            self.cache = []                                                  ②
 
 
 #. When we instantiate the `LazyRules` class, open the pattern file
-but dont read anything from it. (That comes later.)
+   but dont read anything from it. (That comes later.)
 #. After opening the patterns file, initialize the cache. Youll use
    this cache later (in the `__next__()` method) as you read lines from
    the pattern file.
@@ -444,14 +442,14 @@ the `LazyRules` class.
 
 
 #. Each instance of the class inherits the rules_filename attribute
-with the value defined by the class.
+   with the value defined by the class.
 #. Changing the attributes value in one instance does not affect other
-instances
+   instances
 #. nor does it change the class attribute. You can access the class
-attribute (as opposed to an individual instances attribute) by using
-the special `__class__` attribute to access the class itself.
+   attribute (as opposed to an individual instances attribute) by using
+   the special `__class__` attribute to access the class itself.
 #. If you change the class attribute, all instances that are still
-inheriting that value (like r1 here) will be affected.
+   inheriting that value (like r1 here) will be affected.
 #. Instances that have overridden that attribute (like r2 here) will
    not be affected.
 
@@ -460,15 +458,13 @@ And now back to our show.
 
 ::
 
-     `    def __iter__(self):       ①
-            self.cache_index = 0
-            return self           ②
-    `
-
+    def __iter__(self):       ①
+        self.cache_index = 0
+        return self           ②
 
 
 #. The `__iter__()` method will be called every time someonesay, a
-`for` loopcalls `iter(rules)`.
+   `for` loopcalls `iter(rules)`.
 #. The one thing that every `__iter__()` method must do is return an
    iterator. In this case, it returns self , which signals that this
    class defines a `__next__()` method which will take care of returning
@@ -478,7 +474,7 @@ And now back to our show.
 
 ::
 
-     `    def __next__(self):                                 ①
+        def __next__(self):                                 ①
             .
             .
             .
@@ -486,16 +482,14 @@ And now back to our show.
             funcs = build_match_and_apply_functions(        ②
                 pattern, search, replace)
             self.cache.append(funcs)                        ③
-            return funcs`
-
-
+            return funcs
 
 #. The `__next__()` method gets called whenever someonesay, a `for`
-loopcalls `next(rules)`. This method will only make sense if we start
-at the end and work backwards. So lets do that.
+   loopcalls `next(rules)`. This method will only make sense if we start
+   at the end and work backwards. So lets do that.
 #. The last part of this function should look familiar, at least. The
-`build_match_and_apply_functions()` function hasnt changed; its the
-same as it ever was.
+   `build_match_and_apply_functions()` function hasnt changed; its the
+   same as it ever was.
 #. The only difference is that, before returning the match and apply
    functions (which are stored in the tuple funcs ), were going to save
    them in `self.cache`.
@@ -505,7 +499,7 @@ Moving backwards
 
 ::
 
-     `    def __next__(self):
+        def __next__(self):
             .
             .
             .
@@ -515,19 +509,19 @@ Moving backwards
                 raise StopIteration              ③
             .
             .
-            .`
+            .
 
 
 
 #. A bit of advanced file trickery here. The `readline()` method
-(note: singular, not the plural `readlines()`) reads exactly one line
-from an open file. Specifically, the next line. ( *File objects are
-iterators too! Its iterators all the way down*)
+   (note: singular, not the plural `readlines()`) reads exactly one line
+   from an open file. Specifically, the next line. ( *File objects are
+   iterators too! Its iterators all the way down*)
 #. If there was a line for `readline()` to read, line will not be an
-empty string. Even if the file contained a blank line, line would end
-up as the one-character string `'\n'` (a carriage return). If line is
-really an empty string, that means there are no more lines to read
-from the file.
+   empty string. Even if the file contained a blank line, line would end
+   up as the one-character string `'\n'` (a carriage return). If line is
+   really an empty string, that means there are no more lines to read
+   from the file.
 #. When we reach the end of the file, we should close the file and
    raise the magic `StopIteration` exception. Remember, we got to this
    point because we needed a match and apply function for the next rule.
@@ -540,7 +534,7 @@ Moving backwards all the way to the start of the `__next__()` method
 
 ::
 
-     `    def __next__(self):
+        def __next__(self):
             self.cache_index += 1
             if len(self.cache) >= self.cache_index:
                 return self.cache[self.cache_index - 1]     ①
@@ -549,17 +543,17 @@ Moving backwards all the way to the start of the `__next__()` method
                 raise StopIteration                         ②
             .
             .
-            .`
+            .
 
 
 
 #. `self.cache` will be a list of the functions we need to match and
-apply individual rules. (At least *that* should sound familiar!)
-`self.cache_index` keeps track of which cached item we should return
-next. If we havent exhausted the cache yet ( i.e. if the length of
-`self.cache` is greater than `self.cache_index`), then we have a cache
-hit! Hooray! We can return the match and apply functions from the
-cache instead of building them from scratch.
+   apply individual rules. (At least *that* should sound familiar!)
+   `self.cache_index` keeps track of which cached item we should return
+   next. If we havent exhausted the cache yet ( i.e. if the length of
+   `self.cache` is greater than `self.cache_index`), then we have a cache
+   hit! Hooray! We can return the match and apply functions from the
+   cache instead of building them from scratch.
 #. On the other hand, if we dont get a hit from the cache, *and* the
    file object has been closed (which could happen, further down the
    method, as you saw in the previous code snippet), then theres nothing
@@ -573,33 +567,33 @@ cache instead of building them from scratch.
 Putting it all together, heres what happens when:
 
 + When the module is imported, it creates a single instance of the
-`LazyRules` class, called rules , which opens the pattern file but
-does not read from it.
+  `LazyRules` class, called rules , which opens the pattern file but
+  does not read from it.
 + When asked for the first match and apply function, it checks its
-cache but finds the cache is empty. So it reads a single line from the
-pattern file, builds the match and apply functions from those
-patterns, and caches them.
+  cache but finds the cache is empty. So it reads a single line from the
+  pattern file, builds the match and apply functions from those
+  patterns, and caches them.
 + Lets say, for the sake of argument, that the very first rule
-matched. If so, no further match and apply functions are built, and no
-further lines are read from the pattern file.
+  matched. If so, no further match and apply functions are built, and no
+  further lines are read from the pattern file.
 + Furthermore, for the sake of argument, suppose that the caller calls
-the `plural()` function *again* to pluralize a different word. The
-`for` loop in the `plural()` function will call `iter(rules)`, which
-will reset the cache index but will not reset the open file object.
+  the `plural()` function *again* to pluralize a different word. The
+  `for` loop in the `plural()` function will call `iter(rules)`, which
+  will reset the cache index but will not reset the open file object.
 + The first time through, the `for` loop will ask for a value from
-rules , which will invoke its `__next__()` method. This time, however,
-the cache is primed with a single pair of match and apply functions,
-corresponding to the patterns in the first line of the pattern file.
-Since they were built and cached in the course of pluralizing the
-previous word, theyre retrieved from the cache. The cache index
-increments, and the open file is never touched.
+  rules , which will invoke its `__next__()` method. This time, however,
+  the cache is primed with a single pair of match and apply functions,
+  corresponding to the patterns in the first line of the pattern file.
+  Since they were built and cached in the course of pluralizing the
+  previous word, theyre retrieved from the cache. The cache index
+  increments, and the open file is never touched.
 + Lets say, for the sake of argument, that the first rule does *not*
-match this time around. So the `for` loop comes around again and asks
-for another value from rules . This invokes the `__next__()` method a
-second time. This time, the cache is exhaustedit only contained one
-item, and were asking for a secondso the `__next__()` method
-continues. It reads another line from the open file, builds match and
-apply functions out of the patterns, and caches them.
+  match this time around. So the `for` loop comes around again and asks
+  for another value from rules . This invokes the `__next__()` method a
+  second time. This time, the cache is exhaustedit only contained one
+  item, and were asking for a secondso the `__next__()` method
+  continues. It reads another line from the open file, builds match and
+  apply functions out of the patterns, and caches them.
 + This read-build-and-cache process will continue as long as the rules
   being read from the pattern file dont match the word were trying to
   pluralize. If we do find a matching rule before the end of the file,
@@ -614,13 +608,13 @@ apply functions out of the patterns, and caches them.
 We have achieved pluralization nirvana.
 
 #. Minimal startup cost. The only thing that happens on `import` is
-instantiating a single class and opening a file (but not reading from
-it).
+   instantiating a single class and opening a file (but not reading from
+   it).
 #. Maximum performance. The previous example would read through the
-file and build functions dynamically every time you wanted to
-pluralize a word. This version will cache functions as soon as theyre
-built, and in the worst case, it will only read through the pattern
-file once, no matter how many words you pluralize.
+   file and build functions dynamically every time you wanted to
+   pluralize a word. This version will cache functions as soon as theyre
+   built, and in the worst case, it will only read through the pattern
+   file once, no matter how many words you pluralize.
 #. Separation of code and data. All the patterns are stored in a
    separate file. Code is code, and data is data, and never the twain
    shall meet.
@@ -634,18 +628,20 @@ the last instantiation of the `LazyRules` class is destroyed, but
 still, that could be a *long* time. If this class is part of a long-
 running Python process, the Python interpreter may never exit, and the
 `LazyRules` object may never get destroyed.
+
 There are ways around this. Instead of opening the file during
 `__init__()` and leaving it open while you read rules one line at a
 time, you could open the file, read all the rules, and immediately
 close the file. Or you could open the file, read one rule, save the
-file position with the ` `tell()` method`_, close the file, and later
-re-open it and use the ` `seek()` method`_ to continue reading where
+file position with the `tell() method`_, close the file, and later
+re-open it and use the `seek() method`_ to continue reading where
 you left off. Or you could not worry about it and just leave the file
 open, like this example code does. Programming is design, and design
 is all about trade-offs and constraints. Leaving a file open too long
 might be a problem; making your code more complicated might be a
 problem. Which one is the bigger problem depends on your development
 team, your application, and your runtime environment.
+
 ⁂
 
 
@@ -658,11 +654,8 @@ Further Reading
 + `PEP 255: Simple Generators`_
 + `Generator Tricks for Systems Programmers`_
 
-
-`☜`_ `☞`_
 200111 `Mark Pilgrim`_
 
-.. _Home: index.html
 .. _plural6.py: examples/plural6.py
 .. _Fibonacci-as-a-generator: generators.html#a-fibonacci-generator
 .. _Dive Into Python 3: table-of-contents.html#iterators
@@ -675,8 +668,6 @@ Further Reading
 .. _Mark Pilgrim: about.html
 .. _PEP 255: Simple Generators: http://www.python.org/dev/peps/pep-0255/
 .. _Comprehensions: comprehensions.html
-.. _x261C;: generators.html
 .. _Generator Tricks for Systems Programmers: http://www.dabeaz.com/generators/
-.. _x261E;: advanced-iterators.html
 
 

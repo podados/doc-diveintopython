@@ -1,10 +1,8 @@
 
-You are here: `Home`_ `Dive Into Python 3`_
-Difficulty level: ♦♦♢♢♢
-
-
 Native Datatypes
 ================
+
+Difficulty level: ♦♦♢♢♢
 
 ❝ Wonder is the foundation of all philosophy, inquiry its
 progress, ignorance its end. ❞
@@ -24,9 +22,9 @@ Python has many native datatypes. Here are the important ones:
 
 #. **Booleans** are either `True` or `False`.
 #. **Numbers** can be integers ( `1` and `2`), floats ( `1.1` and
-`1.2`), fractions ( `1/2` and `2/3`), or even `complex numbers`_.
+   `1.2`), fractions ( `1/2` and `2/3`), or even `complex numbers`_.
 #. **Strings** are sequences of Unicode characters, e.g. an HTML
-document.
+   document.
 #. **Bytes** and **byte arrays**, e.g. a JPEG image file.
 #. **Lists** are ordered sequences of values.
 #. **Tuples** are ordered, immutable sequences of values.
@@ -40,8 +38,9 @@ in Python, so there are types like module , function , class , method
 `modules have names`_, `functions have `docstrings``_, & c. Youll
 learn about classes in `Classes & Iterators`_, and about files in
 `Files`_.
-Strings and bytes are important enoughand complicated enoughthat they
+Strings and bytes are important enough and complicated enough that they
 get their own chapter. Lets look at the others first.
+
 ⁂
 
 
@@ -49,7 +48,7 @@ Booleans
 --------
 You can use virtually any expression in a boolean context.
 Booleans are either true or false. Python has two constants, cleverly
-named ` True ` and ` False `, which can be used to assign boolean
+named `True ` and `False `, which can be used to assign boolean
 values directly. Expressions can also evaluate to a boolean value. In
 certain places (like `if` statements), Python expects an expression to
 evaluate to a boolean value. These places are called boolean contexts
@@ -58,12 +57,12 @@ Python will try to determine its truth value. Different datatypes have
 different rules about which values are true or false in a boolean
 context. (This will make more sense once you see some concrete
 examples later in this chapter.)
-For example, take this snippet from ` `humansize.py``_:
+For example, take this snippet from `humansize.py`_:
 
 ::
 
-     `if size < 0:
-        raise ValueError('number must be non-negative')`
+    if size < 0:
+        raise ValueError('number must be non-negative')
 
 
 size is an integer, 0 is an integer, and `<` is a numerical operator.
@@ -103,6 +102,7 @@ treated as numbers. `True` is `1`; `False` is 0.
 
 
 Ew, ew, ew! Dont do that. Forget I even mentioned it.
+
 ⁂
 
 
@@ -131,9 +131,9 @@ absence of a decimal point.
 
 
 #. You can use the `type()` function to check the type of any value or
-variable. As you might expect, `1` is an `int`.
+   variable. As you might expect, `1` is an `int`.
 #. Similarly, you can use the `isinstance()` function to check whether
-a value or variable is of a given type.
+   a value or variable is of a given type.
 #. Adding an `int` to an `int` yields an `int`.
 #. Adding an `int` to a `float` yields a `float`. Python coerces the
    `int` into a `float` to perform the addition, then returns a `float`
@@ -167,12 +167,12 @@ yourself.
 
 
 #. You can explicitly coerce an `int` to a `float` by calling the
-`float()` function.
+   `float()` function.
 #. Unsurprisingly, you can also coerce a `float` to an `int` by
-calling `int()`.
+   calling `int()`.
 #. The `int()` function will truncate, not round.
 #. The `int()` function truncates negative numbers towards 0. Its a
-true truncate function, not a floor function.
+   true truncate function, not a floor function.
 #. Floating point numbers are accurate to 15 decimal places.
 #. Integers can be arbitrarily large.
 
@@ -180,7 +180,7 @@ true truncate function, not a floor function.
 ☞Python 2 had separate types for `int` and `long`. The `int`
 datatype was limited by `sys.maxint`, which varied by platform but was
 usually `2 32 -1`. Python 3 has just one integer type, which behaves
-mostly like the old `long` type from Python 2. See ` PEP 237`_ for
+mostly like the old `long` type from Python 2. See `PEP 237`_ for
 details.
 
 
@@ -208,17 +208,17 @@ You can do all kinds of things with numbers.
 
 
 #. The `/` operator performs floating point division. It returns a
-`float` even if both the numerator and denominator are `int`s.
+   `float` even if both the numerator and denominator are `int`s.
 #. The `//` operator performs a quirky kind of integer division. When
-the result is positive, you can think of it as truncating (not
-rounding) to 0 decimal places, but be careful with that.
+   the result is positive, you can think of it as truncating (not
+   rounding) to 0 decimal places, but be careful with that.
 #. When integer-dividing negative numbers, the `//` operator rounds up
-to the nearest integer. Mathematically speaking, its rounding down
-since `6` is less than `5`, but it could trip you up if you were
-expecting it to truncate to `5`.
+   to the nearest integer. Mathematically speaking, its rounding down
+   since `6` is less than `5`, but it could trip you up if you were
+   expecting it to truncate to `5`.
 #. The `//` operator doesnt always return an integer. If either the
-numerator or denominator is a `float`, it will still round to the
-nearest integer, but the actual return value will be a `float`.
+   numerator or denominator is a `float`, it will still round to the
+   nearest integer, but the actual return value will be a `float`.
 #. The `**` operator means raised to the power of. `11 2 ` is `121`.
 #. The `%` operator gives the remainder after performing integer
    division. `11` divided by `2` is `5` with a remainder of `1`, so the
@@ -228,7 +228,7 @@ nearest integer, but the actual return value will be a `float`.
 ☞In Python 2, the `/` operator usually meant integer division,
 but you could make it behave like floating point division by including
 a special directive in your code. In Python 3, the `/` operator always
-means floating point division. See ` PEP 238`_ for details.
+means floating point division. See `PEP 238`_ for details.
 
 
 Fractions
@@ -260,12 +260,12 @@ forgot about.
 
 #. To start using fractions, import the `fractions` module.
 #. To define a fraction, create a `Fraction` object and pass in the
-numerator and denominator.
+   numerator and denominator.
 #. You can perform all the usual mathematical operations with
-fractions. Operations return a new `Fraction` object. `2 * (1/3) =
-(2/3)`
+   fractions. Operations return a new `Fraction` object. `2 * (1/3) =
+   (2/3)`
 #. The `Fraction` object will automatically reduce fractions. `(6/4) =
-(3/2)`
+   (3/2)`
 #. Python has the good sense not to create a fraction with a zero
    denominator.
 
@@ -290,9 +290,9 @@ You can also do basic trigonometry in Python.
 
 
 #. The `math` module has a constant for , the ratio of a circles
-circumference to its diameter.
+   circumference to its diameter.
 #. The `math` module has all the basic trigonometric functions,
-including `sin()`, `cos()`, `tan()`, and variants like `asin()`.
+   including `sin()`, `cos()`, `tan()`, and variants like `asin()`.
 #. Note, however, that Python does not have infinite precision. `tan(
    / 4)` should return `1.0`, not `0.99999999999999989`.
 
@@ -332,13 +332,13 @@ Zero values are false, and non-zero values are true.
 
 
 #. Did you know you can define your own functions in the Python
-interactive shell? Just press ENTER at the end of each line, and ENTER
-on a blank line to finish.
+   interactive shell? Just press ENTER at the end of each line, and ENTER
+   on a blank line to finish.
 #. In a boolean context, non-zero integers are true; 0 is false.
 #. Non-zero floating point numbers are true; `0.0` is false. Be
-careful with this one! If theres the slightest rounding error (not
-impossible, as you saw in the previous section) then Python will be
-testing `0.0000000000001` instead of 0 and will return `True`.
+   careful with this one! If theres the slightest rounding error (not
+   impossible, as you saw in the previous section) then Python will be
+   testing `0.0000000000001` instead of 0 and will return `True`.
 #. Fractions can also be used in a boolean context. `Fraction(0, n)`
    is false for all values of n . All other fractions are true.
 
@@ -387,14 +387,14 @@ list of values.
 
 
 #. First, you define a list of five items. Note that they retain their
-original order. This is not an accident. A list is an ordered set of
-items.
+   original order. This is not an accident. A list is an ordered set of
+   items.
 #. A list can be used like a zero-based array. The first item of any
-non-empty list is always `a_list[0]`.
+   non-empty list is always `a_list[0]`.
 #. The last item of this five-item list is `a_list[4]`, because lists
-are always zero-based.
+   are always zero-based.
 #. A negative index accesses items from the end of the list counting
-backwards. The last item of any non-empty list is always `a_list[-1]`.
+   backwards. The last item of any non-empty list is always `a_list[-1]`.
 #. If the negative index is confusing to you, think of it this way:
    `a_list[- n ] == a_list[len(a_list) - n ]`. So in this list,
    `a_list[-3] == a_list[5 - 3] == a_list[2]`.
@@ -428,28 +428,28 @@ This is called slicing the list.
 
 
 #. You can get a part of a list, called a slice, by specifying two
-indices. The return value is a new list containing all the items of
-the list, in order, starting with the first slice index (in this case
-`a_list[1]`), up to but not including the second slice index (in this
-case `a_list[3]`).
+   indices. The return value is a new list containing all the items of
+   the list, in order, starting with the first slice index (in this case
+   `a_list[1]`), up to but not including the second slice index (in this
+   case `a_list[3]`).
 #. Slicing works if one or both of the slice indices is negative. If
-it helps, you can think of it this way: reading the list from left to
-right, the first slice index specifies the first item you want, and
-the second slice index specifies the first item you dont want. The
-return value is everything in between.
+   it helps, you can think of it this way: reading the list from left to
+   right, the first slice index specifies the first item you want, and
+   the second slice index specifies the first item you dont want. The
+   return value is everything in between.
 #. Lists are zero-based, so `a_list[0:3]` returns the first three
-items of the list, starting at `a_list[0]`, up to but not including
-`a_list[3]`.
+   items of the list, starting at `a_list[0]`, up to but not including
+   `a_list[3]`.
 #. If the left slice index is 0, you can leave it out, and 0 is
-implied. So `a_list[:3]` is the same as `a_list[0:3]`, because the
-starting 0 is implied.
+   implied. So `a_list[:3]` is the same as `a_list[0:3]`, because the
+   starting 0 is implied.
 #. Similarly, if the right slice index is the length of the list, you
-can leave it out. So `a_list[3:]` is the same as `a_list[3:5]`,
-because this list has five items. There is a pleasing symmetry here.
-In this five-item list, `a_list[:3]` returns the first 3 items, and
-`a_list[3:]` returns the last two items. In fact, `a_list[: n ]` will
-always return the first n items, and `a_list[ n :]` will return the
-rest, regardless of the length of the list.
+   can leave it out. So `a_list[3:]` is the same as `a_list[3:5]`,
+   because this list has five items. There is a pleasing symmetry here.
+   In this five-item list, `a_list[:3]` returns the first 3 items, and
+   `a_list[3:]` returns the last two items. In fact, `a_list[: n ]` will
+   always return the first n items, and `a_list[ n :]` will return the
+   rest, regardless of the length of the list.
 #. If both slice indices are left out, all items of the list are
    included. But this is not the same as the original a_list variable. It
    is a new list that happens to have all the same items. `a_list[:]` is
@@ -482,22 +482,22 @@ There are four ways to add items to a list.
 
 
 #. The `+` operator concatenates lists to create a new list. A list
-can contain any number of items; there is no size limit (other than
-available memory). However, if memory is a concern, you should be
-aware that list concatenation creates a second list in memory. In this
-case, that new list is immediately assigned to the existing variable
-a_list . So this line of code is really a two-step
-processconcatenation then assignmentwhich can (temporarily) consume a
-lot of memory when youre dealing with large lists.
+   can contain any number of items; there is no size limit (other than
+   available memory). However, if memory is a concern, you should be
+   aware that list concatenation creates a second list in memory. In this
+   case, that new list is immediately assigned to the existing variable
+   a_list . So this line of code is really a two-step
+   processconcatenation then assignmentwhich can (temporarily) consume a
+   lot of memory when youre dealing with large lists.
 #. A list can contain items of any datatype, and the items in a single
-list dont all need to be the same type. Here we have a list containing
-a string, a floating point number, and an integer.
+   list dont all need to be the same type. Here we have a list containing
+   a string, a floating point number, and an integer.
 #. The `append()` method adds a single item to the end of the list.
-(Now we have *four* different datatypes in the list!)
+   (Now we have *four* different datatypes in the list!)
 #. Lists are implemented as classes. Creating a list is really
-instantiating a class. As such, a list has methods that operate on it.
-The `extend()` method takes one argument, a list, and appends each of
-the items of the argument to the original list.
+   instantiating a class. As such, a list has methods that operate on it.
+   The `extend()` method takes one argument, a list, and appends each of
+   the items of the argument to the original list.
 #. The `insert()` method inserts a single item into a list. The first
    argument is the index of the first item in the list that will get
    bumped out of position. List items do not need to be unique; for
@@ -532,12 +532,12 @@ Lets look closer at the difference between `append()` and `extend()`.
 
 
 #. The `extend()` method takes a single argument, which is always a
-list, and adds each of the items of that list to a_list .
+   list, and adds each of the items of that list to a_list .
 #. If you start with a list of three items and extend it with a list
-of another three items, you end up with a list of six items.
+   of another three items, you end up with a list of six items.
 #. On the other hand, the `append()` method takes a single argument,
-which can be any datatype. Here, youre calling the `append()` method
-with a list of three items.
+   which can be any datatype. Here, youre calling the `append()` method
+   with a list of three items.
 #. If you start with a list of six items and append a list onto it,
    you end up with... a list of seven items. Why seven? Because the last
    item (which you just appended) *is itself a list*. Lists can contain
@@ -571,21 +571,21 @@ Searching For Values In A List
 
 
 #. As you might expect, the `count()` method returns the number of
-occurrences of a specific value in a list.
+   occurrences of a specific value in a list.
 #. If all you want to know is whether a value is in the list or not,
-the `in` operator is slightly faster than using the `count()` method.
-The `in` operator always returns `True` or `False`; it will not tell
-you how many times the value appears in the list.
+   the `in` operator is slightly faster than using the `count()` method.
+   The `in` operator always returns `True` or `False`; it will not tell
+   you how many times the value appears in the list.
 #. Neither the `in` operator nor the `count()` method will tell you
-*where* in the list a value appears. If you need to know where in the
-list a value is, call the `index()` method. By default it will search
-the entire list, although you can specify an optional second argument
-of the (0-based) index to start from, and even an optional third
-argument of the (0-based) index to stop searching.
+   *where* in the list a value appears. If you need to know where in the
+   list a value is, call the `index()` method. By default it will search
+   the entire list, although you can specify an optional second argument
+   of the (0-based) index to start from, and even an optional third
+   argument of the (0-based) index to stop searching.
 #. The `index()` method finds the *first* occurrence of a value in the
-list. In this case, `'new'` occurs twice in the list, in `a_list[2]`
-and `a_list[4]`, but the `index()` method will return only the index
-of the first occurrence.
+   list. In this case, `'new'` occurs twice in the list, in `a_list[2]`
+   and `a_list[4]`, but the `index()` method will return only the index
+   of the first occurrence.
 #. As you might *not* expect, if the value is not found in the list,
    the `index()` method will raise an exception.
 
@@ -622,7 +622,7 @@ well.
 
 
 #. You can use the ` del ` statement to delete a specific item from a
-list.
+   list.
 #. Accessing index `1` after deleting index `1` does *not* result in
    an error. All items after the deleted item shift their positional
    index to fill the gap created by deleting the item.
@@ -648,10 +648,10 @@ value instead.
 
 
 #. You can also remove an item from a list with the `remove()` method.
-The `remove()` method takes a *value* and removes the first occurrence
-of that value from the list. Again, all items after the deleted item
-will have their positional indices bumped down to fill the gap. Lists
-never have gaps.
+   The `remove()` method takes a *value* and removes the first occurrence
+   of that value from the list. Again, all items after the deleted item
+   will have their positional indices bumped down to fill the gap. Lists
+   never have gaps.
 #. You can call the `remove()` method as often as you like, but it
    will raise an exception if you try to remove a value that isnt in the
    list.
@@ -689,10 +689,10 @@ another way to remove items from a list, but with a twist.
 
 
 #. When called without arguments, the `pop()` list method removes the
-last item in the list *and returns the value it removed*.
+   last item in the list *and returns the value it removed*.
 #. You can pop arbitrary items from a list. Just pass a positional
-index to the `pop()` method. It will remove that item, shift all the
-items after it to fill the gap, and return the value it removed.
+   index to the `pop()` method. It will remove that item, shift all the
+   items after it to fill the gap, and return the value it removed.
 #. Calling `pop()` on an empty list raises an exception.
 
 
@@ -758,10 +758,10 @@ once it is created.
 
 
 #. A tuple is defined in the same way as a list, except that the whole
-set of elements is enclosed in parentheses instead of square brackets.
+   set of elements is enclosed in parentheses instead of square brackets.
 #. The elements of a tuple have a defined order, just like a list.
-Tuple indices are zero-based, just like a list, so the first element
-of a non-empty tuple is always `a_tuple[0]`.
+   Tuple indices are zero-based, just like a list, so the first element
+   of a non-empty tuple is always `a_tuple[0]`.
 #. Negative indices count from the end of the tuple, just like a list.
 #. Slicing works too, just like a list. When you slice a list, you get
    a new list; when you slice a tuple, you get a new tuple.
@@ -798,11 +798,11 @@ and thats about it.
 
 
 #. You cant add elements to a tuple. Tuples have no `append()` or
-`extend()` method.
+   `extend()` method.
 #. You cant remove elements from a tuple. Tuples have no `remove()` or
-`pop()` method.
+   `pop()` method.
 #. You *can* find elements in a tuple, since this doesnt change the
-tuple.
+   tuple.
 #. You can also use the `in` operator to check if an element exists in
    the tuple.
 
@@ -811,13 +811,13 @@ So what are tuples good for?
 
 
 + Tuples are faster than lists. If youre defining a constant set of
-values and all youre ever going to do with it is iterate through it,
-use a tuple instead of a list.
+  values and all youre ever going to do with it is iterate through it,
+  use a tuple instead of a list.
 + It makes your code safer if you write-protect data that doesnt need
-to be changed. Using a tuple instead of a list is like having an
-implied `assert` statement that shows this data is constant, and that
-special thought (and a specific function) is required to override
-that.
+  to be changed. Using a tuple instead of a list is like having an
+  implied `assert` statement that shows this data is constant, and that
+  special thought (and a specific function) is required to override
+  that.
 + Some tuples can be used as dictionary keys (specifically, tuples
   that contain immutable values like strings, numbers, and other
   tuples). Lists can never be used as dictionary keys, because lists are
@@ -860,7 +860,7 @@ You can use tuples in a boolean context, such as an `if` statement.
 #. In a boolean context, an empty tuple is false.
 #. Any tuple with at least one item is true.
 #. Any tuple with at least one item is true. The value of the items is
-irrelevant. But whats that comma doing there?
+   irrelevant. But whats that comma doing there?
 #. To create a tuple of one item, you need a comma after the value.
    Without the comma, Python just assumes you have an extra pair of
    parentheses, which is harmless, but it doesnt create a tuple.
@@ -911,13 +911,13 @@ multi-variable assignment to quickly assign consecutive values.
 
 
 #. The built-in `range()` function constructs a sequence of integers.
-(Technically, the `range()` function returns an `iterator`_, not a
-list or a tuple, but youll learn about that distinction later.) MONDAY
-, TUESDAY , WEDNESDAY , THURSDAY , FRIDAY , SATURDAY , and SUNDAY are
-the variables youre defining. (This example came from the `calendar`
-module, a fun little module that prints calendars, like the UNIX
-program `cal`. The `calendar` module defines integer constants for
-days of the week.)
+   (Technically, the `range()` function returns an `iterator`_, not a
+   list or a tuple, but youll learn about that distinction later.) MONDAY
+   , TUESDAY , WEDNESDAY , THURSDAY , FRIDAY , SATURDAY , and SUNDAY are
+   the variables youre defining. (This example came from the `calendar`
+   module, a fun little module that prints calendars, like the UNIX
+   program `cal`. The `calendar` module defines integer constants for
+   days of the week.)
 #. Now each variable has its value: MONDAY is 0, TUESDAY is `1`, and
    so forth.
 
@@ -959,9 +959,9 @@ First things first. Creating a set is easy.
 
 
 #. To create a set with one value, put the value in curly brackets (
-`{}`).
+   `{}`).
 #. Sets are actually implemented as `classes`_, but dont worry about
-that for now.
+   that for now.
 #. To create a set with multiple values, separate the values with
    commas and wrap it all up with curly brackets.
 
@@ -981,15 +981,15 @@ You can also create a set out of a list.
 
 
 #. To create a set from a list, use the `set()` function. (Pedants who
-know about how sets are implemented will point out that this is not
-really calling a function, but instantiating a class. I *promise* you
-will learn the difference later in this book. For now, just know that
-`set()` acts like a function, and it returns a set.)
+   know about how sets are implemented will point out that this is not
+   really calling a function, but instantiating a class. I *promise* you
+   will learn the difference later in this book. For now, just know that
+   `set()` acts like a function, and it returns a set.)
 #. As I mentioned earlier, a single set can contain values of any
-datatype. And, as I mentioned earlier, sets are *unordered*. This set
-does not remember the original order of the list that was used to
-create it. If you were to add items to this set, it would not remember
-the order in which you added them.
+   datatype. And, as I mentioned earlier, sets are *unordered*. This set
+   does not remember the original order of the list that was used to
+   create it. If you were to add items to this set, it would not remember
+   the order in which you added them.
 #. The original list is unchanged.
 
 
@@ -1013,9 +1013,9 @@ Dont have any values yet? Not a problem. You can create an empty set.
 
 #. To create an empty set, call `set()` with no arguments.
 #. The printed representation of an empty set looks a bit strange.
-Were you expecting `{}`, perhaps? That would denote an empty
-dictionary, not an empty set. Youll learn about dictionaries later in
-this chapter.
+   Were you expecting `{}`, perhaps? That would denote an empty
+   dictionary, not an empty set. Youll learn about dictionaries later in
+   this chapter.
 #. Despite the strange printed representation, this *is* a set
 #. and this set has no members.
 #. Due to historical quirks carried over from Python 2, you can not
@@ -1049,11 +1049,11 @@ There are two different ways to add values to an existing set: the
 
 
 #. The `add()` method takes a single argument, which can be any
-datatype, and adds the given value to the set.
+   datatype, and adds the given value to the set.
 #. This set now has 3 members.
 #. Sets are bags of *unique values*. If you try to add a value that
-already exists in the set, it will do nothing. It wont raise an error;
-its just a no-op.
+   already exists in the set, it will do nothing. It wont raise an error;
+   its just a no-op.
 #. This set *still* has 3 members.
 
 
@@ -1077,13 +1077,13 @@ its just a no-op.
 
 
 #. The `update()` method takes one argument, a set, and adds all its
-members to the original set. Its as if you called the `add()` method
-with each member of the set.
+   members to the original set. Its as if you called the `add()` method
+   with each member of the set.
 #. Duplicate values are ignored, since sets can not contain
-duplicates.
+   duplicates.
 #. You can actually call the `update()` method with any number of
-arguments. When called with two sets, the `update()` method adds all
-the members of each set to the original set (dropping duplicates).
+   arguments. When called with two sets, the `update()` method adds all
+   the members of each set to the original set (dropping duplicates).
 #. The `update()` method can take objects of a number of different
    datatypes, including lists. When called with a list, the `update()`
    method adds all the items of the list to the original set.
@@ -1120,11 +1120,11 @@ two, `discard()` and `remove()`, have one subtle difference.
 
 
 #. The `discard()` method takes a single value as an argument and
-removes that value from the set.
+   removes that value from the set.
 #. If you call the `discard()` method with a value that doesnt exist
-in the set, it does nothing. No error; its just a no-op.
+   in the set, it does nothing. No error; its just a no-op.
 #. The `remove()` method also takes a single value as an argument, and
-it also removes that value from the set.
+   it also removes that value from the set.
 #. Heres the difference: if the value doesnt exist in the set, the
    `remove()` method raises a `KeyError` exception.
 
@@ -1154,13 +1154,13 @@ Like lists, sets have a `pop()` method.
 
 
 #. The `pop()` method removes a single value from a set and returns
-the value. However, since sets are unordered, there is no last value
-in a set, so there is no way to control which value gets removed. It
-is completely arbitrary.
+   the value. However, since sets are unordered, there is no last value
+   in a set, so there is no way to control which value gets removed. It
+   is completely arbitrary.
 #. The `clear()` method removes *all* values from a set, leaving you
-with an empty set. This is equivalent to `a_set = set()`, which would
-create a new empty set and overwrite the previous value of the a_set
-variable.
+   with an empty set. This is equivalent to `a_set = set()`, which would
+   create a new empty set and overwrite the previous value of the a_set
+   variable.
 #. Attempting to pop a value from an empty set will raise a `KeyError`
    exception.
 
@@ -1193,13 +1193,13 @@ Pythons `set` type supports several common set operations.
 
 
 #. To test whether a value is a member of a set, use the `in`
-operator. This works the same as lists.
+   operator. This works the same as lists.
 #. The `union()` method returns a new set containing all the elements
-that are in *either* set.
+   that are in *either* set.
 #. The `intersection()` method returns a new set containing all the
-elements that are in *both* sets.
+   elements that are in *both* sets.
 #. The `difference()` method returns a new set containing all the
-elements that are in a_set but not b_set .
+   elements that are in a_set but not b_set .
 #. The `symmetric_difference()` method returns a new set containing
    all the elements that are in *exactly one* of the sets.
 
@@ -1224,12 +1224,12 @@ Three of these methods are symmetric.
 
 
 #. The symmetric difference of a_set from b_set *looks* different than
-the symmetric difference of b_set from a_set , but remember, sets are
-unordered. Any two sets that contain all the same values (with none
-left over) are considered equal.
+   the symmetric difference of b_set from a_set , but remember, sets are
+   unordered. Any two sets that contain all the same values (with none
+   left over) are considered equal.
 #. And thats exactly what happens here. Dont be fooled by the Python
-Shells printed representation of these sets. They contain the same
-values, so they are equal.
+   Shells printed representation of these sets. They contain the same
+   values, so they are equal.
 #. The union of two sets is also symmetric.
 #. The intersection of two sets is also symmetric.
 #. The difference of two sets is not symmetric. That makes sense; its
@@ -1257,9 +1257,9 @@ Finally, there are a few questions you can ask of sets.
 
 
 #. a_set is a subset of b_set all the members of a_set are also
-members of b_set .
+   members of b_set .
 #. Asking the same question in reverse, b_set is a superset of a_set ,
-because all the members of a_set are also members of b_set .
+   because all the members of a_set are also members of b_set .
 #. As soon as you add a value to a_set that is not in b_set , both
    tests return `False`.
 
@@ -1337,12 +1337,12 @@ dictionary, you can look up values by their key.
 
 
 #. First, you create a new dictionary with two items and assign it to
-the variable a_dict . Each item is a key-value pair, and the whole set
-of items is enclosed in curly braces.
+   the variable a_dict . Each item is a key-value pair, and the whole set
+   of items is enclosed in curly braces.
 #. `'server'` is a key, and its associated value, referenced by
-`a_dict['server']`, is `'db.diveintopython3.org'`.
+   `a_dict['server']`, is `'db.diveintopython3.org'`.
 #. `'database'` is a key, and its associated value, referenced by
-`a_dict['database']`, is `'mysql'`.
+   `a_dict['database']`, is `'mysql'`.
 #. You can get values by key, but you cant get keys by value. So
    `a_dict['server']` is `'db.diveintopython3.org'`, but
    `a_dict['db.diveintopython3.org']` raises an exception, because
@@ -1378,15 +1378,15 @@ value of an existing key. Continuing from the previous example:
 
 
 #. You can not have duplicate keys in a dictionary. Assigning a value
-to an existing key will wipe out the old value.
+   to an existing key will wipe out the old value.
 #. You can add new key-value pairs at any time. This syntax is
-identical to modifying existing values.
+   identical to modifying existing values.
 #. The new dictionary item (key `'user'`, value `'mark'`) appears to
-be in the middle. In fact, it was just a coincidence that the items
-appeared to be in order in the first example; it is just as much a
-coincidence that they appear to be out of order now.
+   be in the middle. In fact, it was just a coincidence that the items
+   appeared to be in order in the first example; it is just as much a
+   coincidence that they appear to be out of order now.
 #. Assigning a value to an existing dictionary key simply replaces the
-old value with the new one.
+   old value with the new one.
 #. Will this change the value of the `user` key back to "mark"? No!
    Look at the key closelythats a capital U in "User" . Dictionary keys
    are case-sensitive, so this statement is creating a new key-value
@@ -1435,13 +1435,13 @@ Let's tear that apart in the interactive shell.
 
 
 #. Like lists and sets, the `len()` function gives you the number of
-keys in a dictionary.
+   keys in a dictionary.
 #. And like lists and sets, you can use the `in` operator to test
-whether a specific key is defined in a dictionary.
+   whether a specific key is defined in a dictionary.
 #. `1000` *is* a key in the `SUFFIXES` dictionary; its value is a list
-of eight items (eight strings, to be precise).
+   of eight items (eight strings, to be precise).
 #. Similarly, `1024` is a key in the `SUFFIXES` dictionary; its value
-is also a list of eight items.
+   is also a list of eight items.
 #. Since `SUFFIXES[1000]` is a list, you can address individual items
    in the list by their 0-based index.
 
@@ -1479,7 +1479,7 @@ statement.
 `None`
 ------
 
-` None ` is a special constant in Python. It is a null value. `None`
+`None` is a special constant in Python. It is a null value. `None`
 is not the same as `False`. `None` is not 0. `None` is not an empty
 string. Comparing `None` to anything other than `None` will always
 return `False`.
@@ -1542,10 +1542,10 @@ Further Reading
 + `Sequence types`_
 + `Set types`_
 + `Mapping types`_
-+ ` `fractions` module`_
-+ ` `math` module`_
-+ ` PEP 237: Unifying Long Integers and Integers`_
-+ ` PEP 238: Changing the Division Operator`_
++ `fractions module`_
++ `math module`_
++ `PEP 237: Unifying Long Integers and Integers`_
++ `PEP 238: Changing the Division Operator`_
 
 
 `☜`_ `☞`_
@@ -1558,23 +1558,21 @@ Further Reading
 .. _the next chapter: comprehensions.html#os
 .. _your first Python program: your-first-python-program.html#divingin
 .. _every value has a datatype: your-first-python-program.html#declaringfunctions
-.. _ 237: Unifying Long Integers and Integers: http://www.python.org/dev/peps/pep-0237/
+.. _PEP 237: http://www.python.org/dev/peps/pep-0237
+.. _PEP 238: http://www.python.org/dev/peps/pep-0238
+.. _PEP 237\: Unifying Long Integers and Integers: http://www.python.org/dev/peps/pep-0237/
+.. _PEP 238\: Changing the Division Operator: http://www.python.org/dev/peps/pep-0238/
 .. _Set types: http://docs.python.org/3.1/library/stdtypes.html#set-types-set-frozenset
 .. _Boolean operations: http://docs.python.org/3.1/library/stdtypes.html#boolean-operations-and-or-not
 .. _classes: iterators.html#defining-classes
 .. _complex numbers: http://en.wikipedia.org/wiki/Complex_number
-.. _ module: http://docs.python.org/3.1/library/math.html
-.. _ module: http://docs.python.org/3.1/library/fractions.html
+.. _math module: http://docs.python.org/3.1/library/math.html
+.. _fractions module: http://docs.python.org/3.1/library/fractions.html
 .. _Mapping types: http://docs.python.org/3.1/library/stdtypes.html#mapping-types-dict
 .. _Mark Pilgrim: about.html
-.. _ 238: Changing the Division Operator: http://www.python.org/dev/peps/pep-0238/
 .. _docstrings: your-first-python-program.html#docstrings
-.. _x261C;: your-first-python-program.html
 .. _Everything is an object: your-first-python-program.html#everythingisanobject
-.. _x261E;: comprehensions.html
 .. _Numeric types: http://docs.python.org/3.1/library/stdtypes.html#numeric-types-int-float-long-complex
-.. _Home: index.html
-.. _ 237: http://www.python.org/dev/peps/pep-0237
 .. _Sequence types: http://docs.python.org/3.1/library/stdtypes.html#sequence-types-str-unicode-list-tuple-buffer-xrange
 
 
